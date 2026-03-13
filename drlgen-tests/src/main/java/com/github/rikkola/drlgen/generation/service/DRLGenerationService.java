@@ -2,7 +2,6 @@ package com.github.rikkola.drlgen.generation.service;
 
 import dev.langchain4j.model.chat.ChatModel;
 import com.github.rikkola.drlgen.agent.DRLGenerationAgent;
-import com.github.rikkola.drlgen.agent.OldStyleDRLGenerationAgent;
 import com.github.rikkola.drlgen.cleanup.DRLCleanupStrategy;
 import com.github.rikkola.drlgen.config.ModelConfiguration;
 import com.github.rikkola.drlgen.execution.DRLPopulatorRunner;
@@ -34,9 +33,6 @@ import java.util.function.Function;
  * {@link com.github.rikkola.drlgen.DRLGenerator} or
  * {@link com.github.rikkola.drlgen.service.DRLGenerationService} from drlgen-core.</p>
  *
- * <p>This test-specific service uses {@link OldStyleDRLGenerationAgent} by default
- * for backward compatibility with existing test scenarios.</p>
- *
  * @see com.github.rikkola.drlgen.DRLGenerator
  * @see com.github.rikkola.drlgen.service.DRLGenerationService
  */
@@ -56,34 +52,7 @@ public class DRLGenerationService {
         this(DRLValidator.createDefault(),
              DRLCleanupStrategy.createDefault(),
              GuideProvider.createDefault(),
-             OldStyleDRLGenerationAgent::create);  // Using old-style prompt for testing
-    }
-
-    /**
-     * Constructor with custom validation service for backward compatibility.
-     *
-     * @deprecated Use the builder or constructor with DRLValidator instead
-     */
-    @Deprecated
-    public DRLGenerationService(com.github.rikkola.drlgen.service.DRLValidationService validationService) {
-        this(wrapValidationService(validationService),
-             DRLCleanupStrategy.createDefault(),
-             GuideProvider.createDefault(),
              DRLGenerationAgent::create);
-    }
-
-    /**
-     * Constructor with custom validation service and agent factory for backward compatibility.
-     *
-     * @deprecated Use the builder or constructor with interfaces instead
-     */
-    @Deprecated
-    public DRLGenerationService(com.github.rikkola.drlgen.service.DRLValidationService validationService,
-                                 Function<ChatModel, DRLGenerationAgent> agentFactory) {
-        this(wrapValidationService(validationService),
-             DRLCleanupStrategy.createDefault(),
-             GuideProvider.createDefault(),
-             agentFactory);
     }
 
     /**
@@ -317,23 +286,6 @@ public class DRLGenerationService {
         GuideProvider compositeProvider = GuideProvider.withDomainInstructions(
                 guideProvider, domainInstructionsPath);
         return compositeProvider.getGuide();
-    }
-
-    /**
-     * Wraps a legacy DRLValidationService as a DRLValidator for backward compatibility.
-     */
-    private static DRLValidator wrapValidationService(com.github.rikkola.drlgen.service.DRLValidationService validationService) {
-        return drlCode -> {
-            try {
-                String result = validationService.validateDRLStructure(drlCode);
-                if (result.contains("ERROR:")) {
-                    return ValidationResult.error(result);
-                }
-                return ValidationResult.success();
-            } catch (Exception e) {
-                return ValidationResult.error(e.getMessage());
-            }
-        };
     }
 
     // ========== Builder ==========

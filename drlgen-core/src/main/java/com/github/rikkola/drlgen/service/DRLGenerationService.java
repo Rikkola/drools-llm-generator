@@ -52,33 +52,6 @@ public class DRLGenerationService {
     }
 
     /**
-     * Constructor with custom validation service for backward compatibility.
-     *
-     * @deprecated Use the builder or constructor with DRLValidator instead
-     */
-    @Deprecated
-    public DRLGenerationService(DRLValidationService validationService) {
-        this(wrapValidationService(validationService),
-             DRLCleanupStrategy.createDefault(),
-             GuideProvider.createDefault(),
-             DRLGenerationAgent::create);
-    }
-
-    /**
-     * Constructor with custom validation service and agent factory for backward compatibility.
-     *
-     * @deprecated Use the builder or constructor with interfaces instead
-     */
-    @Deprecated
-    public DRLGenerationService(DRLValidationService validationService,
-                                 Function<ChatModel, DRLGenerationAgent> agentFactory) {
-        this(wrapValidationService(validationService),
-             DRLCleanupStrategy.createDefault(),
-             GuideProvider.createDefault(),
-             agentFactory);
-    }
-
-    /**
      * Constructor with all configurable components.
      *
      * @param validator the DRL validator
@@ -350,23 +323,6 @@ public class DRLGenerationService {
                     genResult.generationTime(),
                     genResult.totalTime().plus(Duration.between(start, Instant.now())));
         }
-    }
-
-    /**
-     * Wraps a legacy DRLValidationService as a DRLValidator for backward compatibility.
-     */
-    private static DRLValidator wrapValidationService(DRLValidationService validationService) {
-        return drlCode -> {
-            try {
-                String result = validationService.validateDRLStructure(drlCode);
-                if (result.contains("ERROR:")) {
-                    return ValidationResult.error(result);
-                }
-                return ValidationResult.success();
-            } catch (Exception e) {
-                return ValidationResult.error(e.getMessage());
-            }
-        };
     }
 
     // ========== Builder ==========

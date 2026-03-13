@@ -616,20 +616,13 @@ Access at http://localhost:8080
 
 ---
 
-## Migration Guide
+## API Overview
 
-### From Old DRLGenerationService
+### Recommended: DRLGenerator
 
-The old service-based API is still supported but deprecated:
+The `DRLGenerator` class provides a clean builder-based API:
 
 ```java
-// OLD (deprecated)
-DRLValidationService validationService = new DRLValidationService();
-DRLGenerationService service = new DRLGenerationService(validationService);
-ChatModel model = ModelConfiguration.createModel("qwen3-coder-next");
-GenerationResult result = service.generate(model, requirement, factTypes);
-
-// NEW (recommended)
 ChatModel model = ModelConfiguration.createModel("qwen3-coder-next");
 DRLGenerator generator = DRLGenerator.builder()
     .chatModel(model)
@@ -637,14 +630,29 @@ DRLGenerator generator = DRLGenerator.builder()
 GenerationResult result = generator.generate(requirement, factTypes);
 ```
 
-### Key Differences
+### Alternative: DRLGenerationService
 
-| Aspect | Old API | New API |
-|--------|---------|---------|
-| Entry point | `DRLGenerationService` | `DRLGenerator` |
-| Model handling | Passed per method call | Configured once in builder |
-| Customization | Constructor parameters | Builder with interfaces |
-| Thread safety | Requires external sync | Thread-safe by design |
+For more control, use `DRLGenerationService` directly:
+
+```java
+DRLGenerationService service = DRLGenerationService.builder()
+    .validator(DRLValidator.createDefault())
+    .cleanupStrategy(DRLCleanupStrategy.createDefault())
+    .guideProvider(GuideProvider.createDefault())
+    .agentFactory(DRLGenerationAgent::create)
+    .build();
+ChatModel model = ModelConfiguration.createModel("qwen3-coder-next");
+GenerationResult result = service.generate(model, requirement, factTypes);
+```
+
+### Key Features
+
+| Aspect | Description |
+|--------|-------------|
+| Entry point | `DRLGenerator` (simple) or `DRLGenerationService` (configurable) |
+| Model handling | Configured once in builder |
+| Customization | Builder with pluggable interfaces (`DRLValidator`, `DRLCleanupStrategy`, etc.) |
+| Thread safety | Thread-safe by design |
 
 ---
 

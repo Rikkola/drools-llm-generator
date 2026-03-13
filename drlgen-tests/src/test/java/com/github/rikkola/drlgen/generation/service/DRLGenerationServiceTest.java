@@ -1,8 +1,10 @@
 package com.github.rikkola.drlgen.generation.service;
 
 import com.github.rikkola.drlgen.agent.DRLGenerationAgent;
+import com.github.rikkola.drlgen.cleanup.DRLCleanupStrategy;
+import com.github.rikkola.drlgen.guide.GuideProvider;
 import com.github.rikkola.drlgen.model.GenerationResult;
-import com.github.rikkola.drlgen.service.DRLValidationService;
+import com.github.rikkola.drlgen.validation.DRLValidator;
 import com.github.rikkola.drlgen.generation.model.TestScenario;
 import com.github.rikkola.drlgen.generation.model.TestScenario.ExpectedFact;
 import com.github.rikkola.drlgen.generation.model.TestScenario.FactTypeDefinition;
@@ -94,7 +96,9 @@ class DRLGenerationServiceTest {
     void setUp() {
         // Create service with mock agent factory
         service = new DRLGenerationService(
-                new DRLValidationService(),
+                DRLValidator.createDefault(),
+                DRLCleanupStrategy.createDefault(),
+                GuideProvider.createDefault(),
                 model -> mockAgent  // Factory returns our mock regardless of model
         );
     }
