@@ -30,10 +30,15 @@ import java.util.function.Function;
  * <p>This service is designed for testing scenarios where generated DRL is validated
  * against test cases with expected outcomes.</p>
  *
- * <p>For simpler use cases without test execution, consider using
- * {@link com.github.rikkola.drlgen.DRLGenerator} directly.</p>
+ * <p><strong>Note:</strong> For production use without test execution, prefer using
+ * {@link com.github.rikkola.drlgen.DRLGenerator} or
+ * {@link com.github.rikkola.drlgen.service.DRLGenerationService} from drlgen-core.</p>
+ *
+ * <p>This test-specific service uses {@link OldStyleDRLGenerationAgent} by default
+ * for backward compatibility with existing test scenarios.</p>
  *
  * @see com.github.rikkola.drlgen.DRLGenerator
+ * @see com.github.rikkola.drlgen.service.DRLGenerationService
  */
 public class DRLGenerationService {
 

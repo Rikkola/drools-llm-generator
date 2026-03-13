@@ -9,7 +9,18 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Service responsible for DRL validation operations.
+ *
+ * <p><strong>Deprecated:</strong> This service-based approach is being replaced by
+ * the {@link com.github.rikkola.drlgen.validation.DRLValidator} interface which
+ * provides a cleaner, more composable design.</p>
+ *
+ * <p>For new development, use {@link com.github.rikkola.drlgen.validation.DRLValidator}
+ * with {@link com.github.rikkola.drlgen.validation.DRLValidator#createDefault()} or
+ * implement custom validation logic.</p>
+ *
+ * @deprecated Use {@link com.github.rikkola.drlgen.validation.DRLValidator} instead
  */
+@Deprecated(since = "1.0.0", forRemoval = false)
 @ApplicationScoped
 public class DRLValidationService {
 
@@ -19,19 +30,19 @@ public class DRLValidationService {
     private final DrlFaultFinder faultFinder;
 
     public DRLValidationService() {
-        logger.debug("📋 Initializing DRLValidationService with default DRLVerifier and DrlFaultFinder");
+        logger.debug("Initializing DRLValidationService with default DRLVerifier and DrlFaultFinder");
         this.verifier = new DRLVerifier();
         this.faultFinder = new DrlFaultFinder();
     }
 
     public DRLValidationService(DRLVerifier verifier) {
-        logger.debug("📋 Initializing DRLValidationService with custom DRLVerifier and default DrlFaultFinder");
+        logger.debug("Initializing DRLValidationService with custom DRLVerifier and default DrlFaultFinder");
         this.verifier = verifier;
         this.faultFinder = new DrlFaultFinder();
     }
 
     public DRLValidationService(DRLVerifier verifier, DrlFaultFinder faultFinder) {
-        logger.debug("📋 Initializing DRLValidationService with custom DRLVerifier and DrlFaultFinder");
+        logger.debug("Initializing DRLValidationService with custom DRLVerifier and DrlFaultFinder");
         this.verifier = verifier;
         this.faultFinder = faultFinder;
     }
@@ -44,18 +55,18 @@ public class DRLValidationService {
      * @throws DRLValidationException if validation fails
      */
     public String validateDRLStructure(String drlCode) {
-        logger.info("📋 Starting DRL validation for code with length: {}",
+        logger.info("Starting DRL validation for code with length: {}",
                 drlCode != null ? drlCode.length() : 0);
 
         if (drlCode == null || drlCode.trim().isEmpty()) {
-            logger.warn("❌ DRL validation failed: null or empty code provided");
+            logger.warn("DRL validation failed: null or empty code provided");
             throw new DRLValidationException("DRL code cannot be null or empty");
         }
 
         try {
-            logger.debug("📋 Running DRLVerifier.verify() with code: {} ", drlCode);
+            logger.debug("Running DRLVerifier.verify() with code: {} ", drlCode);
             String verificationResult = verifier.verify(drlCode);
-            logger.debug("📋 DRLVerifier result: {}", verificationResult);
+            logger.debug("DRLVerifier result: {}", verificationResult);
 
             // Check if verifier found errors
             if (verificationResult.contains("ERROR:") || verificationResult.contains("WARNING:") ||
@@ -67,40 +78,40 @@ public class DRLValidationService {
                     try {
                         DrlFaultFinder.FaultLocation faultLocation = faultFinder.findFaultyLine(drlCode);
                         if (faultLocation != null) {
-                            logger.info("❌ DrlFaultFinder located fault at line {}: {}",
+                            logger.info("DrlFaultFinder located fault at line {}: {}",
                                     faultLocation.getLineNumber(), faultLocation.getErrorMessage());
                             String detailedError = String.format("DRL syntax error at line %d: %s%nFaulty content: %s%nVerifier result: %s",
                                     faultLocation.getLineNumber(),
                                     faultLocation.getErrorMessage(),
                                     faultLocation.getFaultyContent(),
                                     verificationResult);
-                            logger.warn("❌ DRL validation failed with detailed fault location: {}", detailedError);
+                            logger.warn("DRL validation failed with detailed fault location: {}", detailedError);
                             throw new DRLValidationException(detailedError);
                         } else {
-                            logger.warn("❌ DrlFaultFinder could not locate specific fault, using verifier result only");
+                            logger.warn("DrlFaultFinder could not locate specific fault, using verifier result only");
                         }
                     } catch (Exception faultFinderException) {
-                        logger.warn("❌ DrlFaultFinder failed with exception: {}, falling back to verifier result",
+                        logger.warn("DrlFaultFinder failed with exception: {}, falling back to verifier result",
                                 faultFinderException.getMessage());
                     }
 
-                    logger.warn("❌ DRL validation failed: {}", verificationResult);
+                    logger.warn("DRL validation failed: {}", verificationResult);
                     throw new DRLValidationException("DRL validation failed: " + verificationResult);
                 } else {
-                    logger.warn("❌ DRL validation failed: {}", verificationResult);
+                    logger.warn("DRL validation failed: {}", verificationResult);
                     return verificationResult;
                 }
 
             }
 
-            logger.info("✅DRL validation completed successfully");
+            logger.info("DRL validation completed successfully");
             return verificationResult;
         } catch (DRLValidationException e) {
-            logger.debug("❌ Re-throwing DRLValidationException");
+            logger.debug("Re-throwing DRLValidationException");
             // Re-throw DRLValidationException as-is
             throw e;
         } catch (Exception e) {
-            logger.error("❌ Unexpected exception during DRL validation: {}", e.getMessage(), e);
+            logger.error("Unexpected exception during DRL validation: {}", e.getMessage(), e);
             // Use fault finder for unexpected exceptions
             try {
                 logger.debug("Attempting to use DrlFaultFinder for unexpected exception");
@@ -113,17 +124,17 @@ public class DRLValidationService {
                             faultLocation.getErrorMessage(),
                             faultLocation.getFaultyContent(),
                             e.getMessage());
-                    logger.warn("❌ DRL validation failed with detailed fault location from exception: {}", detailedError);
+                    logger.warn("DRL validation failed with detailed fault location from exception: {}", detailedError);
                     throw new DRLValidationException(detailedError, e);
                 } else {
-                    logger.warn("❌ DrlFaultFinder could not locate specific fault for unexpected exception");
+                    logger.warn("DrlFaultFinder could not locate specific fault for unexpected exception");
                 }
             } catch (Exception faultFinderException) {
-                logger.warn("❌ DrlFaultFinder failed with exception during unexpected error handling: {}",
+                logger.warn("DrlFaultFinder failed with exception during unexpected error handling: {}",
                         faultFinderException.getMessage());
             }
 
-            logger.error("❌ Failed to validate DRL code: {}", e.getMessage());
+            logger.error("Failed to validate DRL code: {}", e.getMessage());
             throw new DRLValidationException("Failed to validate DRL code: " + e.getMessage(), e);
         }
     }

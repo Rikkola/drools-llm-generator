@@ -106,10 +106,11 @@ See `models.yaml` in the project root for all configured models.
 
 | Model | Parameters | Success Rate |
 |-------|------------|--------------|
-| granite4 | 79.7B | 100% |
+| qwen3-coder-next | 79.7B | 100% |
 | granite4:small-h | 32.2B | 100% |
 | qwen2.5-coder:14b | 14.8B | 100% |
 | qwen3 | 8.2B | 88% |
+| granite4 | 3.4B | 18% |
 
 ## Troubleshooting
 
@@ -139,4 +140,3 @@ ChatModel model = OllamaChatModel.builder()
 
 - [LIBRARY_MANUAL.md](../LIBRARY_MANUAL.md) - Complete API documentation
 - [README.md](../README.md) - Project overview
-- [AGENT_ARCHITECTURE.md](../AGENT_ARCHITECTURE.md) - Internal architecture

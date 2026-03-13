@@ -102,10 +102,6 @@ public class DRLVerifier {
     }
 
     private String ensureCommonImports(String drlCode) {
-        System.out.println("DEBUG: Original DRL Code:");
-        System.out.println(drlCode);
-        System.out.println("=== END ORIGINAL DRL ===");
-        
         // Common Java types that might be used in DRL without explicit imports
         String[] commonTypes = {
             "List", "ArrayList", "Map", "HashMap", "Set", "HashSet", 
@@ -135,18 +131,14 @@ public class DRLVerifier {
             // Check if type is referenced but import is missing - use word boundary checking
             boolean typeUsed = drlCode.matches(".*\\b" + type + "\\b.*");
             boolean importExists = drlCode.contains(importStatement);
-            
-            System.out.println("DEBUG: Checking type '" + type + "' - used: " + typeUsed + ", imported: " + importExists);
-            
+
             if (typeUsed && !importExists) {
-                System.out.println("DEBUG: Adding import: " + importStatement);
                 importsToAdd.append(importStatement).append("\n");
             }
         }
         
         // If we need to add imports, insert them after package declaration or at the beginning
         if (importsToAdd.length() > 0) {
-            System.out.println("DEBUG: Adding imports: " + importsToAdd.toString());
             String result;
             if (drlCode.contains("package ")) {
                 // Insert after package declaration
@@ -162,14 +154,9 @@ public class DRLVerifier {
                 // Insert at the beginning
                 result = importsToAdd.toString() + "\n" + drlCode;
             }
-            
-            System.out.println("DEBUG: Final DRL with imports:");
-            System.out.println(result);
-            System.out.println("=== END FINAL DRL ===");
             return result;
         }
-        
-        System.out.println("DEBUG: No imports needed, returning original");
+
         return drlCode;
     }
 

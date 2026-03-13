@@ -290,7 +290,6 @@
                         <option value="qwen2.5-coder:14b-instruct-q4_K_M">qwen2.5-coder:14b (Efficient)</option>
                         <option value="granite4:small-h">granite4:small-h (32.2B)</option>
                         <option value="granite4">granite4 (3.4B)</option>
-                        <option value="llama4">llama4 (108.6B)</option>
                     </select>
                 </div>
 
@@ -521,7 +520,6 @@
                     else if (m.includes('qwen2.5-coder')) label = 'qwen2.5-coder:14b (Efficient)';
                     else if (m === 'granite4:small-h') label = 'granite4:small-h (32.2B)';
                     else if (m === 'granite4') label = 'granite4 (3.4B)';
-                    else if (m === 'llama4') label = 'llama4 (108.6B)';
                     return `<option value="${m}">${label}</option>`;
                 }).join('');
             })

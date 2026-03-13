@@ -716,7 +716,6 @@ Ensure you have the correct LangChain4j dependency:
 | granite4:small-h | 32.2B | 100% | Mamba-2 hybrid |
 | qwen2.5-coder:14b | 14.8B | 100% | Most efficient |
 | qwen3 | 8.2B | 88% | Good balance |
-| llama4 | 108.6B | 41% | Use Plain English pipeline |
 | granite4 | 3.4B | 18% | Use Plain English pipeline |
 
 For models with low DRL success rates, consider using the YAML or Plain English generation pipelines available in `drlgen-tests`.
