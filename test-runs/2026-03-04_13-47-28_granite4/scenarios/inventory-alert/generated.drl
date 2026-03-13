@@ -1,0 +1,17 @@
+package org.drools.generated;
+
+declare Product
+    productId : String
+    name : String
+    quantity : int
+    threshold : int
+    lowStock : boolean
+end
+
+rule "Check Low Stock"
+salience 100
+when
+    $p : Product(quantity < threshold, lowStock == false)
+then
+    modify($p) { setLowStock(true) }
+end

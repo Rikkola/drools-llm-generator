@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Tax Calculation Chain",
+  "modelName" : "deepseek-coder-v2:16b",
+  "success" : false,
+  "generationTimeMs" : 29976,
+  "totalTimeMs" : 29976,
+  "rulesFired" : 0,
+  "errorMessage" : "ERROR: Missing type definition for fact type: double",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

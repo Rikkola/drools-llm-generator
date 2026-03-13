@@ -1,0 +1,41 @@
+{
+  "scenarioName" : "Temperature Alert",
+  "modelName" : "qwen3-coder-next",
+  "success" : true,
+  "generationTimeMs" : 78916,
+  "totalTimeMs" : 78916,
+  "rulesFired" : 3,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Critical temperature",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "alertLevel" : "CRITICAL",
+      "alertMessage" : "Temperature critically high"
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Warning temperature",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "alertLevel" : "WARNING",
+      "alertMessage" : "Temperature elevated"
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Normal temperature",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "alertLevel" : "NORMAL",
+      "alertMessage" : "Temperature normal"
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "TemperatureReading( sensorId=SENSOR-001, temperature=105.5, alertLevel=CRITICAL, alertMessage=Temperature critically high )", "TemperatureReading( sensorId=SENSOR-002, temperature=85.0, alertLevel=WARNING, alertMessage=Temperature elevated )", "TemperatureReading( sensorId=SENSOR-003, temperature=72.0, alertLevel=NORMAL, alertMessage=Temperature normal )" ]
+}

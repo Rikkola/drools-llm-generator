@@ -1,0 +1,99 @@
+package org.drools.generated;
+
+declare TaxReturn
+    taxpayerId : String
+    salary : double
+    bonuses : double
+    investments : double
+    dependents : int
+    expenses : double
+    grossIncome : double
+    deductions : double
+    netIncome : double
+    taxBracket : String
+    taxOwed : double
+end
+
+rule "Calculate Gross Income"
+salience 100
+when
+    $tr : TaxReturn(grossIncome == 0)
+then
+    modify($tr) {
+        setGrossIncome($tr.salary + $tr.bonuses + $tr.investments)
+    }
+end
+
+rule "Calculate Deductions"
+salience 90
+when
+    $tr : TaxReturn(deductions == 0)
+then
+    modify($tr) {
+        setDeductions($tr.dependents * 2000 + $tr.expenses)
+    }
+end
+
+rule "Calculate Net Income"
+salience 80
+when
+    $tr : TaxReturn(netIncome == 0)
+then
+    modify($tr) {
+        setNetIncome($tr.grossIncome - $tr.deductions)
+    }
+end
+
+rule "Determine Low Tax Bracket"
+salience 70
+when
+    $tr : TaxReturn(netIncome < 40000, taxBracket == null)
+then
+    modify($tr) { setTaxBracket("LOW") }
+end
+
+rule "Determine Medium Tax Bracket"
+salience 60
+when
+    $tr : TaxReturn(netIncome >= 40000, netIncome <= 100000, taxBracket == null)
+then
+    modify($tr) { setTaxBracket("MEDIUM") }
+end
+
+rule "Determine High Tax Bracket"
+salience 50
+when
+    $tr : TaxReturn(netIncome > 100000, taxBracket == null)
+then
+    modify($tr) { setTaxBracket("HIGH") }
+end
+
+rule "Calculate Tax Owed for Low Bracket"
+salience 40
+when
+    $tr : TaxReturn(taxBracket == "LOW", taxOwed == 0)
+then
+    modify($tr) {
+        setTaxOwed(0.10 * $tr.netIncome)
+    }
+end
+
+rule "Calculate Tax Owed for Medium Bracket"
+salience 30
+when
+    $tr : TaxReturn(taxBracket == "MEDIUM", taxOwed == 0)
+then
+    modify($tr) {
+        setTaxOwed(0.22 * $tr.netIncome)
+    }
+end
+
+rule "Calculate Tax Owed for High Bracket"
+salience 20
+when
+    $tr : TaxReturn(taxBracket == "HIGH", taxOwed == 0)
+then
+    modify($tr) {
+        setTaxOwed(0.32 * $tr.netIncome)
+    }
+end

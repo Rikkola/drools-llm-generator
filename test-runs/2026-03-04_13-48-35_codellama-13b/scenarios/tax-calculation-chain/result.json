@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Tax Calculation Chain",
+  "modelName" : "codellama:13b",
+  "success" : false,
+  "generationTimeMs" : 148107,
+  "totalTimeMs" : 148107,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Low Tax Bracket' failed: Expected 5 rules to fire, but 4 fired",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

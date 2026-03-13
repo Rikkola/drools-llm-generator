@@ -1,0 +1,13 @@
+package org.drools.generated;
+
+declare EmailAddress
+    email : String
+    valid : boolean
+end
+
+rule "Validate Email Address"
+    when
+        $e : EmailAddress( email != null, email.contains("@") )
+    then
+        modify( $e ) { setValid(true) }
+end

@@ -1,0 +1,61 @@
+package org.drools.generated;
+
+declare Order
+    customerType : String
+    orderTotal   : double
+    discountPercent : int
+end
+
+rule "Apply 20% Discount to Premium Customers with Total Above 1000"
+when
+    $order : Order(customerType == "premium", orderTotal > 1000)
+then
+    modify($order) {
+        setDiscountPercent(20)
+    }
+end
+
+rule "Apply 15% Discount to Premium Customers with Total Between 500 and 1000"
+when
+    $order : Order(customerType == "premium", orderTotal >= 500, orderTotal <= 1000)
+then
+    modify($order) {
+        setDiscountPercent(15)
+    }
+end
+
+rule "Apply 10% Discount to Premium Customers with Total Below 500"
+when
+    $order : Order(customerType == "premium", orderTotal < 500)
+then
+    modify($order) {
+        setDiscountPercent(10)
+    }
+end
+
+rule "Apply 10% Discount to Regular Customers with Total Above 1000"
+when
+    $order : Order(customerType == "regular", orderTotal > 1000)
+then
+    modify($order) {
+        setDiscountPercent(10)
+    }
+end
+
+rule "Apply 5% Discount to Regular Customers with Total Between 500 and 1000"
+when
+    $order : Order(customerType == "regular", orderTotal >= 500, orderTotal <= 1000)
+then
+    modify($order) {
+        setDiscountPercent(5)
+    }
+end
+
+rule "No Discount to Regular Customers with Total Below 500"
+when
+    $order : Order(customerType == "regular", orderTotal < 500)
+then
+    modify($order) {
+        setDiscountPercent(0)
+    }
+end

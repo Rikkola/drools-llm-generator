@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Priority Assignment",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : true,
+  "generationTimeMs" : 4313,
+  "totalTimeMs" : 4313,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "High Severity",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "priority" : 2
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Ticket( ticketId=TKT001, severity=HIGH, priority=2 )" ]
+}

@@ -1,0 +1,4 @@
+Scenario: Insurance Premium Tier
+Status: PASS
+Rules Fired: 1
+Generation Time: 2978ms

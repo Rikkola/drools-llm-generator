@@ -1,0 +1,32 @@
+package org.drools.generated;
+
+declare InsuranceApplicant
+    applicantId : String
+    age : int
+    smoker : boolean
+    premiumTier : String
+end
+
+rule "Smoker - HIGH"
+salience 100
+when
+    $app : InsuranceApplicant(smoker == true, premiumTier == "NONE")
+then
+    modify($app) { setPremiumTier("HIGH") }
+end
+
+rule "Non‑Smoker - MEDIUM"
+salience 90
+when
+    $app : InsuranceApplicant(smoker == false, age > 50, premiumTier == "NONE")
+then
+    modify($app) { setPremiumTier("MEDIUM") }
+end
+
+rule "Non‑Smoker - LOW"
+salience 80
+when
+    $app : InsuranceApplicant(smoker == false, age <= 50, premiumTier == "NONE")
+then
+    modify($app) { setPremiumTier("LOW") }
+end

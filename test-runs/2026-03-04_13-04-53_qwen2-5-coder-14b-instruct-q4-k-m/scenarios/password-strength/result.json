@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Password Strength",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : true,
+  "generationTimeMs" : 3305,
+  "totalTimeMs" : 3305,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Strong Password",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "strength" : "STRONG"
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Password( value=mypassword123, length=13, strength=STRONG )" ]
+}

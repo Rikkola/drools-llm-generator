@@ -1,0 +1,39 @@
+package org.drools.generated;
+
+declare TaxPayer
+    taxpayerId : String
+    income : double
+    taxRate : int
+end
+
+rule "Set Tax Rate 10%"
+salience 100
+when
+    $tp : TaxPayer(income < 30000, taxRate == 0)
+then
+    modify($tp) { setTaxRate(10) }
+end
+
+rule "Set Tax Rate 22%"
+salience 90
+when
+    $tp : TaxPayer(income >= 30000, income < 80000, taxRate == 0)
+then
+    modify($tp) { setTaxRate(22) }
+end
+
+rule "Set Tax Rate 32%"
+salience 80
+when
+    $tp : TaxPayer(income >= 80000, taxRate == 0)
+then
+    modify($tp) { setTaxRate(32) }
+end
+
+This DRL code defines three rules to assign a tax rate based on the income of a taxpayer. The rules are mutually exclusive and use salience to ensure only one rule fires for each fact:
+
+1. **Set Tax Rate 10%**: Applies when income is less than 30,000.
+2. **Set Tax Rate 22%**: Applies when income is between 30,000 (inclusive) and 80,000 (exclusive).
+3. **Set Tax Rate 32%**: Applies when income is 80,000 or more.
+
+Each rule checks that `taxRate` is initially set to 0 to prevent re-firing once a tax rate has been assigned. The salience values ensure the rules are evaluated in order of priority, with higher numbers firing first.

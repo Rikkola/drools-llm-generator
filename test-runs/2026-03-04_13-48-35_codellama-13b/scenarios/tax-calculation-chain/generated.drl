@@ -1,0 +1,62 @@
+package org.drools.generated;
+
+declare TaxReturn
+    taxpayerId : String
+    salary : double
+    bonuses : double
+    investments : double
+    dependents : int
+    expenses : double
+    grossIncome : double
+    deductions : double
+    netIncome : double
+    taxBracket : String
+    taxOwed : double
+end
+
+rule "Calculate Gross Income"
+when
+    $t : TaxReturn(grossIncome == 0)
+then
+    modify($t) { setGrossIncome($t.getSalary() + $t.getBonuses() + $t.getInvestments()) }
+end
+
+rule "Calculate Deductions"
+when
+    $t : TaxReturn(deductions == 0, grossIncome > 0)
+then
+    modify($t) { setDeductions(($t.getDependents() * 2000) + $t.getExpenses()) }
+end
+
+rule "Calculate Net Income"
+when
+    $t : TaxReturn(netIncome == 0, deductions > 0)
+then
+    modify($t) { setNetIncome($t.getGrossIncome() - $t.getDeductions()) }
+end
+
+rule "Determine Tax Bracket"
+when
+    $t : TaxReturn(taxBracket == null, netIncome > 0)
+then
+    if ($t.getNetIncome() < 40000) {
+        modify($t) { setTaxBracket("LOW") }
+    } else if ($t.getNetIncome() >= 40000 && $t.getNetIncome() <= 100000) {
+        modify($t) { setTaxBracket("MEDIUM") }
+    } else {
+        modify($t) { setTaxBracket("HIGH") }
+    }
+end
+
+rule "Calculate Tax Owed"
+when
+    $t : TaxReturn(taxOwed == 0, taxBracket != null)
+then
+    if ($t.getTaxBracket() == "LOW") {
+        modify($t) { setTaxOwed($t.getNetIncome() * 0.1) }
+    } else if ($t.getTaxBracket() == "MEDIUM") {
+        modify($t) { setTaxOwed($t.getNetIncome() * 0.22) }
+    } else {
+        modify($t) { setTaxOwed($t.getNetIncome() * 0.32) }
+    }
+end

@@ -1,0 +1,103 @@
+name: Account Tier Assignment
+description: Assign account tier based on balance and activity
+
+requirement: |
+  Create rules to assign account tiers based on customer profile:
+
+  1. PLATINUM TIER: If average balance is greater than or equal to 100000 OR
+     monthly transactions is greater than or equal to 50, AND tier is "UNASSIGNED",
+     then set tier to "PLATINUM" and set monthlyFee to 0
+
+  2. GOLD TIER: If average balance is greater than or equal to 25000 OR
+     monthly transactions is greater than or equal to 25, AND tier is "UNASSIGNED",
+     then set tier to "GOLD" and set monthlyFee to 5
+
+  3. SILVER TIER: If average balance is greater than or equal to 5000 OR
+     monthly transactions is greater than or equal to 10, AND tier is "UNASSIGNED",
+     then set tier to "SILVER" and set monthlyFee to 10
+
+  4. BASIC TIER: If tier is still "UNASSIGNED", set tier to "BASIC" and
+     set monthlyFee to 15
+
+  Use salience with higher tiers checked first to ensure proper assignment.
+
+factTypes:
+  - name: BankAccount
+    fields:
+      accountId: String
+      customerName: String
+      averageBalance: double
+      monthlyTransactions: int
+      tier: String
+      monthlyFee: double
+
+testCases:
+  - name: High balance gets platinum
+    input:
+      - _type: BankAccount
+        accountId: "ACC-001"
+        customerName: "Rich Customer"
+        averageBalance: 150000.00
+        monthlyTransactions: 15
+        tier: "UNASSIGNED"
+        monthlyFee: 0.0
+    expectedRulesFired: 1
+    expectedFields:
+      tier: "PLATINUM"
+      monthlyFee: 0.0
+
+  - name: High activity gets platinum
+    input:
+      - _type: BankAccount
+        accountId: "ACC-002"
+        customerName: "Active Customer"
+        averageBalance: 10000.00
+        monthlyTransactions: 75
+        tier: "UNASSIGNED"
+        monthlyFee: 0.0
+    expectedRulesFired: 1
+    expectedFields:
+      tier: "PLATINUM"
+      monthlyFee: 0.0
+
+  - name: Medium balance gets gold
+    input:
+      - _type: BankAccount
+        accountId: "ACC-003"
+        customerName: "Gold Customer"
+        averageBalance: 35000.00
+        monthlyTransactions: 12
+        tier: "UNASSIGNED"
+        monthlyFee: 0.0
+    expectedRulesFired: 1
+    expectedFields:
+      tier: "GOLD"
+      monthlyFee: 5.0
+
+  - name: Low balance moderate activity gets silver
+    input:
+      - _type: BankAccount
+        accountId: "ACC-004"
+        customerName: "Silver Customer"
+        averageBalance: 8000.00
+        monthlyTransactions: 8
+        tier: "UNASSIGNED"
+        monthlyFee: 0.0
+    expectedRulesFired: 1
+    expectedFields:
+      tier: "SILVER"
+      monthlyFee: 10.0
+
+  - name: Low balance low activity gets basic
+    input:
+      - _type: BankAccount
+        accountId: "ACC-005"
+        customerName: "Basic Customer"
+        averageBalance: 1000.00
+        monthlyTransactions: 3
+        tier: "UNASSIGNED"
+        monthlyFee: 0.0
+    expectedRulesFired: 1
+    expectedFields:
+      tier: "BASIC"
+      monthlyFee: 15.0

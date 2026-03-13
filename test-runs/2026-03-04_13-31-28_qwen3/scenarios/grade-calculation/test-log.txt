@@ -1,0 +1,5 @@
+Scenario: Grade Calculation
+Status: FAIL
+Rules Fired: 0
+Generation Time: 15652ms
+Error: Test case 'B Grade' failed: Failed to execute DRL with JSON facts: Cannot invoke "String.length()" because "tgtStr" is null

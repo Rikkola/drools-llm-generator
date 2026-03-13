@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Tax Bracket",
+  "modelName" : "granite4",
+  "success" : true,
+  "generationTimeMs" : 1470,
+  "totalTimeMs" : 1470,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Middle Bracket",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "taxRate" : 22
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "TaxPayer( taxpayerId=TAX001, income=50000.0, taxRate=22 )" ]
+}

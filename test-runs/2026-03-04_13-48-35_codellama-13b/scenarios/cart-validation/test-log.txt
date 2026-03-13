@@ -1,0 +1,9 @@
+Scenario: Cart Validation
+Status: FAIL
+Rules Fired: 0
+Generation Time: 108893ms
+Error: Validation exception: DRL validation failed: ERROR: [ERR 107] Line 1:0 mismatched input 'Here' expecting one of the following tokens: '[package, unit, import, global, declare, function, rule, query]'.
+ERROR: Unexpected error: Cannot invoke "org.antlr.runtime.BitSet.toArray()" because "set" is null
+ERROR: Unexpected error: Index 274 out of bounds for length 274
+ERROR: Parser returned a null Package
+ERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify.

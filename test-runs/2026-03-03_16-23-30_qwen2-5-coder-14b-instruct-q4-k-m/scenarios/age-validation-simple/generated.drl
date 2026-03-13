@@ -1,0 +1,25 @@
+package org.drools.generated;
+
+declare Person
+    name : String
+    age  : int
+    result : String
+end
+
+rule "Mark adult if age is 18 or older"
+when
+    $p : Person(age >= 18)
+then
+    modify($p) {
+        setResult("adult")
+    }
+end
+
+rule "Mark minor if age is less than 18"
+when
+    $p : Person(age < 18)
+then
+    modify($p) {
+        setResult("minor")
+    }
+end

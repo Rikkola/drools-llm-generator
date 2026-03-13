@@ -1,0 +1,18 @@
+package org.drools.generated;
+
+declare Invoice
+    invoiceId : String
+    subtotal : double
+    taxAmount : double
+    total : double
+end
+
+rule "Calculate Tax and Total"
+when
+    $inv : Invoice(taxAmount == 0.0, total == 0.0)
+then
+    modify($inv) {
+        setTaxAmount($inv.getSubtotal() * 0.1),
+        setTotal($inv.getSubtotal() + $inv.getTaxAmount())
+    }
+end

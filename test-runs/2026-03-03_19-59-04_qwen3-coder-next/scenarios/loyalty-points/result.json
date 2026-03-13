@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Loyalty Points",
+  "modelName" : "qwen3-coder-next",
+  "success" : true,
+  "generationTimeMs" : 30431,
+  "totalTimeMs" : 30431,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Points Calculation",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "points" : 15
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Purchase( purchaseId=PUR001, amount=150.0, points=15 )" ]
+}

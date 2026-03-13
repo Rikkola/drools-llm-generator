@@ -1,0 +1,6 @@
+Scenario: Bulk Order Discount
+Status: FAIL
+Rules Fired: 0
+Generation Time: 1835ms
+Error: Test case 'Qualifies for VIP' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=11, column=0
+   text=Rule Compilation error The method setVip(boolean) is undefined for the type Customer]]

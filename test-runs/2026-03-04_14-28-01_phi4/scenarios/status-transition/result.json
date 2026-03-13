@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Status Transition",
+  "modelName" : "phi4",
+  "success" : true,
+  "generationTimeMs" : 3775,
+  "totalTimeMs" : 3775,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Approve Pending Task",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "newStatus" : "APPROVED"
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Task( taskId=TASK001, currentStatus=PENDING, action=APPROVE, newStatus=APPROVED )" ]
+}

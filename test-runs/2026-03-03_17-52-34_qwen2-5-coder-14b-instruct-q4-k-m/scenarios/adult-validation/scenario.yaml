@@ -1,0 +1,35 @@
+name: Adult Validation
+description: Mark persons 18 or older as adults
+
+requirement: |
+  Create a rule that:
+  1. Checks if a Person is 18 years or older
+  2. If yes, sets the 'adult' field to true
+
+factTypes:
+  - name: Person
+    fields:
+      name: String
+      age: int
+      adult: boolean
+
+testCases:
+  - name: Adult Person
+    input:
+      - _type: Person
+        name: John
+        age: 25
+        adult: false
+    expectedRulesFired: 1
+    expectedFields:
+      adult: true
+
+  - name: Minor Person
+    input:
+      - _type: Person
+        name: Jane
+        age: 16
+        adult: false
+    expectedRulesFired: 0
+    expectedFields:
+      adult: false

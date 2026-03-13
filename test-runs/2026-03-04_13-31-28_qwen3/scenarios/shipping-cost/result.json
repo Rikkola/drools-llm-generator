@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Shipping Cost",
+  "modelName" : "qwen3",
+  "success" : false,
+  "generationTimeMs" : 22499,
+  "totalTimeMs" : 22499,
+  "rulesFired" : 0,
+  "errorMessage" : "Validation exception: DRL code cannot be null or empty",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

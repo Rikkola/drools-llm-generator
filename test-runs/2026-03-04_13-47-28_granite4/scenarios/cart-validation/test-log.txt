@@ -1,0 +1,5 @@
+Scenario: Cart Validation
+Status: FAIL
+Rules Fired: 0
+Generation Time: 4517ms
+Error: Test case 'Normal Cart' failed: Expected no rules to fire, but 1 fired

@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Loan Approval Complex",
+  "modelName" : "deepseek-coder-v2:16b",
+  "success" : false,
+  "generationTimeMs" : 10599,
+  "totalTimeMs" : 10599,
+  "rulesFired" : 0,
+  "errorMessage" : "ERROR: [ERR 102] Line 21:38 mismatched input 'between' in rule \"Escalate Medium Credit Score\"\nERROR: Parser returned a null Package\nERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify.",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

@@ -1,0 +1,28 @@
+package org.drools.generated;
+
+declare TaxPayer
+    taxpayerId : String
+    income : double
+    taxRate : int
+end
+
+rule "Tax Rate < 30000"
+    when
+        $p : TaxPayer( income < 30000 )
+    then
+        modify( $p ) { setTaxRate( 10 ) }
+end
+
+rule "Tax Rate >= 30000 and < 80000"
+    when
+        $p : TaxPayer( income >= 30000, income < 80000 )
+    then
+        modify( $p ) { setTaxRate( 22 ) }
+end
+
+rule "Tax Rate >= 80000"
+    when
+        $p : TaxPayer( income >= 80000 )
+    then
+        modify( $p ) { setTaxRate( 32 ) }
+end

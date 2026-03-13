@@ -1,0 +1,58 @@
+name: Bulk Order Discount
+description: VIP upgrade and discount based on order history
+
+requirement: |
+  If a customer has placed more than 5 orders this month with a combined total
+  exceeding 5000, upgrade them to VIP status and apply 25% discount to current order.
+
+  The Customer fact contains their order count and total spent this month.
+  Set isVip to true and discountPercent to 25 if they qualify.
+
+factTypes:
+  - name: Customer
+    fields:
+      customerId: String
+      ordersThisMonth: int
+      totalSpentThisMonth: double
+      isVip: boolean
+      discountPercent: int
+
+testCases:
+  - name: Qualifies for VIP
+    input:
+      - _type: Customer
+        customerId: CUST001
+        ordersThisMonth: 8
+        totalSpentThisMonth: 7500.0
+        isVip: false
+        discountPercent: 0
+    expectedRulesFired: 1
+    expectedFields:
+      isVip: true
+      discountPercent: 25
+
+  - name: Not Enough Orders
+    input:
+      - _type: Customer
+        customerId: CUST002
+        ordersThisMonth: 3
+        totalSpentThisMonth: 8000.0
+        isVip: false
+        discountPercent: 0
+    expectedRulesFired: 0
+    expectedFields:
+      isVip: false
+      discountPercent: 0
+
+  - name: Not Enough Spent
+    input:
+      - _type: Customer
+        customerId: CUST003
+        ordersThisMonth: 10
+        totalSpentThisMonth: 3000.0
+        isVip: false
+        discountPercent: 0
+    expectedRulesFired: 0
+    expectedFields:
+      isVip: false
+      discountPercent: 0

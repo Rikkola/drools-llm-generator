@@ -1,0 +1,40 @@
+Scenario: Order Discount - Basic
+Status: FAIL
+Rules Fired: 0
+Generation Time: 24021ms
+Error: ERROR: Line 12:22 unexpected exception at input '<eof>'. Exception: java.lang.NullPointerException: Cannot invoke "java.util.LinkedList.getLast()" because "ei" is null. Stack trace:
+ java.lang.NullPointerException: Cannot invoke "java.util.LinkedList.getLast()" because "ei" is null
+	at org.drools.drl.parser.lang.DRL6Parser.getCurrentLocation(DRL6Parser.java:3862)
+	at org.drools.drl.parser.lang.DRL6Parser.constraint(DRL6Parser.java:3749)
+	at org.drools.drl.parser.lang.DRL6Parser.constraints(DRL6Parser.java:3697)
+	at org.drools.drl.parser.lang.DRL6Parser.constraints(DRL6Parser.java:3693)
+	at org.drools.drl.parser.lang.DRL6Parser.lhsPattern(DRL6Parser.java:3553)
+	at org.drools.drl.parser.lang.DRL6Parser.lhsPatternBind(DRL6Parser.java:3125)
+	at org.drools.drl.parser.lang.DRL6Parser.lhsUnary(DRL6Parser.java:2454)
+	at org.drools.drl.parser.lang.DRL6Parser.lhsAnd(DRL6Parser.java:2341)
+	at org.drools.drl.parser.lang.DRL6Parser.lhsOr(DRL6Parser.java:2194)
+	at org.drools.drl.parser.lang.DRL6Parser.lhsExpression(DRL6Parser.java:2092)
+	at org.drools.drl.parser.lang.DRL6Parser.lhs(DRL6Parser.java:2068)
+	at org.drools.drl.parser.lang.DRL6Parser.rule(DRL6Parser.java:1382)
+	at org.drools.drl.parser.lang.DRL6Parser.statement(DRL6Parser.java:292)
+	at org.drools.drl.parser.lang.DRL6Parser.compilationUnit(DRL6Parser.java:131)
+	at org.drools.drl.parser.lang.AbstractDRLParser.compilationUnit(AbstractDRLParser.java:104)
+	at org.drools.drl.parser.DrlParser.compile(DrlParser.java:310)
+	at org.drools.drl.parser.DrlParser.parse(DrlParser.java:202)
+	at org.drools.drl.parser.DrlParser.parse(DrlParser.java:185)
+	at org.drools.drl.parser.DrlParser.parse(DrlParser.java:174)
+	at org.drools.compiler.builder.impl.resources.DrlResourceHandler.process(DrlResourceHandler.java:55)
+	at org.drools.compiler.builder.impl.KnowledgeBuilderImpl.addKnowledgeResource(KnowledgeBuilderImpl.java:366)
+	at org.drools.verifier.builder.VerifierPackageBuilder.addKnowledgeResource(VerifierPackageBuilder.java:43)
+	at org.drools.verifier.builder.VerifierImpl.addResourcesToVerify(VerifierImpl.java:225)
+	at com.github.rikkola.drlgen.validation.DRLVerifier.verify(DRLVerifier.java:34)
+	at com.github.rikkola.drlgen.service.DRLValidationService.validateDRLStructure(DRLValidationService.java:57)
+	at com.github.rikkola.drlgen.generation.service.DRLGenerationService.generateAndTest(DRLGenerationService.java:162)
+	at com.github.rikkola.drlgen.generation.runner.ComparisonRunner.testDRL(ComparisonRunner.java:122)
+	at com.github.rikkola.drlgen.generation.runner.ComparisonRunner.run(ComparisonRunner.java:92)
+	at com.github.rikkola.drlgen.generation.runner.ComparisonRunner.main(ComparisonRunner.java:38)
+	at org.codehaus.mojo.exec.ExecJavaMojo$1.run(ExecJavaMojo.java:279)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+ERROR: Parser returned a null Package
+ERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify.

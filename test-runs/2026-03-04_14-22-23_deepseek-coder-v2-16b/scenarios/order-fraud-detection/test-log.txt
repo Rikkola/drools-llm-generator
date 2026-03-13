@@ -1,0 +1,17 @@
+Scenario: Order Fraud Detection
+Status: FAIL
+Rules Fired: 0
+Generation Time: 15318ms
+Error: Test case 'New Account High Value' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=14, column=0
+   text=Rule Compilation error The method modify(Order) is undefined for the type Rule_Flag_Suspicious_New_Account_High_Value854505032
+Syntax error, insert ";" to complete Statement
+The method setSuspicious(boolean) is undefined for the type Rule_Flag_Suspicious_New_Account_High_Value854505032
+The method setSuspiciousReason(String) is undefined for the type Rule_Flag_Suspicious_New_Account_High_Value854505032], Message [id=2, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=22, column=0
+   text=Rule Compilation error The method modify(Order) is undefined for the type Rule_Flag_Suspicious_Address_Mismatch_High_Value577578014
+Syntax error, insert ";" to complete Statement
+The method setSuspicious(boolean) is undefined for the type Rule_Flag_Suspicious_Address_Mismatch_High_Value577578014
+The method setSuspiciousReason(String) is undefined for the type Rule_Flag_Suspicious_Address_Mismatch_High_Value577578014], Message [id=3, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=30, column=0
+   text=Rule Compilation error The method modify(Order) is undefined for the type Rule_Flag_Suspicious_Multiple_Failed_Payments803814969
+Syntax error, insert ";" to complete Statement
+The method setSuspicious(boolean) is undefined for the type Rule_Flag_Suspicious_Multiple_Failed_Payments803814969
+The method setSuspiciousReason(String) is undefined for the type Rule_Flag_Suspicious_Multiple_Failed_Payments803814969]]

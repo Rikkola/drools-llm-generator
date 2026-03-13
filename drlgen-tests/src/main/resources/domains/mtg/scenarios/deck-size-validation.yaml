@@ -1,0 +1,95 @@
+name: MTG Deck Size Validation
+description: Validate deck and sideboard size for constructed formats
+
+requirement: |
+  Create rules to validate Magic: The Gathering deck sizes:
+
+  1. DECK TOO SMALL: If mainDeckSize is less than 60 AND validationStatus is "PENDING",
+     then set validationStatus to "INVALID" and set validationMessage to "Main deck must have at least 60 cards"
+
+  2. SIDEBOARD TOO LARGE: If sideboardSize is greater than 15 AND validationStatus is "PENDING",
+     then set validationStatus to "INVALID" and set validationMessage to "Sideboard cannot exceed 15 cards"
+
+  3. VALID DECK SIZE: If mainDeckSize is greater than or equal to 60 AND sideboardSize is less than or equal to 15
+     AND validationStatus is "PENDING",
+     then set validationStatus to "VALID" and set validationMessage to "Deck size is valid"
+
+  Use salience to check INVALID rules before VALID rule.
+
+factTypes:
+  - name: DeckSize
+    fields:
+      deckName: String
+      format: String
+      mainDeckSize: int
+      sideboardSize: int
+      validationStatus: String
+      validationMessage: String
+
+testCases:
+  - name: Valid 60 card deck with 15 sideboard
+    input:
+      - _type: DeckSize
+        deckName: "Mono Red Aggro"
+        format: "STANDARD"
+        mainDeckSize: 60
+        sideboardSize: 15
+        validationStatus: "PENDING"
+        validationMessage: ""
+    expectedRulesFired: 1
+    expectedFields:
+      validationStatus: "VALID"
+
+  - name: Valid 75 card deck
+    input:
+      - _type: DeckSize
+        deckName: "Control Deck"
+        format: "MODERN"
+        mainDeckSize: 75
+        sideboardSize: 10
+        validationStatus: "PENDING"
+        validationMessage: ""
+    expectedRulesFired: 1
+    expectedFields:
+      validationStatus: "VALID"
+
+  - name: Deck too small
+    input:
+      - _type: DeckSize
+        deckName: "Incomplete Deck"
+        format: "STANDARD"
+        mainDeckSize: 45
+        sideboardSize: 10
+        validationStatus: "PENDING"
+        validationMessage: ""
+    expectedRulesFired: 1
+    expectedFields:
+      validationStatus: "INVALID"
+      validationMessage: "Main deck must have at least 60 cards"
+
+  - name: Sideboard too large
+    input:
+      - _type: DeckSize
+        deckName: "Cheater Deck"
+        format: "STANDARD"
+        mainDeckSize: 60
+        sideboardSize: 20
+        validationStatus: "PENDING"
+        validationMessage: ""
+    expectedRulesFired: 1
+    expectedFields:
+      validationStatus: "INVALID"
+      validationMessage: "Sideboard cannot exceed 15 cards"
+
+  - name: No sideboard is valid
+    input:
+      - _type: DeckSize
+        deckName: "Casual Deck"
+        format: "STANDARD"
+        mainDeckSize: 60
+        sideboardSize: 0
+        validationStatus: "PENDING"
+        validationMessage: ""
+    expectedRulesFired: 1
+    expectedFields:
+      validationStatus: "VALID"

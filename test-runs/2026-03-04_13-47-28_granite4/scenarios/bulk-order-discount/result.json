@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Bulk Order Discount",
+  "modelName" : "granite4",
+  "success" : false,
+  "generationTimeMs" : 1588,
+  "totalTimeMs" : 1588,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Qualifies for VIP' failed: Expected 1 rules to fire, but 2 fired",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

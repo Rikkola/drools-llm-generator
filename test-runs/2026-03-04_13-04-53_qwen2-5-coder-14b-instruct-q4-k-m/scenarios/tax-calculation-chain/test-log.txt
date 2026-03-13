@@ -1,0 +1,5 @@
+Scenario: Tax Calculation Chain
+Status: FAIL
+Rules Fired: 0
+Generation Time: 10799ms
+Error: Test case 'Low Tax Bracket' failed: Expected 5 rules to fire, but 3 fired

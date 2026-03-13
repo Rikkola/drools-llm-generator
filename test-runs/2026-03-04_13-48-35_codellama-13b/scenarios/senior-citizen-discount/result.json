@@ -1,0 +1,21 @@
+{
+  "scenarioName" : "Senior Citizen Discount",
+  "modelName" : "codellama:13b",
+  "success" : true,
+  "generationTimeMs" : 31581,
+  "totalTimeMs" : 31581,
+  "rulesFired" : 2,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Senior Person",
+    "passed" : true,
+    "rulesFired" : 2,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "senior" : true,
+      "discountPercent" : 15
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Person( name=Martha, age=70, senior=true, discountPercent=15 )" ]
+}

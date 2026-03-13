@@ -1,0 +1,81 @@
+name: MTG Card Rarity Filter
+description: Filter and categorize Magic cards by rarity for collection management
+
+requirement: |
+  Create rules to categorize Magic: The Gathering cards by rarity and value tier:
+
+  1. MYTHIC RARE: If rarity is "MYTHIC" AND valueTier is "UNASSIGNED",
+     then set valueTier to "HIGH_VALUE" and set collectionPriority to 1
+
+  2. RARE: If rarity is "RARE" AND valueTier is "UNASSIGNED",
+     then set valueTier to "MEDIUM_VALUE" and set collectionPriority to 2
+
+  3. UNCOMMON: If rarity is "UNCOMMON" AND valueTier is "UNASSIGNED",
+     then set valueTier to "LOW_VALUE" and set collectionPriority to 3
+
+  4. COMMON: If rarity is "COMMON" AND valueTier is "UNASSIGNED",
+     then set valueTier to "BULK" and set collectionPriority to 4
+
+  Each card should be assigned exactly one tier based on rarity.
+
+factTypes:
+  - name: MagicCard
+    fields:
+      cardName: String
+      setCode: String
+      rarity: String
+      valueTier: String
+      collectionPriority: int
+
+testCases:
+  - name: Mythic rare gets high value
+    input:
+      - _type: MagicCard
+        cardName: "Sheoldred, the Apocalypse"
+        setCode: "DMU"
+        rarity: "MYTHIC"
+        valueTier: "UNASSIGNED"
+        collectionPriority: 0
+    expectedRulesFired: 1
+    expectedFields:
+      valueTier: "HIGH_VALUE"
+      collectionPriority: 1
+
+  - name: Rare gets medium value
+    input:
+      - _type: MagicCard
+        cardName: "Fable of the Mirror-Breaker"
+        setCode: "NEO"
+        rarity: "RARE"
+        valueTier: "UNASSIGNED"
+        collectionPriority: 0
+    expectedRulesFired: 1
+    expectedFields:
+      valueTier: "MEDIUM_VALUE"
+      collectionPriority: 2
+
+  - name: Uncommon gets low value
+    input:
+      - _type: MagicCard
+        cardName: "Lightning Strike"
+        setCode: "M19"
+        rarity: "UNCOMMON"
+        valueTier: "UNASSIGNED"
+        collectionPriority: 0
+    expectedRulesFired: 1
+    expectedFields:
+      valueTier: "LOW_VALUE"
+      collectionPriority: 3
+
+  - name: Common gets bulk
+    input:
+      - _type: MagicCard
+        cardName: "Forest"
+        setCode: "M21"
+        rarity: "COMMON"
+        valueTier: "UNASSIGNED"
+        collectionPriority: 0
+    expectedRulesFired: 1
+    expectedFields:
+      valueTier: "BULK"
+      collectionPriority: 4

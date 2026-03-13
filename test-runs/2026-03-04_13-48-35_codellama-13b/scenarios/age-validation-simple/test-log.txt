@@ -1,0 +1,5 @@
+Scenario: Age Validation Simple
+Status: FAIL
+Rules Fired: 0
+Generation Time: 32244ms
+Error: Test case 'Adult Person' failed: Expected 1 rules to fire, but none fired

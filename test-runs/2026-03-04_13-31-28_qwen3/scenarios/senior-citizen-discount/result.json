@@ -1,0 +1,21 @@
+{
+  "scenarioName" : "Senior Citizen Discount",
+  "modelName" : "qwen3",
+  "success" : true,
+  "generationTimeMs" : 13849,
+  "totalTimeMs" : 13849,
+  "rulesFired" : 2,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Senior Person",
+    "passed" : true,
+    "rulesFired" : 2,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "senior" : true,
+      "discountPercent" : 15
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Person( name=Martha, age=70, senior=true, discountPercent=15 )" ]
+}

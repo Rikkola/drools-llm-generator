@@ -1,0 +1,48 @@
+[PYTHON]
+# Import the Decision Rule Language (DRL) parser
+from pyparsing import *
+
+# Define the DRL grammar
+grammar = Forward()
+
+# Fact types are defined using 'declare' blocks
+fact_type = Group(Suppress('declare') + Word(alphas, alphanums+"_") + Suppress('{') + delimitedList(Word(alphas, alphanums+"_")) + Suppress('}'))
+
+# Rules are defined using 'rule' blocks
+rule = Group(Suppress('rule') + quotedString.setResultsName('name') + Suppress('when') + grammar + Suppress('then') + grammar)
+
+# The grammar starts with a list of fact types and rules
+grammar << (ZeroOrMore(fact_type)("fact_types") + ZeroOrMore(rule)("rules"))
+
+# Define the parse action for the 'when' section
+def when_parse_action(s, l, t):
+    # Get the rule name and the condition
+    rule_name = t.get('name', [None])[0]
+    condition = t.asList()[1:]
+    
+    # Print the rule name and the condition
+    print(f"Rule: {rule_name}")
+    print("When:", " ".join([str(c) for c in condition]))
+
+# Define the parse action for the 'then' section
+def then_parse_action(s, l, t):
+    # Get the rule name and the actions
+    rule_name = t.get('name', [None])[0]
+    actions = t.asList()[1:]
+    
+    # Print the rule name and the actions
+    print(f"Rule: {rule_name}")
+    print("Then:", " ".join([str(a) for a in actions]))
+
+# Add the parse action to the 'when' section
+grammar.addParseAction(when_parse_action, 'when')
+
+# Add the parse action to the 'then' section
+grammar.addParseAction(then_parse_action, 'then')
+
+# Parse the input string
+result = grammar.parseString(input_string)
+
+# Print the result
+print(result.asDict())
+[/PYTHON]

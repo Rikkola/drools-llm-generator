@@ -1,0 +1,42 @@
+Model,Scenario,Format,Success,RulesFired,GenerationTimeMs,ErrorMessage
+qwen2.5-coder:14b-instruct-q4_K_M,Adult Validation,DRL,true,1,22300,
+qwen2.5-coder:14b-instruct-q4_K_M,Age Classification,DRL,true,4,3028,
+qwen2.5-coder:14b-instruct-q4_K_M,Age Validation Simple,DRL,true,3,1707,
+qwen2.5-coder:14b-instruct-q4_K_M,Order Discount - Basic,DRL,true,1,1473,
+qwen2.5-coder:14b-instruct-q4_K_M,Bulk Order Discount,DRL,false,0,1823,"Test case 'Qualifies for VIP' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=11, column=0
+   text=Rule Compilation error The method setVip(boolean) is undefined for the type Customer]]"
+qwen2.5-coder:14b-instruct-q4_K_M,Cart Validation,DRL,true,5,3484,
+qwen2.5-coder:14b-instruct-q4_K_M,Credit Card Approval,DRL,false,0,6581,Test case 'Manual Review' failed: Expected field 'decision' to have value 'MANUAL_REVIEW' but no matching fact found
+qwen2.5-coder:14b-instruct-q4_K_M,Email Validation,DRL,false,0,1252,"ERROR: Missing type definition for fact type: BigDecimal
+ERROR: Missing type definition for fact type: Date"
+qwen2.5-coder:14b-instruct-q4_K_M,Grade Calculation,DRL,true,1,3496,
+qwen2.5-coder:14b-instruct-q4_K_M,Insurance Premium Tier,DRL,true,1,3039,
+qwen2.5-coder:14b-instruct-q4_K_M,Insurance Risk Assessment,DRL,false,0,2840,"Test case 'High Risk - Smoker' failed: Expected 1 rules to fire, but 2 fired"
+qwen2.5-coder:14b-instruct-q4_K_M,Inventory Alert,DRL,true,1,1335,
+qwen2.5-coder:14b-instruct-q4_K_M,Loan Approval Complex,DRL,true,3,3433,
+qwen2.5-coder:14b-instruct-q4_K_M,Loan Eligibility,DRL,true,1,1742,
+qwen2.5-coder:14b-instruct-q4_K_M,Loyalty Points,DRL,true,1,1439,
+qwen2.5-coder:14b-instruct-q4_K_M,Missing Document Alert,DRL,true,2,2787,
+qwen2.5-coder:14b-instruct-q4_K_M,Order Discount by Customer Type,DRL,true,4,5156,
+qwen2.5-coder:14b-instruct-q4_K_M,Order Fraud Detection,DRL,true,3,6223,
+qwen2.5-coder:14b-instruct-q4_K_M,Password Strength,DRL,true,1,2289,
+qwen2.5-coder:14b-instruct-q4_K_M,Priority Assignment,DRL,true,1,3147,
+qwen2.5-coder:14b-instruct-q4_K_M,Senior Citizen Discount,DRL,true,2,1964,
+qwen2.5-coder:14b-instruct-q4_K_M,Shipping Cost,DRL,true,1,2996,
+qwen2.5-coder:14b-instruct-q4_K_M,Shipping Method Priority,DRL,true,5,4398,
+qwen2.5-coder:14b-instruct-q4_K_M,Simple Calculation,DRL,true,1,1904,
+qwen2.5-coder:14b-instruct-q4_K_M,Status Transition,DRL,true,1,1392,
+qwen2.5-coder:14b-instruct-q4_K_M,Subscription Renewal,DRL,true,5,3321,
+qwen2.5-coder:14b-instruct-q4_K_M,Tax Bracket,DRL,true,1,3659,
+qwen2.5-coder:14b-instruct-q4_K_M,Tax Calculation Chain,DRL,false,0,11668,"Test case 'Low Tax Bracket' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=17, column=0
+   text=Rule Compilation error The method getSalary() is undefined for the type Rule_Calculate_Gross_Income317724144
+The method getBonuses() is undefined for the type Rule_Calculate_Gross_Income317724144
+The method getInvestments() is undefined for the type Rule_Calculate_Gross_Income317724144], Message [id=2, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=35, column=0
+   text=Rule Compilation error The method getGrossIncome() is undefined for the type Rule_Calculate_Net_Income449933809
+The method getDeductions() is undefined for the type Rule_Calculate_Net_Income449933809], Message [id=3, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=80, column=0
+   text=Rule Compilation error The method getNetIncome() is undefined for the type Rule_Calculate_Tax_Owed_MEDIUM642001052], Message [id=4, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=71, column=0
+   text=Rule Compilation error The method getNetIncome() is undefined for the type Rule_Calculate_Tax_Owed_LOW1125545917], Message [id=5, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=26, column=0
+   text=Rule Compilation error The method getDependents() is undefined for the type Rule_Calculate_Deductions1988261094
+The method getExpenses() is undefined for the type Rule_Calculate_Deductions1988261094], Message [id=6, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=89, column=0
+   text=Rule Compilation error The method getNetIncome() is undefined for the type Rule_Calculate_Tax_Owed_HIGH838514557]]"
+qwen2.5-coder:14b-instruct-q4_K_M,Order Discount - Tiered,DRL,true,1,3412,

@@ -1,0 +1,5 @@
+Scenario: Temperature Alert
+Status: FAIL
+Rules Fired: 0
+Generation Time: 81679ms
+Error: Test case 'Critical temperature' failed: Expected 1 rules to fire, but none fired

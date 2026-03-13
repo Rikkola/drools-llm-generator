@@ -1,0 +1,10 @@
+Scenario: Simple Calculation
+Status: FAIL
+Rules Fired: 0
+Generation Time: 2098ms
+Error: ERROR: [ERR 102] Line 4:15 mismatched input ':'
+ERROR: [ERR 102] Line 5:15 mismatched input ':'
+ERROR: [ERR 102] Line 6:15 mismatched input ':'
+ERROR: [ERR 102] Line 7:15 mismatched input ':'
+ERROR: Parser returned a null Package
+ERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify.

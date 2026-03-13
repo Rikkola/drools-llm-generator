@@ -1,0 +1,21 @@
+{
+  "scenarioName" : "Order Discount - Tiered",
+  "modelName" : "codellama:13b",
+  "success" : true,
+  "generationTimeMs" : 65813,
+  "totalTimeMs" : 65813,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Premium Tier",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "discountPercent" : 15,
+      "discountTier" : "PREMIUM"
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Order( orderId=ORD002, total=250.0, discountPercent=15, discountTier=PREMIUM )" ]
+}

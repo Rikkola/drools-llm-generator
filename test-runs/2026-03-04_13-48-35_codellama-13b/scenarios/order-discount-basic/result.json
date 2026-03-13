@@ -1,0 +1,21 @@
+{
+  "scenarioName" : "Order Discount - Basic",
+  "modelName" : "codellama:13b",
+  "success" : true,
+  "generationTimeMs" : 28166,
+  "totalTimeMs" : 28166,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Qualifying Order",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "discountApplied" : true,
+      "discountPercent" : 10
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Order( orderId=ORD001, total=150.0, discountPercent=10, discountApplied=true )" ]
+}

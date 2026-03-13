@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Grade Calculation",
+  "modelName" : "qwen3",
+  "success" : false,
+  "generationTimeMs" : 15652,
+  "totalTimeMs" : 15652,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'B Grade' failed: Failed to execute DRL with JSON facts: Cannot invoke \"String.length()\" because \"tgtStr\" is null",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

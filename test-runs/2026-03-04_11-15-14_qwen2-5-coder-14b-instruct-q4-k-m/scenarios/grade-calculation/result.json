@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Grade Calculation",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : true,
+  "generationTimeMs" : 5070,
+  "totalTimeMs" : 5070,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "B Grade",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "grade" : "B"
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Student( studentId=STU001, name=Alice, score=85, grade=B )" ]
+}

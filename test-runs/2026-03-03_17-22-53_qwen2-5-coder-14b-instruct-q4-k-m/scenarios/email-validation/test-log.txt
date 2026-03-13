@@ -1,0 +1,6 @@
+Scenario: Email Validation
+Status: FAIL
+Rules Fired: 0
+Generation Time: 1200ms
+Error: ERROR: Missing type definition for fact type: BigDecimal
+ERROR: Missing type definition for fact type: Date

@@ -1,0 +1,4 @@
+Scenario: Subscription Renewal
+Status: PASS
+Rules Fired: 5
+Generation Time: 3134ms

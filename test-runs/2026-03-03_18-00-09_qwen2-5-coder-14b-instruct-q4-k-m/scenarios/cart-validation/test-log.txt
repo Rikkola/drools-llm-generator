@@ -1,0 +1,4 @@
+Scenario: Cart Validation
+Status: PASS
+Rules Fired: 5
+Generation Time: 3349ms

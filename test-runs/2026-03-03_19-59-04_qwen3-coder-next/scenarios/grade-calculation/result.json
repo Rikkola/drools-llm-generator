@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Grade Calculation",
+  "modelName" : "qwen3-coder-next",
+  "success" : true,
+  "generationTimeMs" : 76105,
+  "totalTimeMs" : 76105,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "B Grade",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "grade" : "B"
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Student( studentId=STU001, name=Alice, score=85, grade=B )" ]
+}

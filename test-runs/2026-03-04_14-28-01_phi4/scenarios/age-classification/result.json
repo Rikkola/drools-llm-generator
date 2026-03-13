@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Age Classification",
+  "modelName" : "phi4",
+  "success" : false,
+  "generationTimeMs" : 11594,
+  "totalTimeMs" : 11594,
+  "rulesFired" : 0,
+  "errorMessage" : "ERROR: [ERR 102] Line 41:337 mismatched input '<eof>' in rule \"Set Category Senior\"\nERROR: Parser returned a null Package\nERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify.",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

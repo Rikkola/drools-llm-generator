@@ -1,0 +1,4 @@
+Scenario: Credit Card Approval
+Status: PASS
+Rules Fired: 4
+Generation Time: 6449ms

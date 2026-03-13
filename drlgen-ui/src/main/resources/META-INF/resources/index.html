@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRL Generator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #4fc3f7;
+            font-size: 2.5rem;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 1000px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .panel-title {
+            font-size: 1.2rem;
+            color: #4fc3f7;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #b0b0b0;
+            font-size: 0.9rem;
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #e0e0e0;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #4fc3f7;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #e0e0e0;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #4fc3f7;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-generate {
+            background: linear-gradient(135deg, #4fc3f7 0%, #29b6f6 100%);
+            color: #1a1a2e;
+        }
+
+        .btn-generate:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(79, 195, 247, 0.4);
+        }
+
+        .btn-generate:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .output-area {
+            background: #0d1117;
+            border-radius: 8px;
+            padding: 15px;
+            min-height: 400px;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .status-bar {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            padding: 10px 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            font-size: 0.85rem;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .status-dot.success { background: #4caf50; }
+        .status-dot.error { background: #f44336; }
+        .status-dot.pending { background: #ff9800; }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(79, 195, 247, 0.3);
+            border-top-color: #4fc3f7;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .fact-types {
+            margin-top: 15px;
+        }
+
+        .fact-type {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .fact-type-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .fact-type input {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            padding: 8px;
+            color: #e0e0e0;
+            width: 150px;
+        }
+
+        .field-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+
+        .field-row input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            padding: 6px 10px;
+            color: #e0e0e0;
+            font-size: 13px;
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #e0e0e0;
+        }
+
+        .btn-small:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-add {
+            background: rgba(79, 195, 247, 0.2);
+            color: #4fc3f7;
+        }
+
+        .btn-remove {
+            background: rgba(244, 67, 54, 0.2);
+            color: #f44336;
+        }
+
+        /* Syntax highlighting */
+        .keyword { color: #c678dd; }
+        .type { color: #e5c07b; }
+        .string { color: #98c379; }
+        .comment { color: #5c6370; font-style: italic; }
+        .rule-name { color: #61afef; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>DRL Generator</h1>
+
+        <div class="main-grid">
+            <div class="panel">
+                <div class="panel-header">
+                    <span class="panel-title">Business Requirement</span>
+                </div>
+
+                <div class="input-group">
+                    <label for="requirement">Describe your business rule:</label>
+                    <textarea id="requirement" placeholder="Example: Create a rule that marks a person as adult if their age is 18 or older. Set the 'adult' field to true."></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label for="model">Model:</label>
+                    <select id="model">
+                        <option value="qwen3">qwen3 (8.2B - Fast)</option>
+                        <option value="qwen3-coder-next">qwen3-coder-next (79.7B - Best)</option>
+                        <option value="qwen2.5-coder:14b-instruct-q4_K_M">qwen2.5-coder:14b (Efficient)</option>
+                        <option value="granite4:small-h">granite4:small-h (32.2B)</option>
+                        <option value="granite4">granite4 (3.4B)</option>
+                        <option value="llama4">llama4 (108.6B)</option>
+                    </select>
+                </div>
+
+                <div class="fact-types">
+                    <label>Fact Types (optional):</label>
+                    <div id="factTypesContainer">
+                        <div class="fact-type" data-index="0">
+                            <div class="fact-type-header">
+                                <input type="text" class="fact-name" placeholder="Type name (e.g., Person)" value="Person">
+                                <button class="btn-small btn-remove" onclick="removeFactType(0)">Remove</button>
+                            </div>
+                            <div class="fields-container">
+                                <div class="field-row">
+                                    <input type="text" class="field-name" placeholder="Field name" value="name">
+                                    <input type="text" class="field-type" placeholder="Type" value="String">
+                                </div>
+                                <div class="field-row">
+                                    <input type="text" class="field-name" placeholder="Field name" value="age">
+                                    <input type="text" class="field-type" placeholder="Type" value="int">
+                                </div>
+                                <div class="field-row">
+                                    <input type="text" class="field-name" placeholder="Field name" value="adult">
+                                    <input type="text" class="field-type" placeholder="Type" value="boolean">
+                                </div>
+                            </div>
+                            <button class="btn-small btn-add" onclick="addField(0)">+ Add Field</button>
+                        </div>
+                    </div>
+                    <button class="btn-small btn-add" onclick="addFactType()" style="margin-top: 10px;">+ Add Fact Type</button>
+                </div>
+
+                <button class="btn-generate" id="generateBtn" onclick="generate()">
+                    Generate DRL
+                </button>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <span class="panel-title">Generated DRL</span>
+                </div>
+
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>Generating DRL...</p>
+                </div>
+
+                <div class="output-area" id="output">
+                    <span style="color: #5c6370;">Generated DRL will appear here...</span>
+                </div>
+
+                <div class="status-bar" id="statusBar" style="display: none;">
+                    <div class="status-item">
+                        <span class="status-dot" id="statusDot"></span>
+                        <span id="statusText">Ready</span>
+                    </div>
+                    <div class="status-item">
+                        <span id="timeText"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let factTypeIndex = 1;
+
+        function addFactType() {
+            const container = document.getElementById('factTypesContainer');
+            const index = factTypeIndex++;
+            const html = `
+                <div class="fact-type" data-index="${index}">
+                    <div class="fact-type-header">
+                        <input type="text" class="fact-name" placeholder="Type name">
+                        <button class="btn-small btn-remove" onclick="removeFactType(${index})">Remove</button>
+                    </div>
+                    <div class="fields-container">
+                        <div class="field-row">
+                            <input type="text" class="field-name" placeholder="Field name">
+                            <input type="text" class="field-type" placeholder="Type">
+                        </div>
+                    </div>
+                    <button class="btn-small btn-add" onclick="addField(${index})">+ Add Field</button>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', html);
+        }
+
+        function removeFactType(index) {
+            const factType = document.querySelector(`.fact-type[data-index="${index}"]`);
+            if (factType) factType.remove();
+        }
+
+        function addField(factTypeIndex) {
+            const factType = document.querySelector(`.fact-type[data-index="${factTypeIndex}"]`);
+            const container = factType.querySelector('.fields-container');
+            const html = `
+                <div class="field-row">
+                    <input type="text" class="field-name" placeholder="Field name">
+                    <input type="text" class="field-type" placeholder="Type">
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', html);
+        }
+
+        function getFactTypes() {
+            const factTypes = [];
+            document.querySelectorAll('.fact-type').forEach(ft => {
+                const name = ft.querySelector('.fact-name').value.trim();
+                if (!name) return;
+
+                const fields = {};
+                ft.querySelectorAll('.field-row').forEach(row => {
+                    const fieldName = row.querySelector('.field-name').value.trim();
+                    const fieldType = row.querySelector('.field-type').value.trim();
+                    if (fieldName && fieldType) {
+                        fields[fieldName] = fieldType;
+                    }
+                });
+
+                if (Object.keys(fields).length > 0) {
+                    factTypes.push({ name, fields });
+                }
+            });
+            return factTypes;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function highlightDRL(code) {
+            // First escape HTML to prevent injection
+            let escaped = escapeHtml(code);
+            // Then apply syntax highlighting
+            return escaped
+                .replace(/\b(package|import|declare|rule|when|then|end|modify|insert|update|delete|retract|salience|no-loop|lock-on-active)\b/g, '<span class="keyword">$1</span>')
+                .replace(/\b(String|int|double|boolean|Integer|Double|Boolean|Long|Date|BigDecimal)\b/g, '<span class="type">$1</span>')
+                .replace(/&quot;([^&]*)&quot;/g, '<span class="string">"$1"</span>')
+                .replace(/"([^"]*)"/g, '<span class="string">"$1"</span>')
+                .replace(/\/\/.*$/gm, '<span class="comment">$&</span>')
+                .replace(/rule "<span class="string">([^<]+)<\/span>"/g, 'rule "<span class="rule-name">$1</span>"');
+        }
+
+        async function generate() {
+            const requirement = document.getElementById('requirement').value.trim();
+            if (!requirement) {
+                alert('Please enter a business requirement');
+                return;
+            }
+
+            const model = document.getElementById('model').value;
+            const factTypes = getFactTypes();
+
+            const btn = document.getElementById('generateBtn');
+            const loading = document.getElementById('loading');
+            const output = document.getElementById('output');
+            const statusBar = document.getElementById('statusBar');
+
+            btn.disabled = true;
+            btn.textContent = 'Generating...';
+            loading.classList.add('active');
+            output.style.display = 'none';
+
+            try {
+                const response = await fetch('/api/generate/drl', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        requirement,
+                        modelName: model,
+                        factTypes: factTypes.length > 0 ? factTypes : null
+                    })
+                });
+
+                const result = await response.json();
+
+                loading.classList.remove('active');
+                output.style.display = 'block';
+                statusBar.style.display = 'flex';
+
+                if (result.success && result.generatedDrl) {
+                    // Use textContent to show raw DRL without HTML interpretation
+                    output.textContent = result.generatedDrl;
+
+                    const statusDot = document.getElementById('statusDot');
+                    const statusText = document.getElementById('statusText');
+
+                    if (result.validationPassed) {
+                        statusDot.className = 'status-dot success';
+                        statusText.textContent = 'Valid DRL';
+                    } else {
+                        statusDot.className = 'status-dot error';
+                        statusText.textContent = result.validationMessage;
+                    }
+
+                    document.getElementById('timeText').textContent =
+                        `Generated in ${(result.generationTimeMs / 1000).toFixed(1)}s`;
+                } else {
+                    output.innerHTML = `<span style="color: #f44336;">Error: ${result.validationMessage}</span>`;
+                    document.getElementById('statusDot').className = 'status-dot error';
+                    document.getElementById('statusText').textContent = 'Generation failed';
+                    document.getElementById('timeText').textContent = '';
+                }
+            } catch (error) {
+                loading.classList.remove('active');
+                output.style.display = 'block';
+                output.innerHTML = `<span style="color: #f44336;">Error: ${error.message}</span>`;
+                statusBar.style.display = 'flex';
+                document.getElementById('statusDot').className = 'status-dot error';
+                document.getElementById('statusText').textContent = 'Request failed';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Generate DRL';
+            }
+        }
+
+        // Load models on startup
+        fetch('/api/generate/models')
+            .then(r => r.json())
+            .then(models => {
+                const select = document.getElementById('model');
+                select.innerHTML = models.map(m => {
+                    let label = m;
+                    if (m === 'qwen3') label = 'qwen3 (8.2B - Fast)';
+                    else if (m === 'qwen3-coder-next') label = 'qwen3-coder-next (79.7B - Best)';
+                    else if (m.includes('qwen2.5-coder')) label = 'qwen2.5-coder:14b (Efficient)';
+                    else if (m === 'granite4:small-h') label = 'granite4:small-h (32.2B)';
+                    else if (m === 'granite4') label = 'granite4 (3.4B)';
+                    else if (m === 'llama4') label = 'llama4 (108.6B)';
+                    return `<option value="${m}">${label}</option>`;
+                }).join('');
+            })
+            .catch(() => {});
+    </script>
+</body>
+</html>

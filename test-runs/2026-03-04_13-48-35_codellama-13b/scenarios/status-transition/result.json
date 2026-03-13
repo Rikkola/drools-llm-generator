@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Status Transition",
+  "modelName" : "codellama:13b",
+  "success" : true,
+  "generationTimeMs" : 23599,
+  "totalTimeMs" : 23599,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Approve Pending Task",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "newStatus" : "APPROVED"
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Task( taskId=TASK001, currentStatus=PENDING, action=APPROVE, newStatus=APPROVED )" ]
+}

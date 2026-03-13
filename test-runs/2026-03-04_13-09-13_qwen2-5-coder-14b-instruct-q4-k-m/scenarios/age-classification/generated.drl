@@ -1,0 +1,39 @@
+package org.drools.generated;
+
+declare Person
+    name : String
+    age : int
+    category : String
+end
+
+rule "Classify Child"
+salience 100
+when
+    $p : Person(age < 13, category == "NONE")
+then
+    modify($p) { setCategory("CHILD") }
+end
+
+rule "Classify Teen"
+salience 90
+when
+    $p : Person(age >= 13 && age <= 19, category == "NONE")
+then
+    modify($p) { setCategory("TEEN") }
+end
+
+rule "Classify Adult"
+salience 80
+when
+    $p : Person(age >= 20 && age <= 64, category == "NONE")
+then
+    modify($p) { setCategory("ADULT") }
+end
+
+rule "Classify Senior"
+salience 70
+when
+    $p : Person(age >= 65, category == "NONE")
+then
+    modify($p) { setCategory("SENIOR") }
+end

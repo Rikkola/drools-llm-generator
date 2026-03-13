@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Order Fraud Detection",
+  "modelName" : "granite4",
+  "success" : false,
+  "generationTimeMs" : 2745,
+  "totalTimeMs" : 2745,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Normal Order' failed: Expected no rules to fire, but 100 fired",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

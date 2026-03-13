@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Order Fraud Detection",
+  "modelName" : "phi4",
+  "success" : false,
+  "generationTimeMs" : 12046,
+  "totalTimeMs" : 12046,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'New Account High Value' failed: Expected 1 rules to fire, but 2 fired",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

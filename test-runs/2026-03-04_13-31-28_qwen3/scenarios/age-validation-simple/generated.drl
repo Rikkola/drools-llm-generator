@@ -1,0 +1,23 @@
+package org.drools.generated;
+
+declare Person
+    name : String
+    age : int
+    result : String
+end
+
+rule "Determine Adult"
+salience 100
+when
+    $p : Person(age >= 18, result == "unknown")
+then
+    modify($p) { setResult("adult") }
+end
+
+rule "Determine Minor"
+salience 10
+when
+    $p : Person(age < 18, result == "unknown")
+then
+    modify($p) { setResult("minor") }
+end

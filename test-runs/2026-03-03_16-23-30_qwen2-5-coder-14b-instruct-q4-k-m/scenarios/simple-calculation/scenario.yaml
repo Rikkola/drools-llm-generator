@@ -1,0 +1,28 @@
+name: Simple Calculation
+description: Calculate order total with tax
+
+requirement: |
+  Create a rule that:
+  1. Calculates the tax amount as subtotal * 0.1 (10% tax)
+  2. Sets the total as subtotal + taxAmount
+
+factTypes:
+  - name: Invoice
+    fields:
+      invoiceId: String
+      subtotal: double
+      taxAmount: double
+      total: double
+
+testCases:
+  - name: Calculate Tax
+    input:
+      - _type: Invoice
+        invoiceId: INV001
+        subtotal: 100.0
+        taxAmount: 0.0
+        total: 0.0
+    expectedRulesFired: 1
+    expectedFields:
+      taxAmount: 10.0
+      total: 110.0

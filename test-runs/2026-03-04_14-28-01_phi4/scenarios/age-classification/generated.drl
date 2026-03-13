@@ -1,0 +1,41 @@
+package org.drools.generated;
+
+declare Person
+    name : String
+    age : int
+    category : String
+end
+
+rule "Set Category Child"
+salience 100
+when
+    $p : Person(age < 13, category == null)
+then
+    modify($p) { setCategory("CHILD") }
+end
+
+rule "Set Category Teen"
+salience 90
+when
+    $p : Person(age >= 13, age <= 19, category == null)
+then
+    modify($p) { setCategory("TEEN") }
+end
+
+rule "Set Category Adult"
+salience 80
+when
+    $p : Person(age >= 20, age <= 64, category == null)
+then
+    modify($p) { setCategory("ADULT") }
+end
+
+rule "Set Category Senior"
+salience 70
+when
+    $p : Person(age >= 65, category == null)
+then
+    modify($p) { setCategory("SENIOR") }
+end
+
+This DRL code defines rules to classify a person by age into categories: CHILD, TEEN, ADULT, and SENIOR. Each rule checks for specific age ranges and ensures that only one rule fires based on the initial category being null. The use of salience ensures that more specific conditions are evaluated first, preventing overlap between rules.

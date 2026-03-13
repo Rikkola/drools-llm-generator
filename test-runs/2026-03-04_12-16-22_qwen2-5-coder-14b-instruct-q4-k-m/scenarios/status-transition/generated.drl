@@ -1,0 +1,16 @@
+package org.drools.generated;
+
+declare Task
+    taskId : String
+    currentStatus : String
+    action : String
+    newStatus : String
+end
+
+rule "Approve Pending Task"
+salience 100
+when
+    $task : Task(currentStatus == "PENDING", action == "APPROVE", newStatus == "NONE")
+then
+    modify($task) { setNewStatus("APPROVED") }
+end

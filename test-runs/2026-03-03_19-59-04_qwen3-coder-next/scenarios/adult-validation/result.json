@@ -1,0 +1,29 @@
+{
+  "scenarioName" : "Adult Validation",
+  "modelName" : "qwen3-coder-next",
+  "success" : true,
+  "generationTimeMs" : 76515,
+  "totalTimeMs" : 76515,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Adult Person",
+    "passed" : true,
+    "rulesFired" : 0,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "adult" : true
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Minor Person",
+    "passed" : true,
+    "rulesFired" : 0,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "adult" : false
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Person( name=John, age=25, adult=true )", "Person( name=Jane, age=16, adult=false )" ]
+}

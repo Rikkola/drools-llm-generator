@@ -1,0 +1,27 @@
+name: Loyalty Points
+description: Award loyalty points based on purchase amount
+
+requirement: |
+  Create a rule that:
+  1. Calculates points as the purchase amount divided by 10 (1 point per $10)
+  2. Sets the points field to this calculated value
+
+  For example, a $150 purchase should award 15 points.
+
+factTypes:
+  - name: Purchase
+    fields:
+      purchaseId: String
+      amount: double
+      points: int
+
+testCases:
+  - name: Points Calculation
+    input:
+      - _type: Purchase
+        purchaseId: PUR001
+        amount: 150.0
+        points: 0
+    expectedRulesFired: 1
+    expectedFields:
+      points: 15

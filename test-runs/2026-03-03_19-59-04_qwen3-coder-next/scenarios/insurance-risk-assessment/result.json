@@ -1,0 +1,47 @@
+{
+  "scenarioName" : "Insurance Risk Assessment",
+  "modelName" : "qwen3-coder-next",
+  "success" : true,
+  "generationTimeMs" : 62374,
+  "totalTimeMs" : 62374,
+  "rulesFired" : 4,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Medium Risk - Age Factor",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "riskLevel" : "medium"
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "High Risk - Smoker",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "riskLevel" : "high"
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "High Risk - Age Over 60",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "riskLevel" : "high"
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Low Risk - Young Healthy",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "riskLevel" : "low"
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Applicant( age=45, smoker=false, bmi=24.5, riskLevel=MEDIUM )", "Applicant( age=30, smoker=true, bmi=22.0, riskLevel=HIGH )", "Applicant( age=65, smoker=false, bmi=24.0, riskLevel=HIGH )", "Applicant( age=30, smoker=false, bmi=22.0, riskLevel=LOW )" ]
+}

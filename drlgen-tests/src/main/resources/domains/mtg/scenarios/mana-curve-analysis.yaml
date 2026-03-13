@@ -1,0 +1,76 @@
+name: MTG Mana Curve Analysis
+description: Classify deck archetype based on average mana value
+
+requirement: |
+  Create rules to classify a Magic: The Gathering deck by its mana curve:
+
+  1. AGGRO: If averageManaValue is less than or equal to 2.0 AND archetype is "UNKNOWN",
+     then set archetype to "AGGRO" and set description to "Fast aggressive deck"
+
+  2. TEMPO: If averageManaValue is greater than 2.0 AND averageManaValue is less than or equal to 2.5
+     AND archetype is "UNKNOWN",
+     then set archetype to "TEMPO" and set description to "Efficient threat-based deck"
+
+  3. MIDRANGE: If averageManaValue is greater than 2.5 AND averageManaValue is less than or equal to 3.5
+     AND archetype is "UNKNOWN",
+     then set archetype to "MIDRANGE" and set description to "Balanced value deck"
+
+  4. CONTROL: If averageManaValue is greater than 3.5 AND archetype is "UNKNOWN",
+     then set archetype to "CONTROL" and set description to "Slow controlling deck"
+
+factTypes:
+  - name: ManaCurve
+    fields:
+      deckName: String
+      averageManaValue: double
+      archetype: String
+      description: String
+
+testCases:
+  - name: Very low curve is aggro
+    input:
+      - _type: ManaCurve
+        deckName: "Red Deck Wins"
+        averageManaValue: 1.8
+        archetype: "UNKNOWN"
+        description: ""
+    expectedRulesFired: 1
+    expectedFields:
+      archetype: "AGGRO"
+      description: "Fast aggressive deck"
+
+  - name: Low curve is tempo
+    input:
+      - _type: ManaCurve
+        deckName: "Delver"
+        averageManaValue: 2.3
+        archetype: "UNKNOWN"
+        description: ""
+    expectedRulesFired: 1
+    expectedFields:
+      archetype: "TEMPO"
+      description: "Efficient threat-based deck"
+
+  - name: Medium curve is midrange
+    input:
+      - _type: ManaCurve
+        deckName: "Jund"
+        averageManaValue: 3.0
+        archetype: "UNKNOWN"
+        description: ""
+    expectedRulesFired: 1
+    expectedFields:
+      archetype: "MIDRANGE"
+      description: "Balanced value deck"
+
+  - name: High curve is control
+    input:
+      - _type: ManaCurve
+        deckName: "Esper Control"
+        averageManaValue: 4.2
+        archetype: "UNKNOWN"
+        description: ""
+    expectedRulesFired: 1
+    expectedFields:
+      archetype: "CONTROL"
+      description: "Slow controlling deck"

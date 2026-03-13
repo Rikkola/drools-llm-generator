@@ -1,0 +1,5 @@
+Scenario: Order Discount by Customer Type
+Status: FAIL
+Rules Fired: 0
+Generation Time: 22440ms
+Error: Validation exception: DRL code cannot be null or empty

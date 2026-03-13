@@ -1,0 +1,21 @@
+{
+  "scenarioName" : "Senior Citizen Discount",
+  "modelName" : "deepseek-coder-v2:16b",
+  "success" : true,
+  "generationTimeMs" : 7059,
+  "totalTimeMs" : 7059,
+  "rulesFired" : 2,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Senior Person",
+    "passed" : true,
+    "rulesFired" : 2,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "senior" : true,
+      "discountPercent" : 15
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Person( name=Martha, age=70, senior=true, discountPercent=15 )" ]
+}

@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Subscription Renewal",
+  "modelName" : "granite4",
+  "success" : false,
+  "generationTimeMs" : 2336,
+  "totalTimeMs" : 2336,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Long Tenure With Auto Renew' failed: Expected 2 rules to fire, but 100 fired",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

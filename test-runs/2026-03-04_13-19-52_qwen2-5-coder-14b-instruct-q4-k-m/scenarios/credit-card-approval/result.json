@@ -1,0 +1,49 @@
+{
+  "scenarioName" : "Credit Card Approval",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : true,
+  "generationTimeMs" : 7913,
+  "totalTimeMs" : 7913,
+  "rulesFired" : 4,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Premium Card Approval",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "decision" : "APPROVED",
+      "cardType" : "PREMIUM"
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Standard Card Approval",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "decision" : "APPROVED",
+      "cardType" : "STANDARD"
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Denial - Low Credit Score",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "decision" : "DENIED"
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Manual Review",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "decision" : "MANUAL_REVIEW"
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "CreditCardApplication( annualIncome=75000.0, creditScore=750, existingDebt=15000.0, debtToIncomeRatio=0.2, decision=APPROVED, cardType=PREMIUM )", "CreditCardApplication( annualIncome=40000.0, creditScore=650, existingDebt=10000.0, debtToIncomeRatio=0.25, decision=APPROVED, cardType=STANDARD )", "CreditCardApplication( annualIncome=50000.0, creditScore=450, existingDebt=20000.0, debtToIncomeRatio=0.4, decision=DENIED, cardType=none )", "CreditCardApplication( annualIncome=25000.0, creditScore=550, existingDebt=5000.0, debtToIncomeRatio=0.2, decision=MANUAL_REVIEW, cardType=none )" ]
+}

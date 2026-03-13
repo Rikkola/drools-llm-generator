@@ -1,0 +1,21 @@
+{
+  "scenarioName" : "Simple Calculation",
+  "modelName" : "qwen3",
+  "success" : true,
+  "generationTimeMs" : 15155,
+  "totalTimeMs" : 15155,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Calculate Tax",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "taxAmount" : 10.0,
+      "total" : 110.0
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Invoice( invoiceId=INV001, subtotal=100.0, taxAmount=10.0, total=110.0 )" ]
+}

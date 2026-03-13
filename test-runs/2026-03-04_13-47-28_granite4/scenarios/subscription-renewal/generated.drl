@@ -1,0 +1,46 @@
+package org.drools.generated;
+
+declare Subscription
+    subscriptionId : String
+    daysUntilExpiry : int
+    autoRenew : boolean
+    tenureMonths : int
+    status : String
+    loyaltyDiscount : int
+end
+
+rule "Auto Renewal Triggered"
+salience 100
+when
+    $s : Subscription(daysUntilExpiry >= 0 && daysUntilExpiry <= 30, autoRenew == true)
+then
+    modify($s) { setStatus("RENEWING") }
+end
+
+rule "Lapsed Subscription"
+salience 90
+when
+    $s : Subscription(daysUntilExpiry < -7)
+then
+    modify($s) { setStatus("LAPSED") }
+end
+
+rule "Apply Loyalty Discount for Long Tenure"
+salience 80
+when
+    $s : Subscription( tenureMonths > 12, status != "LAPSED")
+then
+    modify($s) { setLoyaltyDiscount(10) }
+end
+
+rule "Auto Renewal and Loyalty Discount Combined"
+salience 70
+when
+    $s : Subscription(daysUntilExpiry >= 0 && daysUntilExpiry <= 30, autoRenew == true,
+                     tenureMonths > 12, status != "LAPSED")
+then
+    modify($s) {
+        setStatus("RENEWING"),
+        setLoyaltyDiscount(10)
+    }
+end

@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Insurance Risk Assessment",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : false,
+  "generationTimeMs" : 2914,
+  "totalTimeMs" : 2914,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'High Risk - Smoker' failed: Expected 1 rules to fire, but 2 fired",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

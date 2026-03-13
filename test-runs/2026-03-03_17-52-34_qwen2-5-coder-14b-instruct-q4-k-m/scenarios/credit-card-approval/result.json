@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Credit Card Approval",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : false,
+  "generationTimeMs" : 6581,
+  "totalTimeMs" : 6581,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Manual Review' failed: Expected field 'decision' to have value 'MANUAL_REVIEW' but no matching fact found",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

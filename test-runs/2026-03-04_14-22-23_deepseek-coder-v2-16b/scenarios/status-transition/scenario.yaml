@@ -1,0 +1,27 @@
+name: Status Transition
+description: Transition task status based on action
+
+requirement: |
+  Create a rule that:
+  1. If currentStatus equals "PENDING" and action equals "APPROVE"
+  2. Then set newStatus to "APPROVED"
+
+factTypes:
+  - name: Task
+    fields:
+      taskId: String
+      currentStatus: String
+      action: String
+      newStatus: String
+
+testCases:
+  - name: Approve Pending Task
+    input:
+      - _type: Task
+        taskId: TASK001
+        currentStatus: PENDING
+        action: APPROVE
+        newStatus: NONE
+    expectedRulesFired: 1
+    expectedFields:
+      newStatus: APPROVED

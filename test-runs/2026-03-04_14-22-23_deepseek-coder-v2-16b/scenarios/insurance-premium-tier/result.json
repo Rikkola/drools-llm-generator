@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Insurance Premium Tier",
+  "modelName" : "deepseek-coder-v2:16b",
+  "success" : true,
+  "generationTimeMs" : 10923,
+  "totalTimeMs" : 10923,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Smoker High Risk",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "premiumTier" : "HIGH"
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "InsuranceApplicant( applicantId=INS001, age=30, smoker=true, premiumTier=HIGH )" ]
+}

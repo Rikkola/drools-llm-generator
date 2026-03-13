@@ -1,0 +1,7 @@
+Scenario: Credit Card Approval
+Status: FAIL
+Rules Fired: 0
+Generation Time: 106110ms
+Error: Validation exception: DRL validation failed: ERROR: [ERR 107] Line 1:0 mismatched input 'Here' expecting one of the following tokens: '[package, unit, import, global, declare, function, rule, query]'.
+ERROR: Parser returned a null Package
+ERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify.

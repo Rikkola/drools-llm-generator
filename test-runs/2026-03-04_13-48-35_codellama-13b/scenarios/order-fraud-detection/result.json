@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Order Fraud Detection",
+  "modelName" : "codellama:13b",
+  "success" : false,
+  "generationTimeMs" : 90929,
+  "totalTimeMs" : 90929,
+  "rulesFired" : 0,
+  "errorMessage" : "Validation exception: DRL validation failed: ERROR: [ERR 107] Line 1:0 mismatched input '[' expecting one of the following tokens: '[package, unit, import, global, declare, function, rule, query]'.\nERROR: [ERR 102] Line 49:9 mismatched input '<eof>' in rule \"Normal Order\"\nERROR: Parser returned a null Package\nERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify.",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

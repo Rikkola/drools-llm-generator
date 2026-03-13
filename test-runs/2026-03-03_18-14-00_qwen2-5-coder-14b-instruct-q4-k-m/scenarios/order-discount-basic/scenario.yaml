@@ -1,0 +1,29 @@
+name: Order Discount - Basic
+description: Apply 10% discount for orders over $100
+
+requirement: |
+  Create a rule that:
+  1. Checks if Order total is greater than 100.0
+  2. If yes, sets the 'discountPercent' field to 10
+  3. Sets the 'discountApplied' field to true
+
+factTypes:
+  - name: Order
+    fields:
+      orderId: String
+      total: double
+      discountPercent: int
+      discountApplied: boolean
+
+testCases:
+  - name: Qualifying Order
+    input:
+      - _type: Order
+        orderId: ORD001
+        total: 150.0
+        discountPercent: 0
+        discountApplied: false
+    expectedRulesFired: 1
+    expectedFields:
+      discountApplied: true
+      discountPercent: 10

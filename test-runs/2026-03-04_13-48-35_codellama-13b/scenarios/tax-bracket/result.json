@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Tax Bracket",
+  "modelName" : "codellama:13b",
+  "success" : true,
+  "generationTimeMs" : 60575,
+  "totalTimeMs" : 60575,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Middle Bracket",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "taxRate" : 22
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "TaxPayer( taxpayerId=TAX001, income=50000.0, taxRate=22 )" ]
+}

@@ -1,0 +1,39 @@
+package org.drools.generated;
+
+declare Order
+    customerType : String
+    orderTotal : double
+    discountPercent : int
+end
+
+rule "Premium Customer High Discount"
+salience 100
+when
+    $o : Order(customerType == "premium", orderTotal > 1000, discountPercent == 0)
+then
+    modify($o) { setDiscountPercent(20) }
+end
+
+rule "Premium Customer Medium Discount"
+salience 90
+when
+    $o : Order(customerType == "premium", orderTotal > 500 && orderTotal <= 1000, discountPercent == 0)
+then
+    modify($o) { setDiscountPercent(15) }
+end
+
+rule "Regular Customer High Discount"
+salience 80
+when
+    $o : Order(customerType == "regular", orderTotal > 1000, discountPercent == 0)
+then
+    modify($o) { setDiscountPercent(10) }
+end
+
+rule "Regular Customer Low Discount"
+salience 70
+when
+    $o : Order(customerType == "regular", orderTotal > 500 && orderTotal <= 1000, discountPercent == 0)
+then
+    modify($o) { setDiscountPercent(5) }
+end

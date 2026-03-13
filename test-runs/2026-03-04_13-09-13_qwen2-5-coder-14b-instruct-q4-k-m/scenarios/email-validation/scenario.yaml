@@ -1,0 +1,23 @@
+name: Email Validation
+description: Validate email addresses by checking for @ symbol
+
+requirement: |
+  Create a rule that:
+  1. Checks if the email field contains "@"
+  2. If yes, sets the 'valid' field to true
+
+factTypes:
+  - name: EmailAddress
+    fields:
+      email: String
+      valid: boolean
+
+testCases:
+  - name: Valid Email
+    input:
+      - _type: EmailAddress
+        email: test@example.com
+        valid: false
+    expectedRulesFired: 1
+    expectedFields:
+      valid: true

@@ -1,0 +1,72 @@
+name: Subscription Renewal
+description: Handle subscription status based on expiry and tenure
+
+requirement: |
+  Handle subscription based on days until expiry and tenure:
+  - If daysUntilExpiry is between 0 and 30 AND autoRenew is true, set status to "RENEWING"
+  - If daysUntilExpiry is less than -7 (expired more than 7 days ago), set status to "LAPSED"
+  - If tenureMonths is greater than 12 AND status is not "LAPSED", set loyaltyDiscount to 10
+
+factTypes:
+  - name: Subscription
+    fields:
+      subscriptionId: String
+      daysUntilExpiry: int
+      autoRenew: boolean
+      tenureMonths: int
+      status: String
+      loyaltyDiscount: int
+
+testCases:
+  - name: Auto Renewal Triggered
+    input:
+      - _type: Subscription
+        subscriptionId: SUB001
+        daysUntilExpiry: 15
+        autoRenew: true
+        tenureMonths: 6
+        status: ACTIVE
+        loyaltyDiscount: 0
+    expectedRulesFired: 1
+    expectedFields:
+      status: RENEWING
+
+  - name: Lapsed Subscription
+    input:
+      - _type: Subscription
+        subscriptionId: SUB002
+        daysUntilExpiry: -14
+        autoRenew: false
+        tenureMonths: 3
+        status: ACTIVE
+        loyaltyDiscount: 0
+    expectedRulesFired: 1
+    expectedFields:
+      status: LAPSED
+
+  - name: Loyalty Discount Applied
+    input:
+      - _type: Subscription
+        subscriptionId: SUB003
+        daysUntilExpiry: 60
+        autoRenew: true
+        tenureMonths: 18
+        status: ACTIVE
+        loyaltyDiscount: 0
+    expectedRulesFired: 1
+    expectedFields:
+      loyaltyDiscount: 10
+
+  - name: Long Tenure With Auto Renew
+    input:
+      - _type: Subscription
+        subscriptionId: SUB004
+        daysUntilExpiry: 20
+        autoRenew: true
+        tenureMonths: 24
+        status: ACTIVE
+        loyaltyDiscount: 0
+    expectedRulesFired: 2
+    expectedFields:
+      status: RENEWING
+      loyaltyDiscount: 10

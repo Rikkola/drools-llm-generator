@@ -1,0 +1,31 @@
+package org.drools.generated;
+
+declare Password
+    value : String
+    length : int
+    strength : String
+end
+
+rule "Weak Password"
+salience 100
+when
+    $p : Password(length < 8, strength == "NONE")
+then
+    modify($p) { setStrength("WEAK") }
+end
+
+rule "Medium Password"
+salience 90
+when
+    $p : Password(length >= 8 && length <= 12, strength == "NONE")
+then
+    modify($p) { setStrength("MEDIUM") }
+end
+
+rule "Strong Password"
+salience 80
+when
+    $p : Password(length > 12, strength == "NONE")
+then
+    modify($p) { setStrength("STRONG") }
+end

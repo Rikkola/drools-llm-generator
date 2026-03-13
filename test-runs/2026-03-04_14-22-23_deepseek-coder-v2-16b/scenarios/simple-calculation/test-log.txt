@@ -1,0 +1,8 @@
+Scenario: Simple Calculation
+Status: FAIL
+Rules Fired: 0
+Generation Time: 5206ms
+Error: Test case 'Calculate Tax' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=10, column=0
+   text=Rule Compilation error subtotal cannot be resolved to a variable
+subtotal cannot be resolved to a variable
+taxAmount cannot be resolved to a variable]]

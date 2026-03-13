@@ -1,0 +1,10 @@
+Scenario: Cart Validation
+Status: FAIL
+Rules Fired: 0
+Generation Time: 14037ms
+Error: Test case 'Out of Stock Rejection' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=14, column=0
+   text=Rule Compilation error The method modify(ShoppingCart) is undefined for the type Rule_Reject_Out_of_Stock_Items1861085948
+Syntax error, insert ";" to complete Statement
+The method setRejected(boolean) is undefined for the type Rule_Reject_Out_of_Stock_Items1861085948
+The method setRejectionReason(String) is undefined for the type Rule_Reject_Out_of_Stock_Items1861085948
+Syntax error, insert ";" to complete Statement]]

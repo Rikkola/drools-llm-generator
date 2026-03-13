@@ -1,0 +1,28 @@
+name: Tax Bracket
+description: Assign tax rate based on income bracket
+
+requirement: |
+  Create rules that assign tax rate based on income:
+  1. If income < 30000, set taxRate to 10
+  2. If income >= 30000 and income < 80000, set taxRate to 22
+  3. If income >= 80000, set taxRate to 32
+
+  Only one rule should fire.
+
+factTypes:
+  - name: TaxPayer
+    fields:
+      taxpayerId: String
+      income: double
+      taxRate: int
+
+testCases:
+  - name: Middle Bracket
+    input:
+      - _type: TaxPayer
+        taxpayerId: TAX001
+        income: 50000.0
+        taxRate: 0
+    expectedRulesFired: 1
+    expectedFields:
+      taxRate: 22

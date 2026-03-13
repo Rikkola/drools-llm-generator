@@ -1,0 +1,96 @@
+package org.drools.generated;
+
+declare TaxReturn
+    taxpayerId: String
+    salary: double
+    bonuses: double
+    investments: double
+    dependents: int
+    expenses: double
+    grossIncome: double
+    deductions: double
+    netIncome: double
+    taxBracket: String
+    taxOwed: double
+end
+
+rule "Calculate Gross Income"
+when
+    $taxReturn : TaxReturn(grossIncome == 0.0)
+then
+    modify($taxReturn) {
+        setGrossIncome(salary + bonuses + investments)
+    }
+end
+
+rule "Calculate Deductions"
+when
+    $taxReturn : TaxReturn(deductions == 0.0, grossIncome > 0.0)
+then
+    modify($taxReturn) {
+        setDeductions((dependents * 2000) + expenses)
+    }
+end
+
+rule "Calculate Net Income"
+when
+    $taxReturn : TaxReturn(netIncome == 0.0, deductions > 0.0)
+then
+    modify($taxReturn) {
+        setNetIncome(grossIncome - deductions)
+    }
+end
+
+rule "Determine Tax Bracket LOW"
+when
+    $taxReturn : TaxReturn(taxBracket == "NONE", netIncome < 40000.0)
+then
+    modify($taxReturn) {
+        setTaxBracket("LOW")
+    }
+end
+
+rule "Determine Tax Bracket MEDIUM"
+when
+    $taxReturn : TaxReturn(taxBracket == "NONE", netIncome >= 40000.0, netIncome <= 100000.0)
+then
+    modify($taxReturn) {
+        setTaxBracket("MEDIUM")
+    }
+end
+
+rule "Determine Tax Bracket HIGH"
+when
+    $taxReturn : TaxReturn(taxBracket == "NONE", netIncome > 100000.0)
+then
+    modify($taxReturn) {
+        setTaxBracket("HIGH")
+    }
+end
+
+rule "Calculate Tax Owed LOW"
+when
+    $taxReturn : TaxReturn(taxOwed == 0.0, taxBracket == "LOW")
+then
+    modify($taxReturn) {
+        setTaxOwed(netIncome * 0.10)
+    }
+end
+
+rule "Calculate Tax Owed MEDIUM"
+when
+    $taxReturn : TaxReturn(taxOwed == 0.0, taxBracket == "MEDIUM")
+then
+    modify($taxReturn) {
+        setTaxOwed(netIncome * 0.22)
+    }
+end
+
+rule "Calculate Tax Owed HIGH"
+when
+    $taxReturn : TaxReturn(taxOwed == 0.0, taxBracket == "HIGH")
+then
+    modify($taxReturn) {
+        setTaxOwed(netIncome * 0.32)
+    }
+end

@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Email Validation",
+  "modelName" : "codellama:13b",
+  "success" : true,
+  "generationTimeMs" : 16804,
+  "totalTimeMs" : 16804,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Valid Email",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "valid" : true
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "EmailAddress( email=test@example.com, valid=true )" ]
+}

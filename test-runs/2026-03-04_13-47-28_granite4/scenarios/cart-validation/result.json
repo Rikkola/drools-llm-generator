@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Cart Validation",
+  "modelName" : "granite4",
+  "success" : false,
+  "generationTimeMs" : 4517,
+  "totalTimeMs" : 4517,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Normal Cart' failed: Expected no rules to fire, but 1 fired",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

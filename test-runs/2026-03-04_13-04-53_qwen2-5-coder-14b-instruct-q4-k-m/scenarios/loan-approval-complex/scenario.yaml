@@ -1,0 +1,54 @@
+name: Loan Approval Complex
+description: Loan approval decision based on credit score, employment, and loan amount
+
+requirement: |
+  Approve a loan if credit score is above 700 and employment duration is at least 2 years
+  and loan amount is less than 5x annual salary.
+  If credit score is between 650 and 700, escalate to human review.
+  Otherwise deny.
+
+factTypes:
+  - name: LoanApplication
+    fields:
+      creditScore: int
+      employmentYears: int
+      loanAmount: double
+      annualSalary: double
+      decision: String
+
+testCases:
+  - name: High Credit Score Approval
+    input:
+      - _type: LoanApplication
+        creditScore: 750
+        employmentYears: 3
+        loanAmount: 50000.0
+        annualSalary: 60000.0
+        decision: PENDING
+    expectedRulesFired: 1
+    expectedFields:
+      decision: APPROVED
+
+  - name: Medium Credit Score Escalation
+    input:
+      - _type: LoanApplication
+        creditScore: 675
+        employmentYears: 5
+        loanAmount: 40000.0
+        annualSalary: 50000.0
+        decision: PENDING
+    expectedRulesFired: 1
+    expectedFields:
+      decision: REVIEW
+
+  - name: Low Credit Score Denial
+    input:
+      - _type: LoanApplication
+        creditScore: 600
+        employmentYears: 1
+        loanAmount: 100000.0
+        annualSalary: 40000.0
+        decision: PENDING
+    expectedRulesFired: 1
+    expectedFields:
+      decision: DENIED

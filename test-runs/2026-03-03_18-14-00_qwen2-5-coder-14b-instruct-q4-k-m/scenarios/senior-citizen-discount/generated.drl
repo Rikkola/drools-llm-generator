@@ -1,0 +1,26 @@
+package org.drools.generated;
+
+declare Person
+    name : String
+    age : int
+    senior : boolean
+    discountPercent : int
+end
+
+rule "Mark Senior Status"
+when
+    $p : Person(age >= 65, senior == false)
+then
+    modify($p) {
+        setSenior(true)
+    }
+end
+
+rule "Apply Discount for Seniors"
+when
+    $p : Person(senior == true, discountPercent == 0)
+then
+    modify($p) {
+        setDiscountPercent(15)
+    }
+end

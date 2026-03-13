@@ -1,0 +1,58 @@
+name: Order Discount by Customer Type
+description: Apply discounts based on order total and customer type
+
+requirement: |
+  For premium customers:
+  - If order total is above 1000, apply 20% discount
+  - If order total is between 500 and 1000, apply 15% discount
+  - Otherwise apply 10% discount
+
+  For regular customers:
+  - If order total is above 1000, apply 10% discount
+  - If order total is between 500 and 1000, apply 5% discount
+  - Otherwise no discount
+
+factTypes:
+  - name: Order
+    fields:
+      customerType: String
+      orderTotal: double
+      discountPercent: int
+
+testCases:
+  - name: Premium Customer High Order
+    input:
+      - _type: Order
+        customerType: premium
+        orderTotal: 1500.0
+        discountPercent: 0
+    expectedFields:
+      discountPercent: 20
+
+  - name: Premium Customer Medium Order
+    input:
+      - _type: Order
+        customerType: premium
+        orderTotal: 750.0
+        discountPercent: 0
+    expectedFields:
+      discountPercent: 15
+
+  - name: Regular Customer High Order
+    input:
+      - _type: Order
+        customerType: regular
+        orderTotal: 1200.0
+        discountPercent: 0
+    expectedFields:
+      discountPercent: 10
+
+  - name: Regular Customer Low Order
+    input:
+      - _type: Order
+        customerType: regular
+        orderTotal: 200.0
+        discountPercent: 0
+    # No expectedRulesFired - just verify field stays 0
+    expectedFields:
+      discountPercent: 0

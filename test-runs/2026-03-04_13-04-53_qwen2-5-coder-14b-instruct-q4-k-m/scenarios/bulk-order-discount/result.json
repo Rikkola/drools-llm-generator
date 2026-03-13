@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Bulk Order Discount",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : false,
+  "generationTimeMs" : 5570,
+  "totalTimeMs" : 5570,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Qualifies for VIP' failed: Expected 1 rules to fire, but 2 fired",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

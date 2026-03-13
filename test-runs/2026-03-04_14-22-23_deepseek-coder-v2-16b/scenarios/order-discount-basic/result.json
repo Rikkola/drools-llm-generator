@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Order Discount - Basic",
+  "modelName" : "deepseek-coder-v2:16b",
+  "success" : false,
+  "generationTimeMs" : 4958,
+  "totalTimeMs" : 4958,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Qualifying Order' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=10, column=0\n   text=Rule Compilation error The method modify(Order) is undefined for the type Rule_Apply_Discount1084488542\nSyntax error, insert \";\" to complete Statement\nThe method setDiscountPercent(int) is undefined for the type Rule_Apply_Discount1084488542\nThe method setDiscountApplied(boolean) is undefined for the type Rule_Apply_Discount1084488542\nSyntax error, insert \";\" to complete Statement]]",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

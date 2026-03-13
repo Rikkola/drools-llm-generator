@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Tax Calculation Chain",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : false,
+  "generationTimeMs" : 13363,
+  "totalTimeMs" : 13363,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Low Tax Bracket' failed: Expected 5 rules to fire, but 3 fired",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

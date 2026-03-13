@@ -1,0 +1,4 @@
+Scenario: Tax Bracket
+Status: PASS
+Rules Fired: 1
+Generation Time: 3454ms

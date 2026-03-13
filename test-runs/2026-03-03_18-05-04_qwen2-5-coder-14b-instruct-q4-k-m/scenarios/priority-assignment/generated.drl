@@ -1,0 +1,43 @@
+package org.drools.generated;
+
+declare Ticket
+    ticketId : String
+    severity : String
+    priority : int
+end
+
+rule "Assign Priority for Critical Severity"
+when
+    $ticket : Ticket(severity == "CRITICAL")
+then
+    modify($ticket) {
+        setPriority(1)
+    }
+end
+
+rule "Assign Priority for High Severity"
+when
+    $ticket : Ticket(severity == "HIGH", priority == 0)
+then
+    modify($ticket) {
+        setPriority(2)
+    }
+end
+
+rule "Assign Priority for Medium Severity"
+when
+    $ticket : Ticket(severity == "MEDIUM", priority == 0)
+then
+    modify($ticket) {
+        setPriority(3)
+    }
+end
+
+rule "Assign Priority for Low Severity"
+when
+    $ticket : Ticket(severity == "LOW", priority == 0)
+then
+    modify($ticket) {
+        setPriority(4)
+    }
+end

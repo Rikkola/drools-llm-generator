@@ -1,0 +1,47 @@
+{
+  "scenarioName" : "Order Fraud Detection",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : true,
+  "generationTimeMs" : 6007,
+  "totalTimeMs" : 6007,
+  "rulesFired" : 3,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "New Account High Value",
+    "passed" : true,
+    "rulesFired" : 0,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "suspicious" : true
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Address Mismatch High Value",
+    "passed" : true,
+    "rulesFired" : 0,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "suspicious" : true
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Multiple Failed Payments",
+    "passed" : true,
+    "rulesFired" : 0,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "suspicious" : true
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Normal Order",
+    "passed" : true,
+    "rulesFired" : 0,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "suspicious" : false
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Order( orderId=ORD001, orderTotal=750.0, accountAgeDays=3, shippingAddress=123 Main St, billingAddress=123 Main St, failedPaymentAttempts=0, suspicious=true, suspiciousReason=New account with high total )", "Order( orderId=ORD002, orderTotal=1500.0, accountAgeDays=100, shippingAddress=456 Other Ave, billingAddress=123 Main St, failedPaymentAttempts=0, suspicious=true, suspiciousReason=Different shipping and billing address )", "Order( orderId=ORD003, orderTotal=100.0, accountAgeDays=365, shippingAddress=123 Main St, billingAddress=123 Main St, failedPaymentAttempts=5, suspicious=true, suspiciousReason=Multiple failed payment attempts )", "Order( orderId=ORD004, orderTotal=200.0, accountAgeDays=90, shippingAddress=123 Main St, billingAddress=123 Main St, failedPaymentAttempts=0, suspicious=false, suspiciousReason=none )" ]
+}

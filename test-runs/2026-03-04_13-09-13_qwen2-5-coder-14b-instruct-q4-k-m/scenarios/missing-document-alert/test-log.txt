@@ -1,0 +1,5 @@
+Scenario: Missing Document Alert
+Status: FAIL
+Rules Fired: 0
+Generation Time: 7367ms
+Error: Test case 'Adult Missing ID' failed: Expected 1 rules to fire, but 100 fired

@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Subscription Renewal",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : false,
+  "generationTimeMs" : 4719,
+  "totalTimeMs" : 4719,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Auto Renewal Triggered' failed: Expected 1 rules to fire, but 100 fired",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

@@ -1,0 +1,5 @@
+Scenario: Tax Calculation Chain
+Status: FAIL
+Rules Fired: 0
+Generation Time: 24805ms
+Error: Test case 'Low Tax Bracket' failed: class org.drools.generated.Rule_Calculate_Gross_Income785055598 tried to access protected field org.drools.generated.TaxReturn.salary (org.drools.generated.Rule_Calculate_Gross_Income785055598 is in unnamed module of loader org.drools.wiring.dynamic.PackageClassLoader @329013b3; org.drools.generated.TaxReturn is in unnamed module of loader org.drools.wiring.dynamic.DynamicProjectClassLoader$DefaultInternalTypesClassLoader @23ec2ea0)

@@ -1,0 +1,23 @@
+package org.drools.generated;
+
+declare Customer
+    customerId : String
+    ordersThisMonth : int
+    totalSpentThisMonth : double
+    isVip : boolean
+    discountPercent : int
+end
+
+rule "Upgrade to VIP"
+when
+    $c : Customer(ordersThisMonth > 5, totalSpentThisMonth > 5000)
+then
+    modify($c) { setIsVip(true); setDiscountPercent(25) }
+end
+
+rule "Do Not Upgrade"
+when
+    $c : Customer(ordersThisMonth <= 5 || totalSpentThisMonth <= 5000)
+then
+    modify($c) { setIsVip(false); setDiscountPercent(0) }
+end

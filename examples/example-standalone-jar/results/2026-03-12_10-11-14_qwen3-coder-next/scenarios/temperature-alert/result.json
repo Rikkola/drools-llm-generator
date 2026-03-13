@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Temperature Alert",
+  "modelName" : "qwen3-coder-next",
+  "success" : false,
+  "generationTimeMs" : 81679,
+  "totalTimeMs" : 81679,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Critical temperature' failed: Expected 1 rules to fire, but none fired",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

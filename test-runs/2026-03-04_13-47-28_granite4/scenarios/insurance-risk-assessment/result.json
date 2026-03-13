@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Insurance Risk Assessment",
+  "modelName" : "granite4",
+  "success" : false,
+  "generationTimeMs" : 2107,
+  "totalTimeMs" : 2107,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'High Risk - Age Over 60' failed: Expected 1 rules to fire, but none fired",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

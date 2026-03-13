@@ -1,0 +1,31 @@
+package org.drools.generated;
+
+declare Subscription
+    subscriptionId : String
+    daysUntilExpiry : int
+    autoRenew : boolean
+    tenureMonths : int
+    status : String
+    loyaltyDiscount : int
+end
+
+rule "Renew subscription if daysUntilExpiry between 0 and 30 and autoRenew is true"
+when
+    $s : Subscription( daysUntilExpiry >= 0 && daysUntilExpiry <= 30, autoRenew == true )
+then
+    modify( $s ) { setStatus( "RENEWING" ) }
+end
+
+rule "Lapse subscription if expired more than 7 days ago"
+when
+    $s : Subscription( daysUntilExpiry < -7 )
+then
+    modify( $s ) { setStatus( "LAPSED" ) }
+end
+
+rule "Apply loyalty discount if tenure > 12 months and not lapsed"
+when
+    $s : Subscription( tenureMonths > 12, status != "LAPSED" )
+then
+    modify( $s ) { setLoyaltyDiscount( 10 ) }
+end

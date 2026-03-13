@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Cart Validation",
+  "modelName" : "codellama:13b",
+  "success" : false,
+  "generationTimeMs" : 108893,
+  "totalTimeMs" : 108893,
+  "rulesFired" : 0,
+  "errorMessage" : "Validation exception: DRL validation failed: ERROR: [ERR 107] Line 1:0 mismatched input 'Here' expecting one of the following tokens: '[package, unit, import, global, declare, function, rule, query]'.\nERROR: Unexpected error: Cannot invoke \"org.antlr.runtime.BitSet.toArray()\" because \"set\" is null\nERROR: Unexpected error: Index 274 out of bounds for length 274\nERROR: Parser returned a null Package\nERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify.",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

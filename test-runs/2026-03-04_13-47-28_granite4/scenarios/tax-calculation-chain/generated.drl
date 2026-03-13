@@ -1,0 +1,101 @@
+package org.drools.generated;
+
+declare TaxReturn
+    taxpayerId : String
+    salary : double
+    bonuses : double
+    investments : double
+    dependents : int
+    expenses : double
+    grossIncome : double
+    deductions : double
+    netIncome : double
+    taxBracket : String
+    taxOwed : double
+end
+
+rule "Calculate Gross Income"
+salience 100
+when
+    $tr : TaxReturn(
+        salary == 0.0,
+        bonuses == 0.0,
+        investments == 0.0,
+        grossIncome == 0.0
+    )
+then
+    modify($tr) {
+        setGrossIncome($tr.getSalary() + $tr.getBonuses() + $tr.getInvestments())
+    }
+end
+
+rule "Calculate Deductions"
+salience 90
+when
+    $tr : TaxReturn(
+        dependents == 0,
+        expenses == 0.0,
+        deductions == 0.0
+    )
+then
+    modify($tr) {
+        setDeductions($tr.getDependents() * 2000 + $tr.getExpenses())
+    }
+end
+
+rule "Calculate Net Income"
+salience 80
+when
+    $tr : TaxReturn(
+        grossIncome > 0,
+        deductions > 0,
+        netIncome == 0.0
+    )
+then
+    modify($tr) {
+        setNetIncome($tr.getGrossIncome() - $tr.getDeductions())
+    }
+end
+
+rule "Determine Low Tax Bracket"
+salience 70
+when
+    $tr : TaxReturn(
+        taxBracket == null,
+        netIncome < 40000.0
+    )
+then
+    modify($tr) {
+        setTaxBracket("LOW"),
+        setTaxOwed(getNetIncome() * 0.10)
+    }
+end
+
+rule "Determine Medium Tax Bracket"
+salience 60
+when
+    $tr : TaxReturn(
+        taxBracket == null,
+        netIncome >= 40000.0 &&
+        netIncome <= 100000.0
+    )
+then
+    modify($tr) {
+        setTaxBracket("MEDIUM"),
+        setTaxOwed(getNetIncome() * 0.22)
+    }
+end
+
+rule "Determine High Tax Bracket"
+salience 50
+when
+    $tr : TaxReturn(
+        taxBracket == null,
+        netIncome > 100000.0
+    )
+then
+    modify($tr) {
+        setTaxBracket("HIGH"),
+        setTaxOwed(getNetIncome() * 0.32)
+    }
+end

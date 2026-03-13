@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Age Validation Simple",
+  "modelName" : "granite4",
+  "success" : false,
+  "generationTimeMs" : 951,
+  "totalTimeMs" : 951,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Adult Person' failed: Expected 1 rules to fire, but none fired",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

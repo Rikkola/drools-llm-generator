@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Insurance Premium Tier",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : true,
+  "generationTimeMs" : 2978,
+  "totalTimeMs" : 2978,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Smoker High Risk",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "premiumTier" : "HIGH"
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "InsuranceApplicant( applicantId=INS001, age=30, smoker=true, premiumTier=HIGH )" ]
+}

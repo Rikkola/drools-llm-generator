@@ -1,0 +1,3 @@
+Model,Scenario,Format,Success,RulesFired,GenerationTimeMs,ErrorMessage
+qwen3-coder-next,Product Pricing Rules,DRL,true,7,150018,
+qwen3-coder-next,Temperature Alert,DRL,true,3,78916,

@@ -1,0 +1,4 @@
+Scenario: Bulk Order Discount
+Status: PASS
+Rules Fired: 1
+Generation Time: 1957ms

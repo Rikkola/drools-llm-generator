@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Insurance Risk Assessment",
+  "modelName" : "codellama:13b",
+  "success" : false,
+  "generationTimeMs" : 121182,
+  "totalTimeMs" : 121182,
+  "rulesFired" : 0,
+  "errorMessage" : "Validation exception: DRL validation failed: ERROR: [ERR 107] Line 1:0 mismatched input '[' expecting one of the following tokens: '[package, unit, import, global, declare, function, rule, query]'.\nERROR: [ERR 102] Line 3:22 mismatched input '*' in import\nERROR: [ERR 102] Line 12:5 mismatched input '=' in rule\nERROR: [ERR 102] Line 15:65 mismatched input ')' in rule\nERROR: [ERR 102] Line 19:24 mismatched input 'and' in rule \"name\"\nERROR: [ERR 102] Line 23:26 mismatched input 'and' in rule \"name\"\nERROR: [ERR 102] Line 29:24 mismatched input 'and' in rule \"name\"\nERROR: [ERR 102] Line 33:26 mismatched input 'and' in rule \"name\"\nERROR: Parser returned a null Package\nERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify.",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

@@ -1,0 +1,21 @@
+{{drlGuide}}
+
+---
+
+Generate DRL code for the following business rule requirement:
+
+REQUIREMENT:
+{{requirement}}
+
+FACT TYPES (declare these in the DRL):
+{{factTypes}}
+
+TEST CASES (use these EXACT values in your rules):
+{{exampleInput}}
+
+CRITICAL REMINDERS:
+1. Use && and || in constraints, NEVER 'and' or 'or'
+2. For field 'isXxx', setter is setIsXxx(), NOT setXxx()
+3. Use $variable.getField() prefix in modify expressions
+4. Use EXACT values from test cases (e.g., "MANUAL_REVIEW" not "ESCALATE")
+5. Use salience to control rule priority when rules should be mutually exclusive

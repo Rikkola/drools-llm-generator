@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Tax Bracket",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : true,
+  "generationTimeMs" : 3458,
+  "totalTimeMs" : 3458,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Middle Bracket",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "taxRate" : 22
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "TaxPayer( taxpayerId=TAX001, income=50000.0, taxRate=22 )" ]
+}

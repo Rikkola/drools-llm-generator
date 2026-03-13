@@ -1,0 +1,36 @@
+## DRL Reference Guide
+
+{{drlGuide}}
+
+---
+
+## Your Task
+
+Generate DRL code for the following business requirement.
+
+### Requirement
+
+{{requirement}}
+
+### Available Fact Types
+
+These are the fact types you should declare and use:
+
+{{factTypes}}
+
+### Test Scenarios
+
+These scenarios describe expected behavior (use them to understand the requirement):
+
+{{exampleInput}}
+
+---
+
+## Important Reminders
+
+1. Generate ONLY valid DRL code - no markdown, no explanations
+2. Use `declare` blocks for ALL fact types listed above
+3. Use `modify($var) { setField(value) }` for updates
+4. Add brief comments before rules explaining their purpose
+5. Use descriptive rule names in quotes
+6. Start with `package rules;`

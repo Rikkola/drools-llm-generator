@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Order Discount - Tiered",
+  "modelName" : "deepseek-coder-v2:16b",
+  "success" : false,
+  "generationTimeMs" : 13216,
+  "totalTimeMs" : 13216,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Premium Tier' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=10, column=0\n   text=Rule Compilation error The method modify(Order) is undefined for the type Rule_Apply_Premium_Tier_Discount1957289013\nSyntax error, insert \";\" to complete Statement\nThe method setDiscountPercent(int) is undefined for the type Rule_Apply_Premium_Tier_Discount1957289013\nThe method setDiscountTier(String) is undefined for the type Rule_Apply_Premium_Tier_Discount1957289013\nSyntax error, insert \";\" to complete Statement], Message [id=2, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=26, column=0\n   text=Rule Compilation error The method modify(Order) is undefined for the type Rule_Apply_Silver_Tier_Discount1504539612\nSyntax error, insert \";\" to complete Statement\nThe method setDiscountPercent(int) is undefined for the type Rule_Apply_Silver_Tier_Discount1504539612\nThe method setDiscountTier(String) is undefined for the type Rule_Apply_Silver_Tier_Discount1504539612\nSyntax error, insert \";\" to complete Statement], Message [id=3, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=18, column=0\n   text=Rule Compilation error The method modify(Order) is undefined for the type Rule_Apply_Gold_Tier_Discount1994122619\nSyntax error, insert \";\" to complete Statement\nThe method setDiscountPercent(int) is undefined for the type Rule_Apply_Gold_Tier_Discount1994122619\nThe method setDiscountTier(String) is undefined for the type Rule_Apply_Gold_Tier_Discount1994122619\nSyntax error, insert \";\" to complete Statement]]",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

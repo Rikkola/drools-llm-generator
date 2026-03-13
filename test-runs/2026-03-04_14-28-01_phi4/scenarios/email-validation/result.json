@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Email Validation",
+  "modelName" : "phi4",
+  "success" : false,
+  "generationTimeMs" : 5495,
+  "totalTimeMs" : 5495,
+  "rulesFired" : 0,
+  "errorMessage" : "ERROR: [ERR 102] Line 15:317 mismatched input '<eof>' in rule \"Validate Email Address\"\nERROR: Parser returned a null Package\nERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify.",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

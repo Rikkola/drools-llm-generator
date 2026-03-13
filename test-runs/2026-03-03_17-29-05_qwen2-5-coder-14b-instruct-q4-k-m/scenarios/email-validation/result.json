@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Email Validation",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : false,
+  "generationTimeMs" : 1245,
+  "totalTimeMs" : 1245,
+  "rulesFired" : 0,
+  "errorMessage" : "ERROR: Missing type definition for fact type: BigDecimal\nERROR: Missing type definition for fact type: Date",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

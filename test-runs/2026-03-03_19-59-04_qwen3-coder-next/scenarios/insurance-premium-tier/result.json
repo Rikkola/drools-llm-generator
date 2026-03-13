@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Insurance Premium Tier",
+  "modelName" : "qwen3-coder-next",
+  "success" : true,
+  "generationTimeMs" : 68414,
+  "totalTimeMs" : 68414,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Smoker High Risk",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "premiumTier" : "HIGH"
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "InsuranceApplicant( applicantId=INS001, age=30, smoker=true, premiumTier=HIGH )" ]
+}

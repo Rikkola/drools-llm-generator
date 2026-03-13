@@ -1,0 +1,100 @@
+name: Cart Validation
+description: Validate shopping cart based on item properties
+
+requirement: |
+  Validate a shopping cart:
+  - If hasOutOfStockItem is true, set rejected to true and rejectionReason to "OUT_OF_STOCK"
+  - If allItemsSameCategory is true, set sameCategoryDiscount to 10
+  - If maxQuantityOfSingleItem > 10, set flaggedForReview to true
+
+factTypes:
+  - name: ShoppingCart
+    fields:
+      cartId: String
+      hasOutOfStockItem: boolean
+      allItemsSameCategory: boolean
+      maxQuantityOfSingleItem: int
+      rejected: boolean
+      rejectionReason: String
+      sameCategoryDiscount: int
+      flaggedForReview: boolean
+
+testCases:
+  - name: Out of Stock Rejection
+    input:
+      - _type: ShoppingCart
+        cartId: CART001
+        hasOutOfStockItem: true
+        allItemsSameCategory: false
+        maxQuantityOfSingleItem: 2
+        rejected: false
+        rejectionReason: none
+        sameCategoryDiscount: 0
+        flaggedForReview: false
+    expectedRulesFired: 1
+    expectedFields:
+      rejected: true
+      rejectionReason: OUT_OF_STOCK
+
+  - name: Same Category Discount
+    input:
+      - _type: ShoppingCart
+        cartId: CART002
+        hasOutOfStockItem: false
+        allItemsSameCategory: true
+        maxQuantityOfSingleItem: 3
+        rejected: false
+        rejectionReason: none
+        sameCategoryDiscount: 0
+        flaggedForReview: false
+    expectedRulesFired: 1
+    expectedFields:
+      sameCategoryDiscount: 10
+
+  - name: Bulk Quantity Review
+    input:
+      - _type: ShoppingCart
+        cartId: CART003
+        hasOutOfStockItem: false
+        allItemsSameCategory: false
+        maxQuantityOfSingleItem: 15
+        rejected: false
+        rejectionReason: none
+        sameCategoryDiscount: 0
+        flaggedForReview: false
+    expectedRulesFired: 1
+    expectedFields:
+      flaggedForReview: true
+
+  - name: Multiple Conditions
+    input:
+      - _type: ShoppingCart
+        cartId: CART004
+        hasOutOfStockItem: false
+        allItemsSameCategory: true
+        maxQuantityOfSingleItem: 12
+        rejected: false
+        rejectionReason: none
+        sameCategoryDiscount: 0
+        flaggedForReview: false
+    expectedRulesFired: 2
+    expectedFields:
+      sameCategoryDiscount: 10
+      flaggedForReview: true
+
+  - name: Normal Cart
+    input:
+      - _type: ShoppingCart
+        cartId: CART005
+        hasOutOfStockItem: false
+        allItemsSameCategory: false
+        maxQuantityOfSingleItem: 2
+        rejected: false
+        rejectionReason: none
+        sameCategoryDiscount: 0
+        flaggedForReview: false
+    expectedRulesFired: 0
+    expectedFields:
+      rejected: false
+      sameCategoryDiscount: 0
+      flaggedForReview: false

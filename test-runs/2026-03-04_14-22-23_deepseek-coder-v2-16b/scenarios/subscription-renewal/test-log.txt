@@ -1,0 +1,5 @@
+Scenario: Subscription Renewal
+Status: FAIL
+Rules Fired: 0
+Generation Time: 11463ms
+Error: Test case 'Auto Renewal Triggered' failed: Expected 1 rules to fire, but 100 fired

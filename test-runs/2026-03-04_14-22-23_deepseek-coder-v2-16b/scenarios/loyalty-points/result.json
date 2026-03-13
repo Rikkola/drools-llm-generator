@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Loyalty Points",
+  "modelName" : "deepseek-coder-v2:16b",
+  "success" : false,
+  "generationTimeMs" : 4188,
+  "totalTimeMs" : 4188,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Points Calculation' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=9, column=0\n   text=Rule Compilation error amount cannot be resolved to a variable]]",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

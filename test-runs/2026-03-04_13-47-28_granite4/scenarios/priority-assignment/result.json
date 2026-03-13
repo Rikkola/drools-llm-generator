@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Priority Assignment",
+  "modelName" : "granite4",
+  "success" : true,
+  "generationTimeMs" : 1594,
+  "totalTimeMs" : 1594,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "High Severity",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "priority" : 2
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Ticket( ticketId=TKT001, severity=HIGH, priority=2 )" ]
+}

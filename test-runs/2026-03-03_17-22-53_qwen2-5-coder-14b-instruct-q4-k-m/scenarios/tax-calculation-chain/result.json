@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Tax Calculation Chain",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : false,
+  "generationTimeMs" : 8944,
+  "totalTimeMs" : 8944,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Low Tax Bracket' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=17, column=0\n   text=Rule Compilation error salary cannot be resolved to a variable\nbonuses cannot be resolved to a variable\ninvestments cannot be resolved to a variable], Message [id=2, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=26, column=0\n   text=Rule Compilation error dependents cannot be resolved to a variable\nexpenses cannot be resolved to a variable], Message [id=3, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=80, column=0\n   text=Rule Compilation error netIncome cannot be resolved to a variable], Message [id=4, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=35, column=0\n   text=Rule Compilation error grossIncome cannot be resolved to a variable\ndeductions cannot be resolved to a variable], Message [id=5, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=71, column=0\n   text=Rule Compilation error netIncome cannot be resolved to a variable], Message [id=6, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=89, column=0\n   text=Rule Compilation error netIncome cannot be resolved to a variable]]",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

@@ -1,0 +1,74 @@
+name: Credit Card Approval
+description: Credit card approval based on income, credit score, and existing debt
+
+requirement: |
+  Approve credit card application:
+  - If annual income is above 50000 and credit score is above 700 and debt-to-income ratio is below 0.4, approve with premium card
+  - If annual income is above 30000 and credit score is above 600, approve with standard card
+  - If credit score is below 500, deny the application
+  - Otherwise, escalate for manual review
+
+factTypes:
+  - name: CreditCardApplication
+    fields:
+      annualIncome: double
+      creditScore: int
+      existingDebt: double
+      debtToIncomeRatio: double
+      decision: String
+      cardType: String
+
+testCases:
+  - name: Premium Card Approval
+    input:
+      - _type: CreditCardApplication
+        annualIncome: 75000.0
+        creditScore: 750
+        existingDebt: 15000.0
+        debtToIncomeRatio: 0.2
+        decision: PENDING
+        cardType: none
+    expectedRulesFired: 1
+    expectedFields:
+      decision: APPROVED
+      cardType: PREMIUM
+
+  - name: Standard Card Approval
+    input:
+      - _type: CreditCardApplication
+        annualIncome: 40000.0
+        creditScore: 650
+        existingDebt: 10000.0
+        debtToIncomeRatio: 0.25
+        decision: PENDING
+        cardType: none
+    expectedRulesFired: 1
+    expectedFields:
+      decision: APPROVED
+      cardType: STANDARD
+
+  - name: Denial - Low Credit Score
+    input:
+      - _type: CreditCardApplication
+        annualIncome: 50000.0
+        creditScore: 450
+        existingDebt: 20000.0
+        debtToIncomeRatio: 0.4
+        decision: PENDING
+        cardType: none
+    expectedRulesFired: 1
+    expectedFields:
+      decision: DENIED
+
+  - name: Manual Review
+    input:
+      - _type: CreditCardApplication
+        annualIncome: 25000.0
+        creditScore: 550
+        existingDebt: 5000.0
+        debtToIncomeRatio: 0.2
+        decision: PENDING
+        cardType: none
+    expectedRulesFired: 1
+    expectedFields:
+      decision: MANUAL_REVIEW

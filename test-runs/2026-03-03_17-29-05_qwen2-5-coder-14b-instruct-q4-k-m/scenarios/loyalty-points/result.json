@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Loyalty Points",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : true,
+  "generationTimeMs" : 1445,
+  "totalTimeMs" : 1445,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Points Calculation",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "points" : 15
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Purchase( purchaseId=PUR001, amount=150.0, points=15 )" ]
+}

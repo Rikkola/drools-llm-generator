@@ -1,0 +1,53 @@
+name: Temperature Alert
+description: Generate alerts when temperature exceeds thresholds
+
+requirement: |
+  Create rules that monitor temperature readings:
+  1. If the temperature is above 100 degrees, set alertLevel to "CRITICAL" and alertMessage to "Temperature critically high"
+  2. If the temperature is between 80 and 100 degrees (inclusive of 80, exclusive of 100), set alertLevel to "WARNING" and alertMessage to "Temperature elevated"
+  3. If the temperature is below 80 degrees, set alertLevel to "NORMAL" and alertMessage to "Temperature normal"
+
+factTypes:
+  - name: TemperatureReading
+    fields:
+      sensorId: String
+      temperature: double
+      alertLevel: String
+      alertMessage: String
+
+testCases:
+  - name: Critical temperature
+    input:
+      - _type: TemperatureReading
+        sensorId: SENSOR-001
+        temperature: 105.5
+        alertLevel: null
+        alertMessage: null
+    expectedRulesFired: 1
+    expectedFields:
+      alertLevel: CRITICAL
+      alertMessage: "Temperature critically high"
+
+  - name: Warning temperature
+    input:
+      - _type: TemperatureReading
+        sensorId: SENSOR-002
+        temperature: 85.0
+        alertLevel: null
+        alertMessage: null
+    expectedRulesFired: 1
+    expectedFields:
+      alertLevel: WARNING
+      alertMessage: "Temperature elevated"
+
+  - name: Normal temperature
+    input:
+      - _type: TemperatureReading
+        sensorId: SENSOR-003
+        temperature: 72.0
+        alertLevel: null
+        alertMessage: null
+    expectedRulesFired: 1
+    expectedFields:
+      alertLevel: NORMAL
+      alertMessage: "Temperature normal"

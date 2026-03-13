@@ -1,0 +1,7 @@
+Scenario: Loan Approval Complex
+Status: FAIL
+Rules Fired: 0
+Generation Time: 10599ms
+Error: ERROR: [ERR 102] Line 21:38 mismatched input 'between' in rule "Escalate Medium Credit Score"
+ERROR: Parser returned a null Package
+ERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify.

@@ -1,0 +1,29 @@
+name: Priority Assignment
+description: Assign numeric priority based on severity
+
+requirement: |
+  Create rules that assign priority based on severity:
+  1. If severity equals "CRITICAL", set priority to 1
+  2. If severity equals "HIGH", set priority to 2
+  3. If severity equals "MEDIUM", set priority to 3
+  4. If severity equals "LOW", set priority to 4
+
+  Only one rule should fire.
+
+factTypes:
+  - name: Ticket
+    fields:
+      ticketId: String
+      severity: String
+      priority: int
+
+testCases:
+  - name: High Severity
+    input:
+      - _type: Ticket
+        ticketId: TKT001
+        severity: HIGH
+        priority: 0
+    expectedRulesFired: 1
+    expectedFields:
+      priority: 2

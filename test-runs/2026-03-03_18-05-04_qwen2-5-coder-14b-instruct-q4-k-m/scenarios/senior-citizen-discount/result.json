@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Senior Citizen Discount",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : false,
+  "generationTimeMs" : 1954,
+  "totalTimeMs" : 1954,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Senior Person' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=10, column=0\n   text=Rule Compilation error The method setIsSenior(boolean) is undefined for the type Person]]",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

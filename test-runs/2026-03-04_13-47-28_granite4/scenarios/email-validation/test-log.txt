@@ -1,0 +1,5 @@
+Scenario: Email Validation
+Status: FAIL
+Rules Fired: 0
+Generation Time: 647ms
+Error: Test case 'Valid Email' failed: Expected 1 rules to fire, but none fired

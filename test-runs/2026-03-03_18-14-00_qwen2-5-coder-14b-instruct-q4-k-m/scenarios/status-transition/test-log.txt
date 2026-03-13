@@ -1,0 +1,4 @@
+Scenario: Status Transition
+Status: PASS
+Rules Fired: 1
+Generation Time: 1393ms

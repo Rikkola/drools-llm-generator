@@ -1,0 +1,4 @@
+Scenario: Product Pricing Rules
+Status: PASS
+Rules Fired: 7
+Generation Time: 150018ms

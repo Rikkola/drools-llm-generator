@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Shipping Cost",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : true,
+  "generationTimeMs" : 4832,
+  "totalTimeMs" : 4832,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Medium Order",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "shippingCost" : 5.0
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "ShippingOrder( orderId=ORD100, total=75.0, shippingCost=5.0 )" ]
+}

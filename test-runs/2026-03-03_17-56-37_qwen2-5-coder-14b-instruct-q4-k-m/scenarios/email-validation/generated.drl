@@ -1,0 +1,18 @@
+package org.drools.generated;
+
+import java.util.Date;
+import java.math.BigDecimal;
+
+declare EmailAddress
+    email: String
+    valid: boolean
+end
+
+rule "Validate Email Address"
+when
+    $e : EmailAddress(email contains "@")
+then
+    modify($e) {
+        setValid(true)
+    }
+end

@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Subscription Renewal",
+  "modelName" : "phi4",
+  "success" : false,
+  "generationTimeMs" : 8439,
+  "totalTimeMs" : 8439,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Auto Renewal Triggered' failed: Expected 1 rules to fire, but 100 fired",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

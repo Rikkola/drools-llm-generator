@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Shipping Cost",
+  "modelName" : "phi4",
+  "success" : false,
+  "generationTimeMs" : 11458,
+  "totalTimeMs" : 11458,
+  "rulesFired" : 0,
+  "errorMessage" : "ERROR: Unexpected error: Cannot invoke \"org.antlr.runtime.BitSet.toArray()\" because \"set\" is null\nERROR: Unexpected error: Index 288 out of bounds for length 288\nERROR: Parser returned a null Package\nERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify.",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

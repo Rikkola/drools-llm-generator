@@ -1,0 +1,21 @@
+{
+  "scenarioName" : "Order Discount - Tiered",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : true,
+  "generationTimeMs" : 4075,
+  "totalTimeMs" : 4075,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Premium Tier",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "discountPercent" : 15,
+      "discountTier" : "PREMIUM"
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Order( orderId=ORD002, total=250.0, discountPercent=15, discountTier=PREMIUM )" ]
+}

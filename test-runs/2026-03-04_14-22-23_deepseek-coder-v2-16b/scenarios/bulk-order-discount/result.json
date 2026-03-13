@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Bulk Order Discount",
+  "modelName" : "deepseek-coder-v2:16b",
+  "success" : false,
+  "generationTimeMs" : 9195,
+  "totalTimeMs" : 9195,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Qualifies for VIP' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=11, column=0\n   text=Rule Compilation error The method modify(Customer) is undefined for the type Rule_Upgrade_to_VIP435768475\nSyntax error, insert \";\" to complete Statement\nThe method setIsVip(boolean) is undefined for the type Rule_Upgrade_to_VIP435768475\nThe method setDiscountPercent(int) is undefined for the type Rule_Upgrade_to_VIP435768475\nSyntax error, insert \";\" to complete Statement], Message [id=2, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=18, column=0\n   text=Rule Compilation error The method modify(Customer) is undefined for the type Rule_Do_Not_Upgrade1976362631\nSyntax error, insert \";\" to complete Statement\nThe method setIsVip(boolean) is undefined for the type Rule_Do_Not_Upgrade1976362631\nThe method setDiscountPercent(int) is undefined for the type Rule_Do_Not_Upgrade1976362631\nSyntax error, insert \";\" to complete Statement]]",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

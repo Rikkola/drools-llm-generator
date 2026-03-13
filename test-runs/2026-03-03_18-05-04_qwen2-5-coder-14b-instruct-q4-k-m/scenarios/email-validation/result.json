@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Email Validation",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : false,
+  "generationTimeMs" : 1100,
+  "totalTimeMs" : 1100,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Valid Email' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=8, column=0\n   text=Rule Compilation error The method setIsValid(boolean) is undefined for the type EmailAddress]]",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

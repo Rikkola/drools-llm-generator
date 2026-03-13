@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Credit Card Approval",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : false,
+  "generationTimeMs" : 7460,
+  "totalTimeMs" : 7460,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Premium Card Approval' failed: Expected 1 rules to fire, but 2 fired",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

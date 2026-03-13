@@ -1,0 +1,25 @@
+package org.drools.generated;
+
+declare Application
+    applicationId : String
+    applicantAge : int
+    loanAmount : double
+    hasIdentityDocument : boolean
+    hasIncomeVerification : boolean
+    incomplete : boolean
+    missingDocumentType : String
+end
+
+rule "Flag application as incomplete: missing identity document for adult"
+    when
+        $app : Application( applicantAge >= 18, hasIdentityDocument == false )
+    then
+        modify( $app ) { setIncomplete( true ), setMissingDocumentType( "identity" ) }
+end
+
+rule "Flag application as incomplete: missing income verification for high loan amount"
+    when
+        $app : Application( loanAmount > 100000, hasIncomeVerification == false )
+    then
+        modify( $app ) { setIncomplete( true ), setMissingDocumentType( "income" ) }
+end

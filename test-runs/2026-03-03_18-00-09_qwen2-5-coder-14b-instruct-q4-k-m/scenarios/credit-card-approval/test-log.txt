@@ -1,0 +1,5 @@
+Scenario: Credit Card Approval
+Status: FAIL
+Rules Fired: 0
+Generation Time: 4321ms
+Error: Test case 'Manual Review' failed: Expected field 'decision' to have value 'MANUAL_REVIEW' but no matching fact found

@@ -1,0 +1,56 @@
+{
+  "scenarioName" : "Shipping Method Priority",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : true,
+  "generationTimeMs" : 5228,
+  "totalTimeMs" : 5228,
+  "rulesFired" : 5,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Hazardous Overrides All",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "shippingMethod" : "SPECIALIZED"
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Prime Customer Free Express",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "shippingMethod" : "EXPRESS_FREE"
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Heavy Item Freight",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "shippingMethod" : "FREIGHT"
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Default Standard Shipping",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "shippingMethod" : "STANDARD"
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Prime But Low Order",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "shippingMethod" : "STANDARD"
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Shipment( shipmentId=SHIP001, isHazardous=true, isPrimeCustomer=true, orderTotal=500.0, weightLbs=100.0, shippingMethod=SPECIALIZED )", "Shipment( shipmentId=SHIP002, isHazardous=false, isPrimeCustomer=true, orderTotal=50.0, weightLbs=10.0, shippingMethod=EXPRESS_FREE )", "Shipment( shipmentId=SHIP003, isHazardous=false, isPrimeCustomer=false, orderTotal=200.0, weightLbs=75.0, shippingMethod=FREIGHT )", "Shipment( shipmentId=SHIP004, isHazardous=false, isPrimeCustomer=false, orderTotal=30.0, weightLbs=5.0, shippingMethod=STANDARD )", "Shipment( shipmentId=SHIP005, isHazardous=false, isPrimeCustomer=true, orderTotal=20.0, weightLbs=2.0, shippingMethod=STANDARD )" ]
+}

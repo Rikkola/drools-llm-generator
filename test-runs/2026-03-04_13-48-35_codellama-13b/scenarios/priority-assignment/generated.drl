@@ -1,0 +1,31 @@
+package org.drools.generated;
+
+declare Ticket
+    ticketId : String
+    severity : String
+    priority : int
+end
+
+rule "High Priority"
+salience 100
+when
+    $t : Ticket(severity == "HIGH", priority == 0)
+then
+    modify($t) { setPriority(2) }
+end
+
+rule "Medium Priority"
+salience 50
+when
+    $t : Ticket(severity == "MEDIUM", priority == 0)
+then
+    modify($t) { setPriority(3) }
+end
+
+rule "Low Priority"
+salience 10
+when
+    $t : Ticket(severity == "LOW", priority == 0)
+then
+    modify($t) { setPriority(4) }
+end

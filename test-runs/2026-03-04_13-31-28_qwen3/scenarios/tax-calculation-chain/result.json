@@ -1,0 +1,37 @@
+{
+  "scenarioName" : "Tax Calculation Chain",
+  "modelName" : "qwen3",
+  "success" : true,
+  "generationTimeMs" : 14837,
+  "totalTimeMs" : 14837,
+  "rulesFired" : 10,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Low Tax Bracket",
+    "passed" : true,
+    "rulesFired" : 5,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "grossIncome" : 38000.0,
+      "deductions" : 7000.0,
+      "netIncome" : 31000.0,
+      "taxBracket" : "LOW",
+      "taxOwed" : 3100.0
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "High Tax Bracket",
+    "passed" : true,
+    "rulesFired" : 5,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "grossIncome" : 145000.0,
+      "deductions" : 7000.0,
+      "netIncome" : 138000.0,
+      "taxBracket" : "HIGH",
+      "taxOwed" : 44160.0
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "TaxReturn( taxpayerId=TAX001, salary=35000.0, bonuses=2000.0, investments=1000.0, dependents=2, expenses=3000.0, grossIncome=38000.0, deductions=7000.0, netIncome=31000.0, taxBracket=LOW, taxOwed=3100.0 )", "TaxReturn( taxpayerId=TAX002, salary=120000.0, bonuses=15000.0, investments=10000.0, dependents=1, expenses=5000.0, grossIncome=145000.0, deductions=7000.0, netIncome=138000.0, taxBracket=HIGH, taxOwed=44160.0 )" ]
+}

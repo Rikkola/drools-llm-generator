@@ -1,0 +1,47 @@
+{
+  "scenarioName" : "Order Discount by Customer Type",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : true,
+  "generationTimeMs" : 5156,
+  "totalTimeMs" : 5156,
+  "rulesFired" : 4,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Premium Customer High Order",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "discountPercent" : 20
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Premium Customer Medium Order",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "discountPercent" : 15
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Regular Customer High Order",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "discountPercent" : 10
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Regular Customer Low Order",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "discountPercent" : 0
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Order( customerType=premium, orderTotal=1500.0, discountPercent=20 )", "Order( customerType=premium, orderTotal=750.0, discountPercent=15 )", "Order( customerType=regular, orderTotal=1200.0, discountPercent=10 )", "Order( customerType=regular, orderTotal=200.0, discountPercent=0 )" ]
+}

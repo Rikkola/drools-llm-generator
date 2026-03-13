@@ -1,0 +1,10 @@
+Scenario: Subscription Renewal
+Status: FAIL
+Rules Fired: 0
+Generation Time: 98812ms
+Error: Validation exception: DRL validation failed: ERROR: [ERR 107] Line 1:0 mismatched input 'Here' expecting one of the following tokens: '[package, unit, import, global, declare, function, rule, query]'.
+ERROR: [ERR 102] Line 1:60 mismatched input ':' in rule "requirement"
+ERROR: Unexpected error: Cannot invoke "org.antlr.runtime.BitSet.toArray()" because "set" is null
+ERROR: Unexpected error: Index 297 out of bounds for length 297
+ERROR: Parser returned a null Package
+ERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify.

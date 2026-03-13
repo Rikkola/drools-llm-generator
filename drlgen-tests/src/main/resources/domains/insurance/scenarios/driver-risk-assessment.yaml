@@ -1,0 +1,93 @@
+name: Driver Risk Assessment
+description: Assess driver risk category based on age and driving history
+
+requirement: |
+  Create rules to assess driver risk for auto insurance policies:
+
+  1. HIGH RISK: If driver age is less than 25 OR driver age is greater than 70
+     OR accidents in last 3 years is greater than 0, set riskCategory to "HIGH"
+
+  2. LOW RISK: If driver age is between 30 and 60 (inclusive) AND accidents in
+     last 3 years is 0 AND years licensed is greater than or equal to 10,
+     set riskCategory to "LOW"
+
+  3. STANDARD RISK: All other drivers should be set to riskCategory "STANDARD"
+
+  Use salience to ensure HIGH risk is checked first, then LOW, then STANDARD.
+  Only one rule should fire per driver.
+
+factTypes:
+  - name: Driver
+    fields:
+      driverId: String
+      name: String
+      age: int
+      yearsLicensed: int
+      accidentsInLast3Years: int
+      riskCategory: String
+
+testCases:
+  - name: Young driver - high risk
+    input:
+      - _type: Driver
+        driverId: "DRV-001"
+        name: "Alex Young"
+        age: 22
+        yearsLicensed: 2
+        accidentsInLast3Years: 0
+        riskCategory: "UNASSESSED"
+    expectedRulesFired: 1
+    expectedFields:
+      riskCategory: "HIGH"
+
+  - name: Senior driver - high risk
+    input:
+      - _type: Driver
+        driverId: "DRV-002"
+        name: "Mary Elder"
+        age: 75
+        yearsLicensed: 50
+        accidentsInLast3Years: 0
+        riskCategory: "UNASSESSED"
+    expectedRulesFired: 1
+    expectedFields:
+      riskCategory: "HIGH"
+
+  - name: Driver with accident history - high risk
+    input:
+      - _type: Driver
+        driverId: "DRV-003"
+        name: "Bob Accident"
+        age: 40
+        yearsLicensed: 20
+        accidentsInLast3Years: 1
+        riskCategory: "UNASSESSED"
+    expectedRulesFired: 1
+    expectedFields:
+      riskCategory: "HIGH"
+
+  - name: Experienced safe driver - low risk
+    input:
+      - _type: Driver
+        driverId: "DRV-004"
+        name: "Sarah Safe"
+        age: 45
+        yearsLicensed: 25
+        accidentsInLast3Years: 0
+        riskCategory: "UNASSESSED"
+    expectedRulesFired: 1
+    expectedFields:
+      riskCategory: "LOW"
+
+  - name: Average driver - standard risk
+    input:
+      - _type: Driver
+        driverId: "DRV-005"
+        name: "Tom Average"
+        age: 28
+        yearsLicensed: 5
+        accidentsInLast3Years: 0
+        riskCategory: "UNASSESSED"
+    expectedRulesFired: 1
+    expectedFields:
+      riskCategory: "STANDARD"

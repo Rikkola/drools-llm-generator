@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Status Transition",
+  "modelName" : "deepseek-coder-v2:16b",
+  "success" : true,
+  "generationTimeMs" : 4576,
+  "totalTimeMs" : 4576,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Approve Pending Task",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "newStatus" : "APPROVED"
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Task( taskId=TASK001, currentStatus=PENDING, action=APPROVE, newStatus=APPROVED )" ]
+}

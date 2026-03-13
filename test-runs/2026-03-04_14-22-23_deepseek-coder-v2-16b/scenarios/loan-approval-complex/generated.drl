@@ -1,0 +1,31 @@
+package org.drools.generated;
+
+declare LoanApplication
+    creditScore : int
+    employmentYears : int
+    loanAmount : double
+    annualSalary : double
+    decision : String
+end
+
+rule "Approve High Credit Score"
+when
+    $la : LoanApplication(creditScore > 700, employmentYears >= 2)
+then
+    modify($la) { setDecision("APPROVED") }
+end
+
+rule "Escalate Medium Credit Score"
+salience 100
+when
+    $la : LoanApplication(creditScore between 650 && 700, employmentYears >= 2)
+then
+    modify($la) { setDecision("REVIEW") }
+end
+
+rule "Deny Low Credit Score"
+when
+    $la : LoanApplication(creditScore < 650, employmentYears >= 2)
+then
+    modify($la) { setDecision("DENIED") }
+end

@@ -1,0 +1,31 @@
+name: Order Discount - Tiered
+description: "Apply tiered discounts: 5% for $50+, 10% for $100+, 15% for $200+"
+
+requirement: |
+  Create rules for tiered discounts with mutually exclusive conditions:
+  1. Orders $200 or more get 15% discount (set discountPercent to 15, discountTier to "PREMIUM")
+  2. Orders $100 or more but less than $200 get 10% discount (set discountPercent to 10, discountTier to "GOLD")
+  3. Orders $50 or more but less than $100 get 5% discount (set discountPercent to 5, discountTier to "SILVER")
+
+  Each rule should only fire if no discount has been applied yet (discountTier equals "NONE").
+
+factTypes:
+  - name: Order
+    fields:
+      orderId: String
+      total: double
+      discountPercent: int
+      discountTier: String
+
+testCases:
+  - name: Premium Tier
+    input:
+      - _type: Order
+        orderId: ORD002
+        total: 250.0
+        discountPercent: 0
+        discountTier: NONE
+    expectedRulesFired: 1
+    expectedFields:
+      discountPercent: 15
+      discountTier: PREMIUM

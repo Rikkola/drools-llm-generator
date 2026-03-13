@@ -1,0 +1,6 @@
+Scenario: Loyalty Points
+Status: FAIL
+Rules Fired: 0
+Generation Time: 21944ms
+Error: Test case 'Points Calculation' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=9, column=0
+   text=Rule Compilation error The method setPoints(int) in the type Purchase is not applicable for the arguments (double)]]

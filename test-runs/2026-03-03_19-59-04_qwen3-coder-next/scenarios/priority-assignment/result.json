@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Priority Assignment",
+  "modelName" : "qwen3-coder-next",
+  "success" : true,
+  "generationTimeMs" : 73706,
+  "totalTimeMs" : 73706,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "High Severity",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "priority" : 2
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Ticket( ticketId=TKT001, severity=HIGH, priority=2 )" ]
+}

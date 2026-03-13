@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Priority Assignment",
+  "modelName" : "deepseek-coder-v2:16b",
+  "success" : true,
+  "generationTimeMs" : 10981,
+  "totalTimeMs" : 10981,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "High Severity",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "priority" : 2
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Ticket( ticketId=TKT001, severity=HIGH, priority=2 )" ]
+}

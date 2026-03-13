@@ -1,0 +1,48 @@
+{
+  "scenarioName" : "Subscription Renewal",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : true,
+  "generationTimeMs" : 5325,
+  "totalTimeMs" : 5325,
+  "rulesFired" : 5,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Auto Renewal Triggered",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "status" : "RENEWING"
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Lapsed Subscription",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "status" : "LAPSED"
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Loyalty Discount Applied",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "loyaltyDiscount" : 10
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Long Tenure With Auto Renew",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "status" : "RENEWING",
+      "loyaltyDiscount" : 10
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Subscription( subscriptionId=SUB001, daysUntilExpiry=15, autoRenew=true, tenureMonths=6, status=RENEWING, loyaltyDiscount=0 )", "Subscription( subscriptionId=SUB002, daysUntilExpiry=-14, autoRenew=false, tenureMonths=3, status=LAPSED, loyaltyDiscount=0 )", "Subscription( subscriptionId=SUB003, daysUntilExpiry=60, autoRenew=true, tenureMonths=18, status=ACTIVE, loyaltyDiscount=10 )", "Subscription( subscriptionId=SUB004, daysUntilExpiry=20, autoRenew=true, tenureMonths=24, status=RENEWING, loyaltyDiscount=10 )" ]
+}

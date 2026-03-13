@@ -1,0 +1,15 @@
+package org.drools.generated;
+
+declare EmailAddress
+    email : String
+    valid : boolean
+end
+
+rule "Validate Email Address"
+when
+    $e : EmailAddress(email contains "@", valid == false)
+then
+    modify($e) { setValid(true) }
+end
+
+This DRL code defines a rule that checks if the `email` field of an `EmailAddress` fact contains the "@" symbol. If it does, and the `valid` field is initially `false`, the rule sets the `valid` field to `true`. The rule uses pattern matching with constraints to ensure only emails containing "@" are marked as valid.

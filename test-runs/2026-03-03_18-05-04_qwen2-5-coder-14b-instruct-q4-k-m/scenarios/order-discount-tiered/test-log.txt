@@ -1,0 +1,4 @@
+Scenario: Order Discount - Tiered
+Status: PASS
+Rules Fired: 1
+Generation Time: 8328ms

@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Password Strength",
+  "modelName" : "granite4",
+  "success" : false,
+  "generationTimeMs" : 1280,
+  "totalTimeMs" : 1280,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Strong Password' failed: Expected 1 rules to fire, but none fired",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

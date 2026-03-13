@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Adult Validation",
+  "modelName" : "codellama:13b",
+  "success" : false,
+  "generationTimeMs" : 229568,
+  "totalTimeMs" : 229568,
+  "rulesFired" : 0,
+  "errorMessage" : "Validation exception: DRL validation failed: ERROR: [ERR 107] Line 1:0 mismatched input '[' expecting one of the following tokens: '[package, unit, import, global, declare, function, rule, query]'.\nERROR: [ERR 107] Line 4:0 mismatched input 'def' expecting one of the following tokens: '[package, unit, import, global, declare, function, rule, query]'.\nERROR: [ERR 102] Line 7:29 mismatched input 'each'\nERROR: [ERR 102] Line 7:39 mismatched input 'type'\nERROR: [ERR 102] Line 8:8 mismatched input 'fact_type'\nERROR: [ERR 102] Line 8:21 mismatched input 'fact_types'\nERROR: [ERR 102] Line 9:12 mismatched input '+='\nERROR: Parser returned a null Package\nERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify.",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

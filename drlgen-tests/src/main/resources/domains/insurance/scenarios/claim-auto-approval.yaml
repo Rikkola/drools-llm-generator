@@ -1,0 +1,73 @@
+name: Insurance Claim Auto-Approval
+description: Auto-approve small claims with clean history
+
+requirement: |
+  Create rules to process insurance claims with the following logic:
+
+  1. AUTO-APPROVE: If claim amount is less than $500 AND the policy has no claims
+     in the last 12 months AND claim status is "PENDING", then set status to "APPROVED"
+
+  2. MANUAL REVIEW: If claim amount is greater than or equal to $5000 AND claim
+     status is "PENDING", then set status to "UNDER_REVIEW"
+
+  3. STANDARD PROCESSING: All other pending claims should be set to "IN_PROCESS"
+
+  Rules should be mutually exclusive - only one rule should fire per claim.
+
+factTypes:
+  - name: InsuranceClaim
+    fields:
+      claimId: String
+      policyNumber: String
+      claimAmount: double
+      claimsInLast12Months: int
+      status: String
+
+testCases:
+  - name: Small claim with clean history - should auto-approve
+    input:
+      - _type: InsuranceClaim
+        claimId: "CLM-001"
+        policyNumber: "POL-CA-123456"
+        claimAmount: 350.00
+        claimsInLast12Months: 0
+        status: "PENDING"
+    expectedRulesFired: 1
+    expectedFields:
+      status: "APPROVED"
+
+  - name: Small claim with prior claims - should go to standard processing
+    input:
+      - _type: InsuranceClaim
+        claimId: "CLM-002"
+        policyNumber: "POL-CA-123457"
+        claimAmount: 400.00
+        claimsInLast12Months: 2
+        status: "PENDING"
+    expectedRulesFired: 1
+    expectedFields:
+      status: "IN_PROCESS"
+
+  - name: Large claim - should require manual review
+    input:
+      - _type: InsuranceClaim
+        claimId: "CLM-003"
+        policyNumber: "POL-CA-123458"
+        claimAmount: 7500.00
+        claimsInLast12Months: 0
+        status: "PENDING"
+    expectedRulesFired: 1
+    expectedFields:
+      status: "UNDER_REVIEW"
+
+  - name: Medium claim with clean history - standard processing
+    input:
+      - _type: InsuranceClaim
+        claimId: "CLM-004"
+        policyNumber: "POL-CA-123459"
+        claimAmount: 1500.00
+        claimsInLast12Months: 0
+        status: "PENDING"
+    expectedRulesFired: 1
+    expectedFields:
+      status: "IN_PROCESS"

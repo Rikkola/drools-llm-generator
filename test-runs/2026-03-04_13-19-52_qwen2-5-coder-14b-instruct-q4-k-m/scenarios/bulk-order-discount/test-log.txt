@@ -1,0 +1,5 @@
+Scenario: Bulk Order Discount
+Status: FAIL
+Rules Fired: 0
+Generation Time: 5924ms
+Error: Test case 'Qualifies for VIP' failed: Expected 1 rules to fire, but 2 fired

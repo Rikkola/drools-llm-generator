@@ -1,0 +1,104 @@
+name: MTG Card Copy Validation
+description: Validate individual card copy counts against deck building rules
+
+requirement: |
+  Create rules to validate Magic: The Gathering card copy limits:
+
+  1. UNLIMITED COPIES: If copyLimit is -1 (meaning unlimited) AND validationStatus is "PENDING",
+     then set validationStatus to "VALID" and set validationMessage to "Unlimited copies allowed"
+
+  2. WITHIN LIMIT: If copies is less than or equal to copyLimit AND copyLimit is greater than 0
+     AND validationStatus is "PENDING",
+     then set validationStatus to "VALID" and set validationMessage to "Copy count within limit"
+
+  3. OVER LIMIT: If copies is greater than copyLimit AND copyLimit is greater than 0
+     AND validationStatus is "PENDING",
+     then set validationStatus to "INVALID" and set validationMessage to "Too many copies"
+
+  Use salience to check INVALID before VALID rules.
+
+factTypes:
+  - name: CardEntry
+    fields:
+      cardName: String
+      copies: int
+      copyLimit: int
+      validationStatus: String
+      validationMessage: String
+
+testCases:
+  - name: Normal card within 4-copy limit
+    input:
+      - _type: CardEntry
+        cardName: "Lightning Bolt"
+        copies: 4
+        copyLimit: 4
+        validationStatus: "PENDING"
+        validationMessage: ""
+    expectedRulesFired: 1
+    expectedFields:
+      validationStatus: "VALID"
+
+  - name: Normal card exceeds 4-copy limit
+    input:
+      - _type: CardEntry
+        cardName: "Lightning Bolt"
+        copies: 5
+        copyLimit: 4
+        validationStatus: "PENDING"
+        validationMessage: ""
+    expectedRulesFired: 1
+    expectedFields:
+      validationStatus: "INVALID"
+      validationMessage: "Too many copies"
+
+  - name: Basic land with unlimited copies
+    input:
+      - _type: CardEntry
+        cardName: "Forest"
+        copies: 20
+        copyLimit: -1
+        validationStatus: "PENDING"
+        validationMessage: ""
+    expectedRulesFired: 1
+    expectedFields:
+      validationStatus: "VALID"
+      validationMessage: "Unlimited copies allowed"
+
+  - name: Seven Dwarves within 7-copy limit
+    input:
+      - _type: CardEntry
+        cardName: "Seven Dwarves"
+        copies: 7
+        copyLimit: 7
+        validationStatus: "PENDING"
+        validationMessage: ""
+    expectedRulesFired: 1
+    expectedFields:
+      validationStatus: "VALID"
+
+  - name: Seven Dwarves exceeds 7-copy limit
+    input:
+      - _type: CardEntry
+        cardName: "Seven Dwarves"
+        copies: 8
+        copyLimit: 7
+        validationStatus: "PENDING"
+        validationMessage: ""
+    expectedRulesFired: 1
+    expectedFields:
+      validationStatus: "INVALID"
+      validationMessage: "Too many copies"
+
+  - name: Relentless Rats unlimited
+    input:
+      - _type: CardEntry
+        cardName: "Relentless Rats"
+        copies: 30
+        copyLimit: -1
+        validationStatus: "PENDING"
+        validationMessage: ""
+    expectedRulesFired: 1
+    expectedFields:
+      validationStatus: "VALID"
+      validationMessage: "Unlimited copies allowed"

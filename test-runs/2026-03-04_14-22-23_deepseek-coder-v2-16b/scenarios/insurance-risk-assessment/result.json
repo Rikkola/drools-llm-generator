@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Insurance Risk Assessment",
+  "modelName" : "deepseek-coder-v2:16b",
+  "success" : false,
+  "generationTimeMs" : 12848,
+  "totalTimeMs" : 12848,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Medium Risk - Age Factor' failed: Expected 1 rules to fire, but none fired",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

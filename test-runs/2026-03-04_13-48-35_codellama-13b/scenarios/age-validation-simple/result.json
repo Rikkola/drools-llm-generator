@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Age Validation Simple",
+  "modelName" : "codellama:13b",
+  "success" : false,
+  "generationTimeMs" : 32244,
+  "totalTimeMs" : 32244,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Adult Person' failed: Expected 1 rules to fire, but none fired",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

@@ -1,0 +1,66 @@
+name: Product Pricing Rules
+description: Calculate product prices with discounts based on quantity and customer type
+
+requirement: |
+  Create pricing rules for a product order system:
+
+  1. Base price calculation: Set the basePrice to (unitPrice * quantity)
+
+  2. Quantity discount:
+     - If quantity >= 100, apply a 15% discount (set quantityDiscount to basePrice * 0.15)
+     - If quantity >= 50 but less than 100, apply a 10% discount (set quantityDiscount to basePrice * 0.10)
+     - If quantity >= 10 but less than 50, apply a 5% discount (set quantityDiscount to basePrice * 0.05)
+     - Otherwise, no quantity discount (set quantityDiscount to 0)
+
+  3. Customer type discount (applied after quantity discount):
+     - If customerType is "PREMIUM", apply an additional 10% discount on the remaining amount
+     - If customerType is "REGULAR", no additional discount
+
+  4. Final price: Set finalPrice to (basePrice - quantityDiscount - customerDiscount)
+
+factTypes:
+  - name: ProductOrder
+    fields:
+      orderId: String
+      unitPrice: double
+      quantity: int
+      customerType: String
+      basePrice: double
+      quantityDiscount: double
+      customerDiscount: double
+      finalPrice: double
+
+testCases:
+  - name: Large order with premium customer
+    input:
+      - _type: ProductOrder
+        orderId: ORD-001
+        unitPrice: 10.0
+        quantity: 100
+        customerType: PREMIUM
+        basePrice: 0.0
+        quantityDiscount: 0.0
+        customerDiscount: 0.0
+        finalPrice: 0.0
+    expectedRulesFired: 4
+    expectedFields:
+      basePrice: 1000.0
+      quantityDiscount: 150.0
+      finalPrice: 765.0
+
+  - name: Medium order with regular customer
+    input:
+      - _type: ProductOrder
+        orderId: ORD-002
+        unitPrice: 25.0
+        quantity: 50
+        customerType: REGULAR
+        basePrice: 0.0
+        quantityDiscount: 0.0
+        customerDiscount: 0.0
+        finalPrice: 0.0
+    expectedRulesFired: 3
+    expectedFields:
+      basePrice: 1250.0
+      quantityDiscount: 125.0
+      finalPrice: 1125.0

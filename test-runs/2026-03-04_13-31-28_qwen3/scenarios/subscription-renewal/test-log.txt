@@ -1,0 +1,5 @@
+Scenario: Subscription Renewal
+Status: FAIL
+Rules Fired: 0
+Generation Time: 22865ms
+Error: Validation exception: DRL code cannot be null or empty

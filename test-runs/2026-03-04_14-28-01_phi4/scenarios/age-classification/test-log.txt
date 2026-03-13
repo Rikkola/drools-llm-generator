@@ -1,0 +1,7 @@
+Scenario: Age Classification
+Status: FAIL
+Rules Fired: 0
+Generation Time: 11594ms
+Error: ERROR: [ERR 102] Line 41:337 mismatched input '<eof>' in rule "Set Category Senior"
+ERROR: Parser returned a null Package
+ERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify.

@@ -1,0 +1,19 @@
+package org.drools.generated;
+
+declare Order
+    orderId : String
+    total : double
+    discountPercent : int
+    discountApplied : boolean
+end
+
+rule "Apply 10% Discount for High Value Orders"
+salience 100
+when
+    $o : Order(total > 100.0, discountPercent == 0)
+then
+    modify($o) {
+        setDiscountPercent(10),
+        setDiscountApplied(true)
+    }
+end

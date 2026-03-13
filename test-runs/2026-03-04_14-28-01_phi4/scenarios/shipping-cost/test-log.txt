@@ -1,0 +1,8 @@
+Scenario: Shipping Cost
+Status: FAIL
+Rules Fired: 0
+Generation Time: 11458ms
+Error: ERROR: Unexpected error: Cannot invoke "org.antlr.runtime.BitSet.toArray()" because "set" is null
+ERROR: Unexpected error: Index 288 out of bounds for length 288
+ERROR: Parser returned a null Package
+ERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify.

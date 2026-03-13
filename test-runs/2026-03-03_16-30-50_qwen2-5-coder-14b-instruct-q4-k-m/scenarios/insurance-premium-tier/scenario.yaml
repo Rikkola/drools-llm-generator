@@ -1,0 +1,30 @@
+name: Insurance Premium Tier
+description: Assign insurance premium tier based on risk factors
+
+requirement: |
+  Create rules that assign premium tier:
+  1. If smoker is true, set premiumTier to "HIGH"
+  2. If smoker is false and age > 50, set premiumTier to "MEDIUM"
+  3. If smoker is false and age <= 50, set premiumTier to "LOW"
+
+  Smoker status takes priority. Only one rule should fire.
+
+factTypes:
+  - name: InsuranceApplicant
+    fields:
+      applicantId: String
+      age: int
+      smoker: boolean
+      premiumTier: String
+
+testCases:
+  - name: Smoker High Risk
+    input:
+      - _type: InsuranceApplicant
+        applicantId: INS001
+        age: 30
+        smoker: true
+        premiumTier: NONE
+    expectedRulesFired: 1
+    expectedFields:
+      premiumTier: HIGH

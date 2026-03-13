@@ -1,0 +1,8 @@
+Scenario: Order Fraud Detection
+Status: FAIL
+Rules Fired: 0
+Generation Time: 90929ms
+Error: Validation exception: DRL validation failed: ERROR: [ERR 107] Line 1:0 mismatched input '[' expecting one of the following tokens: '[package, unit, import, global, declare, function, rule, query]'.
+ERROR: [ERR 102] Line 49:9 mismatched input '<eof>' in rule "Normal Order"
+ERROR: Parser returned a null Package
+ERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify.

@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Order Discount - Tiered",
+  "modelName" : "qwen3",
+  "success" : false,
+  "generationTimeMs" : 23212,
+  "totalTimeMs" : 23212,
+  "rulesFired" : 0,
+  "errorMessage" : "Validation exception: DRL code cannot be null or empty",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

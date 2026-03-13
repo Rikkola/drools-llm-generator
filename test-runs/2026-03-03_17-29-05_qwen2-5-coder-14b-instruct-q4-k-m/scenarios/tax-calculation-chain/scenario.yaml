@@ -1,0 +1,70 @@
+name: Tax Calculation Chain
+description: Multi-step tax calculation with chained rules
+
+requirement: |
+  Calculate taxes in sequence:
+  1. First calculate grossIncome as salary + bonuses + investments
+  2. Then calculate deductions as (dependents * 2000) + expenses
+  3. Then calculate netIncome as grossIncome - deductions
+  4. Then determine taxBracket: "LOW" if netIncome < 40000, "MEDIUM" if 40000-100000, "HIGH" if > 100000
+  5. Finally calculate taxOwed: LOW = 10% of netIncome, MEDIUM = 22%, HIGH = 32%
+
+factTypes:
+  - name: TaxReturn
+    fields:
+      taxpayerId: String
+      salary: double
+      bonuses: double
+      investments: double
+      dependents: int
+      expenses: double
+      grossIncome: double
+      deductions: double
+      netIncome: double
+      taxBracket: String
+      taxOwed: double
+
+testCases:
+  - name: Low Tax Bracket
+    input:
+      - _type: TaxReturn
+        taxpayerId: TAX001
+        salary: 35000.0
+        bonuses: 2000.0
+        investments: 1000.0
+        dependents: 2
+        expenses: 3000.0
+        grossIncome: 0.0
+        deductions: 0.0
+        netIncome: 0.0
+        taxBracket: NONE
+        taxOwed: 0.0
+    expectedRulesFired: 5
+    expectedFields:
+      grossIncome: 38000.0
+      deductions: 7000.0
+      netIncome: 31000.0
+      taxBracket: LOW
+      taxOwed: 3100.0
+
+  - name: High Tax Bracket
+    input:
+      - _type: TaxReturn
+        taxpayerId: TAX002
+        salary: 120000.0
+        bonuses: 15000.0
+        investments: 10000.0
+        dependents: 1
+        expenses: 5000.0
+        grossIncome: 0.0
+        deductions: 0.0
+        netIncome: 0.0
+        taxBracket: NONE
+        taxOwed: 0.0
+    expectedRulesFired: 5
+    expectedFields:
+      grossIncome: 145000.0
+      deductions: 7000.0
+      netIncome: 138000.0
+      taxBracket: HIGH
+      taxOwed: 44160.0

@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Loyalty Points",
+  "modelName" : "phi4",
+  "success" : true,
+  "generationTimeMs" : 3267,
+  "totalTimeMs" : 3267,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Points Calculation",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "points" : 15
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Purchase( purchaseId=PUR001, amount=150.0, points=15 )" ]
+}

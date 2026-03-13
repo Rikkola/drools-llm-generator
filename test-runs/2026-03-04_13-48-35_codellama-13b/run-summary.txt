@@ -1,0 +1,38 @@
+=== DRL Generation Test Run Summary ===
+
+Model: codellama:13b
+Scenarios: 29
+Passed: 13
+Failed: 16
+Success Rate: 44.8%
+
+=== Results ===
+Adult Validation                         FAIL
+Age Classification                       FAIL
+Age Validation Simple                    FAIL
+Order Discount - Basic                   PASS
+Bulk Order Discount                      FAIL
+Cart Validation                          FAIL
+Credit Card Approval                     FAIL
+Email Validation                         PASS
+Grade Calculation                        FAIL
+Insurance Premium Tier                   FAIL
+Insurance Risk Assessment                FAIL
+Inventory Alert                          PASS
+Loan Approval Complex                    FAIL
+Loan Eligibility                         PASS
+Loyalty Points                           FAIL
+Missing Document Alert                   FAIL
+Order Discount by Customer Type          PASS
+Order Fraud Detection                    FAIL
+Password Strength                        FAIL
+Priority Assignment                      PASS
+Senior Citizen Discount                  PASS
+Shipping Cost                            PASS
+Shipping Method Priority                 PASS
+Simple Calculation                       PASS
+Status Transition                        PASS
+Subscription Renewal                     FAIL
+Tax Bracket                              PASS
+Tax Calculation Chain                    FAIL
+Order Discount - Tiered                  PASS

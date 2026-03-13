@@ -1,0 +1,60 @@
+{
+  "scenarioName" : "Cart Validation",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : true,
+  "generationTimeMs" : 3289,
+  "totalTimeMs" : 3289,
+  "rulesFired" : 5,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Out of Stock Rejection",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "rejected" : true,
+      "rejectionReason" : "OUT_OF_STOCK"
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Same Category Discount",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "sameCategoryDiscount" : 10
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Bulk Quantity Review",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "flaggedForReview" : true
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Multiple Conditions",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "sameCategoryDiscount" : 10,
+      "flaggedForReview" : true
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Normal Cart",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "rejected" : false,
+      "sameCategoryDiscount" : 0,
+      "flaggedForReview" : false
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "ShoppingCart( cartId=CART001, hasOutOfStockItem=true, allItemsSameCategory=false, maxQuantityOfSingleItem=2, rejected=true, rejectionReason=OUT_OF_STOCK, sameCategoryDiscount=0, flaggedForReview=false )", "ShoppingCart( cartId=CART002, hasOutOfStockItem=false, allItemsSameCategory=true, maxQuantityOfSingleItem=3, rejected=false, rejectionReason=none, sameCategoryDiscount=10, flaggedForReview=false )", "ShoppingCart( cartId=CART003, hasOutOfStockItem=false, allItemsSameCategory=false, maxQuantityOfSingleItem=15, rejected=false, rejectionReason=none, sameCategoryDiscount=0, flaggedForReview=true )", "ShoppingCart( cartId=CART004, hasOutOfStockItem=false, allItemsSameCategory=true, maxQuantityOfSingleItem=12, rejected=false, rejectionReason=none, sameCategoryDiscount=10, flaggedForReview=true )", "ShoppingCart( cartId=CART005, hasOutOfStockItem=false, allItemsSameCategory=false, maxQuantityOfSingleItem=2, rejected=false, rejectionReason=none, sameCategoryDiscount=0, flaggedForReview=false )" ]
+}

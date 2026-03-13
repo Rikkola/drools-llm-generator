@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Inventory Alert",
+  "modelName" : "granite4",
+  "success" : true,
+  "generationTimeMs" : 731,
+  "totalTimeMs" : 731,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Low Stock Product",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "lowStock" : true
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Product( productId=PROD001, name=Widget, quantity=5, threshold=10, lowStock=true )" ]
+}

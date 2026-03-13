@@ -1,0 +1,33 @@
+{
+  "scenarioName" : "Product Pricing Rules",
+  "modelName" : "qwen3-coder-next",
+  "success" : true,
+  "generationTimeMs" : 243728,
+  "totalTimeMs" : 243728,
+  "rulesFired" : 7,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Large order with premium customer",
+    "passed" : true,
+    "rulesFired" : 3,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "basePrice" : 1000.0,
+      "quantityDiscount" : 150.0,
+      "finalPrice" : 765.0
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Medium order with regular customer",
+    "passed" : true,
+    "rulesFired" : 3,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "basePrice" : 1250.0,
+      "quantityDiscount" : 125.0,
+      "finalPrice" : 1125.0
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "ProductOrder( orderId=ORD-001, unitPrice=10.0, quantity=100, customerType=PREMIUM, basePrice=1000.0, quantityDiscount=150.0, customerDiscount=85.0, finalPrice=765.0 )", "ProductOrder( orderId=ORD-002, unitPrice=25.0, quantity=50, customerType=REGULAR, basePrice=1250.0, quantityDiscount=125.0, customerDiscount=0.0, finalPrice=1125.0 )" ]
+}

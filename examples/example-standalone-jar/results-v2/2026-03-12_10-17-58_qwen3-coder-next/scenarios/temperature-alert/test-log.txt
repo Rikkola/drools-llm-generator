@@ -1,0 +1,4 @@
+Scenario: Temperature Alert
+Status: PASS
+Rules Fired: 3
+Generation Time: 78916ms

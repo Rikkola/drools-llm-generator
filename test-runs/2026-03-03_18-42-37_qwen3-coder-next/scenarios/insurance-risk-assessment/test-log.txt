@@ -1,0 +1,8 @@
+Scenario: Insurance Risk Assessment
+Status: FAIL
+Rules Fired: 0
+Generation Time: 67992ms
+Error: ERROR: [ERR 102] Line 12:35 mismatched input 'or' in rule "High Risk"
+ERROR: [ERR 102] Line 19:35 mismatched input 'and' in pattern in rule "Medium Risk"
+ERROR: Parser returned a null Package
+ERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify.

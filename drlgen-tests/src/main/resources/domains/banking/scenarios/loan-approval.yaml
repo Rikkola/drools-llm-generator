@@ -1,0 +1,106 @@
+name: Banking Loan Approval
+description: Evaluate loan applications based on credit score and DTI
+
+requirement: |
+  Create rules to evaluate loan applications:
+
+  1. AUTO-APPROVE EXCELLENT: If credit score is greater than or equal to 750 AND
+     DTI ratio is less than 0.36 AND loan amount is less than or equal to 50000 AND
+     status is "PENDING", then set status to "APPROVED" and interestRate to 5.5
+
+  2. AUTO-APPROVE GOOD: If credit score is between 700 and 749 (inclusive) AND
+     DTI ratio is less than 0.40 AND loan amount is less than or equal to 25000 AND
+     status is "PENDING", then set status to "APPROVED" and interestRate to 7.5
+
+  3. MANUAL REVIEW: If credit score is between 650 and 699 (inclusive) AND
+     DTI ratio is less than 0.43 AND status is "PENDING",
+     then set status to "MANUAL_REVIEW"
+
+  4. AUTO-REJECT: If credit score is less than 650 OR DTI ratio is greater than
+     or equal to 0.43, AND status is "PENDING", then set status to "REJECTED"
+
+  Use salience to check reject conditions first, then manual review, then approvals.
+
+factTypes:
+  - name: LoanApplication
+    fields:
+      applicationId: String
+      applicantName: String
+      creditScore: int
+      dtiRatio: double
+      loanAmount: double
+      status: String
+      interestRate: double
+
+testCases:
+  - name: Excellent credit auto-approval
+    input:
+      - _type: LoanApplication
+        applicationId: "LOAN-001"
+        applicantName: "Alice Excellent"
+        creditScore: 780
+        dtiRatio: 0.30
+        loanAmount: 40000.00
+        status: "PENDING"
+        interestRate: 0.0
+    expectedRulesFired: 1
+    expectedFields:
+      status: "APPROVED"
+      interestRate: 5.5
+
+  - name: Good credit auto-approval
+    input:
+      - _type: LoanApplication
+        applicationId: "LOAN-002"
+        applicantName: "Bob Good"
+        creditScore: 720
+        dtiRatio: 0.35
+        loanAmount: 20000.00
+        status: "PENDING"
+        interestRate: 0.0
+    expectedRulesFired: 1
+    expectedFields:
+      status: "APPROVED"
+      interestRate: 7.5
+
+  - name: Fair credit needs manual review
+    input:
+      - _type: LoanApplication
+        applicationId: "LOAN-003"
+        applicantName: "Carol Fair"
+        creditScore: 670
+        dtiRatio: 0.40
+        loanAmount: 15000.00
+        status: "PENDING"
+        interestRate: 0.0
+    expectedRulesFired: 1
+    expectedFields:
+      status: "MANUAL_REVIEW"
+
+  - name: Poor credit auto-reject
+    input:
+      - _type: LoanApplication
+        applicationId: "LOAN-004"
+        applicantName: "Dan Poor"
+        creditScore: 580
+        dtiRatio: 0.30
+        loanAmount: 10000.00
+        status: "PENDING"
+        interestRate: 0.0
+    expectedRulesFired: 1
+    expectedFields:
+      status: "REJECTED"
+
+  - name: High DTI auto-reject
+    input:
+      - _type: LoanApplication
+        applicationId: "LOAN-005"
+        applicantName: "Eve HighDebt"
+        creditScore: 750
+        dtiRatio: 0.50
+        loanAmount: 30000.00
+        status: "PENDING"
+        interestRate: 0.0
+    expectedRulesFired: 1
+    expectedFields:
+      status: "REJECTED"

@@ -1,0 +1,29 @@
+name: Inventory Alert
+description: Flag products with low stock
+
+requirement: |
+  Create a rule that:
+  1. Checks if product quantity is less than the threshold
+  2. If yes, sets the 'lowStock' field to true
+
+factTypes:
+  - name: Product
+    fields:
+      productId: String
+      name: String
+      quantity: int
+      threshold: int
+      lowStock: boolean
+
+testCases:
+  - name: Low Stock Product
+    input:
+      - _type: Product
+        productId: PROD001
+        name: Widget
+        quantity: 5
+        threshold: 10
+        lowStock: false
+    expectedRulesFired: 1
+    expectedFields:
+      lowStock: true

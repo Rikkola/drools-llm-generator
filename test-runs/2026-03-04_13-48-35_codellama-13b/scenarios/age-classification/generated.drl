@@ -1,0 +1,60 @@
+[PYTHON]
+# Import the necessary packages
+from drools import KieServices
+from drools.ruleunit import RuleUnit
+
+class Person:
+    def __init__(self, name, age, category):
+        self.name = name
+        self.age = age
+        self.category = category
+
+# Define the rules
+rules = """
+package org.drools.example;
+
+import org.drools.example.Person;
+
+rule "Child Classification"
+when
+    $p : Person(age < 13, category == null)
+then
+    modify($p) { setCategory("CHILD") }
+end
+
+rule "Teen Classification"
+when
+    $p : Person(age >= 13 && age <= 19, category == null)
+then
+    modify($p) { setCategory("TEEN") }
+end
+
+rule "Adult Classification"
+when
+    $p : Person(age >= 20 && age <= 64, category == null)
+then
+    modify($p) { setCategory("ADULT") }
+end
+
+rule "Senior Classification"
+when
+    $p : Person(age >= 65, category == null)
+then
+    modify($p) { setCategory("SENIOR") }
+end
+"""
+
+# Create a KieServices client and build the rule unit
+client = KieServices.get_client()
+rule_unit = RuleUnit(rules)
+
+# Define the facts
+person1 = Person("Tommy", 8, None)
+person2 = Person("Alex", 15, None)
+person3 = Person("Sarah", 35, None)
+person4 = Person("Margaret", 72, None)
+
+# Execute the rules and print the results
+results = rule_unit.execute(client, [person1, person2, person3, person4])
+print(results)
+[/PYTHON]

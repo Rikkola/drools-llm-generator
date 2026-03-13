@@ -1,0 +1,5 @@
+Scenario: Order Discount - Tiered
+Status: FAIL
+Rules Fired: 0
+Generation Time: 23212ms
+Error: Validation exception: DRL code cannot be null or empty

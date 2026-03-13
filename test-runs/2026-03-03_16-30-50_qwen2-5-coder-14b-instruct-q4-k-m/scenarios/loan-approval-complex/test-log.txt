@@ -1,0 +1,4 @@
+Scenario: Loan Approval Complex
+Status: PASS
+Rules Fired: 3
+Generation Time: 3321ms

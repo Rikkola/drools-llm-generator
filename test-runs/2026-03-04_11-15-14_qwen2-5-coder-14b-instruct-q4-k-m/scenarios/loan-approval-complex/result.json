@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Loan Approval Complex",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : false,
+  "generationTimeMs" : 5823,
+  "totalTimeMs" : 5823,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Medium Credit Score Escalation' failed: Expected field 'decision' to have value 'REVIEW' but no matching fact found",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

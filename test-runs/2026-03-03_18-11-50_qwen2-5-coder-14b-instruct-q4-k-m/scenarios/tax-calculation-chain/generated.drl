@@ -1,0 +1,96 @@
+package org.drools.generated;
+
+declare TaxReturn
+    taxpayerId: String
+    salary: double
+    bonuses: double
+    investments: double
+    dependents: int
+    expenses: double
+    grossIncome: double
+    deductions: double
+    netIncome: double
+    taxBracket: String
+    taxOwed: double
+end
+
+rule "Calculate Gross Income"
+when
+    $taxReturn : TaxReturn(salary > 0, bonuses > 0, investments > 0)
+then
+    modify($taxReturn) {
+        setGrossIncome(getSalary() + getBonuses() + getInvestments())
+    }
+end
+
+rule "Calculate Deductions"
+when
+    $taxReturn : TaxReturn(dependents >= 0, expenses >= 0)
+then
+    modify($taxReturn) {
+        setDeductions((getDependents() * 2000) + getExpenses())
+    }
+end
+
+rule "Calculate Net Income"
+when
+    $taxReturn : TaxReturn(grossIncome > 0, deductions > 0)
+then
+    modify($taxReturn) {
+        setNetIncome(getGrossIncome() - getDeductions())
+    }
+end
+
+rule "Determine Tax Bracket LOW"
+when
+    $taxReturn : TaxReturn(netIncome < 40000)
+then
+    modify($taxReturn) {
+        setTaxBracket("LOW")
+    }
+end
+
+rule "Determine Tax Bracket MEDIUM"
+when
+    $taxReturn : TaxReturn(netIncome >= 40000, netIncome <= 100000)
+then
+    modify($taxReturn) {
+        setTaxBracket("MEDIUM")
+    }
+end
+
+rule "Determine Tax Bracket HIGH"
+when
+    $taxReturn : TaxReturn(netIncome > 100000)
+then
+    modify($taxReturn) {
+        setTaxBracket("HIGH")
+    }
+end
+
+rule "Calculate Tax Owed LOW"
+when
+    $taxReturn : TaxReturn(taxBracket == "LOW", netIncome > 0)
+then
+    modify($taxReturn) {
+        setTaxOwed(getNetIncome() * 0.10)
+    }
+end
+
+rule "Calculate Tax Owed MEDIUM"
+when
+    $taxReturn : TaxReturn(taxBracket == "MEDIUM", netIncome > 0)
+then
+    modify($taxReturn) {
+        setTaxOwed(getNetIncome() * 0.22)
+    }
+end
+
+rule "Calculate Tax Owed HIGH"
+when
+    $taxReturn : TaxReturn(taxBracket == "HIGH", netIncome > 0)
+then
+    modify($taxReturn) {
+        setTaxOwed(getNetIncome() * 0.32)
+    }
+end

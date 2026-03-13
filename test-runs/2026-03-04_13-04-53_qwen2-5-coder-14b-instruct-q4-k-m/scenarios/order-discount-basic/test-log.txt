@@ -1,0 +1,4 @@
+Scenario: Order Discount - Basic
+Status: PASS
+Rules Fired: 1
+Generation Time: 2917ms

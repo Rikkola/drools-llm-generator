@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Inventory Alert",
+  "modelName" : "codellama:13b",
+  "success" : true,
+  "generationTimeMs" : 24109,
+  "totalTimeMs" : 24109,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Low Stock Product",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "lowStock" : true
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Product( productId=PROD001, name=Widget, quantity=5, threshold=10, lowStock=true )" ]
+}

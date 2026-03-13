@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Loyalty Points",
+  "modelName" : "granite4",
+  "success" : false,
+  "generationTimeMs" : 720,
+  "totalTimeMs" : 720,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Points Calculation' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=9, column=0\n   text=Rule Compilation error The method setPoints(int) in the type Purchase is not applicable for the arguments (long)]]",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

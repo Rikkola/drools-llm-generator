@@ -1,0 +1,4 @@
+Scenario: Age Validation Simple
+Status: PASS
+Rules Fired: 3
+Generation Time: 1786ms

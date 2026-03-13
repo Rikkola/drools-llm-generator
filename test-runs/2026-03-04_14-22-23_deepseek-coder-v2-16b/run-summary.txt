@@ -1,0 +1,38 @@
+=== DRL Generation Test Run Summary ===
+
+Model: deepseek-coder-v2:16b
+Scenarios: 29
+Passed: 17
+Failed: 12
+Success Rate: 58.6%
+
+=== Results ===
+Adult Validation                         PASS
+Age Classification                       PASS
+Age Validation Simple                    PASS
+Order Discount - Basic                   FAIL
+Bulk Order Discount                      FAIL
+Cart Validation                          FAIL
+Credit Card Approval                     FAIL
+Email Validation                         PASS
+Grade Calculation                        PASS
+Insurance Premium Tier                   PASS
+Insurance Risk Assessment                FAIL
+Inventory Alert                          PASS
+Loan Approval Complex                    FAIL
+Loan Eligibility                         PASS
+Loyalty Points                           FAIL
+Missing Document Alert                   PASS
+Order Discount by Customer Type          PASS
+Order Fraud Detection                    FAIL
+Password Strength                        PASS
+Priority Assignment                      PASS
+Senior Citizen Discount                  PASS
+Shipping Cost                            PASS
+Shipping Method Priority                 PASS
+Simple Calculation                       FAIL
+Status Transition                        PASS
+Subscription Renewal                     FAIL
+Tax Bracket                              PASS
+Tax Calculation Chain                    FAIL
+Order Discount - Tiered                  FAIL

@@ -1,0 +1,134 @@
+package org.drools.generated;
+
+declare LoanApplication
+    creditScore : int
+    employmentYears : int
+    loanAmount : double
+    annualSalary : double
+    decision : String
+end
+
+rule "Approve High Credit Score"
+salience 100
+when
+    $app : LoanApplication(
+        creditScore > 700,
+        employmentYears >= 2,
+        loanAmount < 5 * annualSalary,
+        decision == "PENDING"
+    )
+then
+    modify($app) { setDecision("APPROVED") }
+end
+
+rule "Escalate Medium Credit Score"
+salience 90
+when
+    $app : LoanApplication(
+        creditScore >= 650 && creditScore <= 700,
+        employmentYears >= 2,
+        loanAmount < 5 * annualSalary,
+        decision == "PENDING"
+    )
+then
+    modify($app) { setDecision("REVIEW") }
+end
+
+rule "Deny Low Credit Score"
+salience 80
+when
+    $app : LoanApplication(
+        creditScore < 650,
+        employmentYears >= 2,
+        loanAmount < 5 * annualSalary,
+        decision == "PENDING"
+    )
+then
+    modify($app) { setDecision("DENIED") }
+end
+
+rule "Deny Insufficient Employment Years"
+salience 70
+when
+    $app : LoanApplication(
+        creditScore >= 650 && creditScore <= 700,
+        employmentYears < 2,
+        loanAmount < 5 * annualSalary,
+        decision == "PENDING"
+    )
+then
+    modify($app) { setDecision("DENIED") }
+end
+
+rule "Deny Excessive Loan Amount"
+salience 60
+when
+    $app : LoanApplication(
+        creditScore >= 650 && creditScore <= 700,
+        employmentYears >= 2,
+        loanAmount >= 5 * annualSalary,
+        decision == "PENDING"
+    )
+then
+    modify($app) { setDecision("DENIED") }
+end
+
+rule "Deny Low Credit Score with Insufficient Employment Years"
+salience 50
+when
+    $app : LoanApplication(
+        creditScore < 650,
+        employmentYears < 2,
+        loanAmount < 5 * annualSalary,
+        decision == "PENDING"
+    )
+then
+    modify($app) { setDecision("DENIED") }
+end
+
+rule "Deny Low Credit Score with Excessive Loan Amount"
+salience 40
+when
+    $app : LoanApplication(
+        creditScore < 650,
+        employmentYears >= 2,
+        loanAmount >= 5 * annualSalary,
+        decision == "PENDING"
+    )
+then
+    modify($app) { setDecision("DENIED") }
+end
+
+rule "Deny Medium Credit Score with Insufficient Employment Years"
+salience 30
+when
+    $app : LoanApplication(
+        creditScore >= 650 && creditScore <= 700,
+        employmentYears < 2,
+        loanAmount < 5 * annualSalary,
+        decision == "PENDING"
+    )
+then
+    modify($app) { setDecision("DENIED") }
+end
+
+rule "Deny Medium Credit Score with Excessive Loan Amount"
+salience 20
+when
+    $app : LoanApplication(
+        creditScore >= 650 && creditScore <= 700,
+        employmentYears >= 2,
+        loanAmount >= 5 * annualSalary,
+        decision == "PENDING"
+    )
+then
+    modify($app) { setDecision("DENIED") }
+end
+
+rule "Default Deny"
+salience 10
+when
+    $app : LoanApplication(decision == "PENDING")
+then
+    modify($app) { setDecision("DENIED") }
+end

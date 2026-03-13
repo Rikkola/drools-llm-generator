@@ -1,0 +1,61 @@
+name: Insurance Risk Assessment
+description: Assess insurance risk based on age, smoking status, and BMI
+
+requirement: |
+  Assess insurance risk as follows:
+  - High risk if: age is over 60, or smoker is true, or BMI is over 30
+  - Medium risk if: age is between 40 and 60, or BMI is between 25 and 30
+  - Low risk otherwise
+
+factTypes:
+  - name: Applicant
+    fields:
+      age: int
+      smoker: boolean
+      bmi: double
+      riskLevel: String
+
+testCases:
+  - name: Medium Risk - Age Factor
+    input:
+      - _type: Applicant
+        age: 45
+        smoker: false
+        bmi: 24.5
+        riskLevel: unknown
+    expectedRulesFired: 1
+    expectedFields:
+      riskLevel: medium
+
+  - name: High Risk - Smoker
+    input:
+      - _type: Applicant
+        age: 30
+        smoker: true
+        bmi: 22.0
+        riskLevel: unknown
+    expectedRulesFired: 1
+    expectedFields:
+      riskLevel: high
+
+  - name: High Risk - Age Over 60
+    input:
+      - _type: Applicant
+        age: 65
+        smoker: false
+        bmi: 24.0
+        riskLevel: unknown
+    expectedRulesFired: 1
+    expectedFields:
+      riskLevel: high
+
+  - name: Low Risk - Young Healthy
+    input:
+      - _type: Applicant
+        age: 30
+        smoker: false
+        bmi: 22.0
+        riskLevel: unknown
+    expectedRulesFired: 1
+    expectedFields:
+      riskLevel: low

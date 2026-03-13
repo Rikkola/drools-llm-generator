@@ -1,0 +1,32 @@
+name: Grade Calculation
+description: Assign letter grade based on score
+
+requirement: |
+  Create rules that assign grade based on score:
+  1. If score >= 90, set grade to "A"
+  2. If score >= 80 and score < 90, set grade to "B"
+  3. If score >= 70 and score < 80, set grade to "C"
+  4. If score >= 60 and score < 70, set grade to "D"
+  5. If score < 60, set grade to "F"
+
+  Only one rule should fire.
+
+factTypes:
+  - name: Student
+    fields:
+      studentId: String
+      name: String
+      score: int
+      grade: String
+
+testCases:
+  - name: B Grade
+    input:
+      - _type: Student
+        studentId: STU001
+        name: Alice
+        score: 85
+        grade: NONE
+    expectedRulesFired: 1
+    expectedFields:
+      grade: B

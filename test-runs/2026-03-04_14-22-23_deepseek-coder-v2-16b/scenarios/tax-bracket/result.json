@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Tax Bracket",
+  "modelName" : "deepseek-coder-v2:16b",
+  "success" : true,
+  "generationTimeMs" : 9859,
+  "totalTimeMs" : 9859,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Middle Bracket",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "taxRate" : 22
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "TaxPayer( taxpayerId=TAX001, income=50000.0, taxRate=22 )" ]
+}

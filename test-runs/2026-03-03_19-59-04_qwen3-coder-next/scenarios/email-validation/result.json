@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Email Validation",
+  "modelName" : "qwen3-coder-next",
+  "success" : true,
+  "generationTimeMs" : 25432,
+  "totalTimeMs" : 25432,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Valid Email",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "valid" : true
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "EmailAddress( email=test@example.com, valid=true )" ]
+}

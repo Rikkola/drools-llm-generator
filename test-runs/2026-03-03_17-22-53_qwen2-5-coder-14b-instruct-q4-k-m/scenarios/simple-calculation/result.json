@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Simple Calculation",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : false,
+  "generationTimeMs" : 2098,
+  "totalTimeMs" : 2098,
+  "rulesFired" : 0,
+  "errorMessage" : "ERROR: [ERR 102] Line 4:15 mismatched input ':'\nERROR: [ERR 102] Line 5:15 mismatched input ':'\nERROR: [ERR 102] Line 6:15 mismatched input ':'\nERROR: [ERR 102] Line 7:15 mismatched input ':'\nERROR: Parser returned a null Package\nERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify.",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

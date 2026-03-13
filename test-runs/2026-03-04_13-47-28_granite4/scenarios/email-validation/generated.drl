@@ -1,0 +1,14 @@
+package org.drools.generated;
+
+declare EmailAddress
+    email : String
+    valid : boolean
+end
+
+rule "Validate Email Contains '@'"
+salience 100
+when
+    $e : EmailAddress(email != null && email matches "\\@")
+then
+    modify($e) { setValid(true) }
+end

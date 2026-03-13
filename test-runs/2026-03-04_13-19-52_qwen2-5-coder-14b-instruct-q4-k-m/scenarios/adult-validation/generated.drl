@@ -1,0 +1,21 @@
+package org.drools.generated;
+
+declare Person
+    name : String
+    age : int
+    adult : boolean
+end
+
+rule "Mark Adult"
+when
+    $p : Person(age >= 18, adult == false)
+then
+    modify($p) { setAdult(true) }
+end
+
+rule "Mark Minor"
+when
+    $p : Person(age < 18, adult == true)
+then
+    modify($p) { setAdult(false) }
+end

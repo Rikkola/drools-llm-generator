@@ -1,0 +1,43 @@
+package org.drools.generated;
+
+declare ShoppingCart
+    cartId : String
+    hasOutOfStockItem : boolean
+    allItemsSameCategory : boolean
+    maxQuantityOfSingleItem : int
+    rejected : boolean
+    rejectionReason : String
+    sameCategoryDiscount : int
+    flaggedForReview : boolean
+end
+
+rule "Out of Stock Rejection"
+salience 100
+when
+    $cart : ShoppingCart(hasOutOfStockItem == true, rejected == false)
+then
+    modify($cart) {
+        setRejected(true),
+        setRejectionReason("OUT_OF_STOCK")
+    }
+end
+
+rule "Same Category Discount"
+salience 90
+when
+    $cart : ShoppingCart(allItemsSameCategory == true, sameCategoryDiscount == 0)
+then
+    modify($cart) {
+        setSameCategoryDiscount(10)
+    }
+end
+
+rule "Bulk Quantity Review"
+salience 80
+when
+    $cart : ShoppingCart(maxQuantityOfSingleItem > 10, flaggedForReview == false)
+then
+    modify($cart) {
+        setFlaggedForReview(true)
+    }
+end

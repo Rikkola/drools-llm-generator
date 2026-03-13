@@ -1,0 +1,21 @@
+{
+  "scenarioName" : "Order Discount - Basic",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : true,
+  "generationTimeMs" : 1933,
+  "totalTimeMs" : 1933,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Qualifying Order",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "discountApplied" : true,
+      "discountPercent" : 10
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Order( orderId=ORD001, total=150.0, discountPercent=10, discountApplied=true )" ]
+}

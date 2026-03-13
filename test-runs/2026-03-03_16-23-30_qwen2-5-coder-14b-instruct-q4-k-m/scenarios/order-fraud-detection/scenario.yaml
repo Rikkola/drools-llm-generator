@@ -1,0 +1,81 @@
+name: Order Fraud Detection
+description: Flag suspicious orders based on multiple risk factors
+
+requirement: |
+  Flag an order as suspicious if:
+  - The customer account was created less than 7 days ago AND order total exceeds 500
+  - OR the shipping address differs from billing address AND order total exceeds 1000
+  - OR the customer has more than 3 failed payment attempts
+
+factTypes:
+  - name: Order
+    fields:
+      orderId: String
+      orderTotal: double
+      accountAgeDays: int
+      shippingAddress: String
+      billingAddress: String
+      failedPaymentAttempts: int
+      suspicious: boolean
+      suspiciousReason: String
+
+testCases:
+  - name: New Account High Value
+    input:
+      - _type: Order
+        orderId: ORD001
+        orderTotal: 750.0
+        accountAgeDays: 3
+        shippingAddress: "123 Main St"
+        billingAddress: "123 Main St"
+        failedPaymentAttempts: 0
+        suspicious: false
+        suspiciousReason: none
+    expectedRulesFired: 1
+    expectedFields:
+      suspicious: true
+
+  - name: Address Mismatch High Value
+    input:
+      - _type: Order
+        orderId: ORD002
+        orderTotal: 1500.0
+        accountAgeDays: 100
+        shippingAddress: "456 Other Ave"
+        billingAddress: "123 Main St"
+        failedPaymentAttempts: 0
+        suspicious: false
+        suspiciousReason: none
+    expectedRulesFired: 1
+    expectedFields:
+      suspicious: true
+
+  - name: Multiple Failed Payments
+    input:
+      - _type: Order
+        orderId: ORD003
+        orderTotal: 100.0
+        accountAgeDays: 365
+        shippingAddress: "123 Main St"
+        billingAddress: "123 Main St"
+        failedPaymentAttempts: 5
+        suspicious: false
+        suspiciousReason: none
+    expectedRulesFired: 1
+    expectedFields:
+      suspicious: true
+
+  - name: Normal Order
+    input:
+      - _type: Order
+        orderId: ORD004
+        orderTotal: 200.0
+        accountAgeDays: 90
+        shippingAddress: "123 Main St"
+        billingAddress: "123 Main St"
+        failedPaymentAttempts: 0
+        suspicious: false
+        suspiciousReason: none
+    expectedRulesFired: 0
+    expectedFields:
+      suspicious: false

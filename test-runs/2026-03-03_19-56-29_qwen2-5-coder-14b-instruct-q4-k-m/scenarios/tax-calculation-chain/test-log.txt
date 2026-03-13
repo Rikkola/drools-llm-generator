@@ -1,0 +1,15 @@
+Scenario: Tax Calculation Chain
+Status: FAIL
+Rules Fired: 0
+Generation Time: 11971ms
+Error: Test case 'Low Tax Bracket' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=17, column=0
+   text=Rule Compilation error The method getSalary() is undefined for the type Rule_Calculate_Gross_Income317724144
+The method getBonuses() is undefined for the type Rule_Calculate_Gross_Income317724144
+The method getInvestments() is undefined for the type Rule_Calculate_Gross_Income317724144], Message [id=2, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=35, column=0
+   text=Rule Compilation error The method getGrossIncome() is undefined for the type Rule_Calculate_Net_Income449933809
+The method getDeductions() is undefined for the type Rule_Calculate_Net_Income449933809], Message [id=3, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=80, column=0
+   text=Rule Compilation error The method getNetIncome() is undefined for the type Rule_Calculate_Tax_Owed_MEDIUM642001052], Message [id=4, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=71, column=0
+   text=Rule Compilation error The method getNetIncome() is undefined for the type Rule_Calculate_Tax_Owed_LOW1125545917], Message [id=5, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=26, column=0
+   text=Rule Compilation error The method getDependents() is undefined for the type Rule_Calculate_Deductions1988261094
+The method getExpenses() is undefined for the type Rule_Calculate_Deductions1988261094], Message [id=6, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=89, column=0
+   text=Rule Compilation error The method getNetIncome() is undefined for the type Rule_Calculate_Tax_Owed_HIGH838514557]]

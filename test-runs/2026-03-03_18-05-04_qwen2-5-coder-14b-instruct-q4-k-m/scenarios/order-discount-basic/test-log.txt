@@ -1,0 +1,6 @@
+Scenario: Order Discount - Basic
+Status: FAIL
+Rules Fired: 0
+Generation Time: 1424ms
+Error: Test case 'Qualifying Order' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=10, column=0
+   text=Rule Compilation error The method setIsDiscountApplied(boolean) is undefined for the type Order]]

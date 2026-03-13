@@ -1,0 +1,5 @@
+Scenario: Order Fraud Detection
+Status: FAIL
+Rules Fired: 0
+Generation Time: 23890ms
+Error: Validation exception: DRL code cannot be null or empty

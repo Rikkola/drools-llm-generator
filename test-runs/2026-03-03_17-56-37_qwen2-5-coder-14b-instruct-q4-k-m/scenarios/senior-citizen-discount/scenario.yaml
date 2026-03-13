@@ -1,0 +1,31 @@
+name: Senior Citizen Discount
+description: Apply senior citizen status and discount for persons 65+
+
+requirement: |
+  Create rules that:
+  1. If a Person is 65 years or older, set 'senior' to true
+  2. If a Person is a senior, set 'discountPercent' to 15
+
+  Important: Create TWO separate rules, one for marking senior status
+  and one for applying the discount when senior is true.
+
+factTypes:
+  - name: Person
+    fields:
+      name: String
+      age: int
+      senior: boolean
+      discountPercent: int
+
+testCases:
+  - name: Senior Person
+    input:
+      - _type: Person
+        name: Martha
+        age: 70
+        senior: false
+        discountPercent: 0
+    expectedRulesFired: 2
+    expectedFields:
+      senior: true
+      discountPercent: 15

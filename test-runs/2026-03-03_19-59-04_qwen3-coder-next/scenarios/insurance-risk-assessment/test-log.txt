@@ -1,0 +1,4 @@
+Scenario: Insurance Risk Assessment
+Status: PASS
+Rules Fired: 4
+Generation Time: 62374ms

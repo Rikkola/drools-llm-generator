@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Insurance Premium Tier",
+  "modelName" : "codellama:13b",
+  "success" : false,
+  "generationTimeMs" : 59802,
+  "totalTimeMs" : 59802,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Smoker High Risk' failed: Expected 1 rules to fire, but none fired",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

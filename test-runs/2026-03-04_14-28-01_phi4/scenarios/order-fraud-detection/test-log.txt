@@ -1,0 +1,5 @@
+Scenario: Order Fraud Detection
+Status: FAIL
+Rules Fired: 0
+Generation Time: 12046ms
+Error: Test case 'New Account High Value' failed: Expected 1 rules to fire, but 2 fired

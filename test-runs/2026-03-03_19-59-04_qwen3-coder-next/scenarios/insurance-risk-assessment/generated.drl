@@ -1,0 +1,29 @@
+package org.drools.generated;
+
+declare Applicant
+    age : int
+    smoker : boolean
+    bmi : double
+    riskLevel : String
+end
+
+rule "High Risk"
+when
+    $a : Applicant( (age > 60) || smoker || (bmi > 30) )
+then
+    modify($a) { setRiskLevel("HIGH") }
+end
+
+rule "Medium Risk"
+when
+    $a : Applicant( (age >= 40 && age <= 60) || (bmi >= 25 && bmi <= 30) )
+then
+    modify($a) { setRiskLevel("MEDIUM") }
+end
+
+rule "Low Risk"
+when
+    $a : Applicant( riskLevel == "unknown" )
+then
+    modify($a) { setRiskLevel("LOW") }
+end

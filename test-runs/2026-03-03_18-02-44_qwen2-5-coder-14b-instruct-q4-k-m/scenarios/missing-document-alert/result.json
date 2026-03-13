@@ -1,0 +1,47 @@
+{
+  "scenarioName" : "Missing Document Alert",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : true,
+  "generationTimeMs" : 2676,
+  "totalTimeMs" : 2676,
+  "rulesFired" : 2,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Adult Missing ID",
+    "passed" : true,
+    "rulesFired" : 0,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "incomplete" : true
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "High Loan Missing Income Verification",
+    "passed" : true,
+    "rulesFired" : 0,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "incomplete" : true
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Complete Application",
+    "passed" : true,
+    "rulesFired" : 0,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "incomplete" : false
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Minor Without ID is OK",
+    "passed" : true,
+    "rulesFired" : 0,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "incomplete" : false
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Application( applicationId=APP001, applicantAge=25, loanAmount=50000.0, hasIdentityDocument=false, hasIncomeVerification=true, incomplete=true, missingDocumentType=Identity Document )", "Application( applicationId=APP002, applicantAge=35, loanAmount=150000.0, hasIdentityDocument=true, hasIncomeVerification=false, incomplete=true, missingDocumentType=Income Verification )", "Application( applicationId=APP003, applicantAge=30, loanAmount=200000.0, hasIdentityDocument=true, hasIncomeVerification=true, incomplete=false, missingDocumentType=none )", "Application( applicationId=APP004, applicantAge=16, loanAmount=5000.0, hasIdentityDocument=false, hasIncomeVerification=false, incomplete=false, missingDocumentType=none )" ]
+}

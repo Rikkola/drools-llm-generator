@@ -1,0 +1,5 @@
+Scenario: Grade Calculation
+Status: FAIL
+Rules Fired: 0
+Generation Time: 64484ms
+Error: Test case 'B Grade' failed: Expected 1 rules to fire, but none fired

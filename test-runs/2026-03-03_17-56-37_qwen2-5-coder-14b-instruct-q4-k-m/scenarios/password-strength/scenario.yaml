@@ -1,0 +1,28 @@
+name: Password Strength
+description: Classify password strength based on length
+
+requirement: |
+  Create rules that classify password strength based on length:
+  1. If length is less than 8, set strength to "WEAK"
+  2. If length is 8 to 12 (inclusive), set strength to "MEDIUM"
+  3. If length is greater than 12, set strength to "STRONG"
+
+  Only one rule should fire based on the length.
+
+factTypes:
+  - name: Password
+    fields:
+      value: String
+      length: int
+      strength: String
+
+testCases:
+  - name: Strong Password
+    input:
+      - _type: Password
+        value: mypassword123
+        length: 13
+        strength: NONE
+    expectedRulesFired: 1
+    expectedFields:
+      strength: STRONG

@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Loan Eligibility",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : true,
+  "generationTimeMs" : 2182,
+  "totalTimeMs" : 2182,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Eligible Applicant",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "eligible" : true
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "LoanApplication( applicantId=APP001, income=60000.0, creditScore=750, employed=true, eligible=true )" ]
+}

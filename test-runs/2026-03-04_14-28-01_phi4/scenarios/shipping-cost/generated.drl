@@ -1,0 +1,33 @@
+package org.drools.generated;
+
+declare ShippingOrder
+    orderId : String
+    total : double
+    shippingCost : double
+end
+
+rule "Free Shipping for Orders Over 100"
+salience 100
+when
+    $order : ShippingOrder(total > 100, shippingCost == -1.0)
+then
+    modify($order) { setShippingCost(0.0) }
+end
+
+rule "Shipping Cost 5.0 for Orders Between 50 and 100"
+salience 90
+when
+    $order : ShippingOrder(total >= 50, total <= 100, shippingCost == -1.0)
+then
+    modify($order) { setShippingCost(5.0) }
+end
+
+rule "Shipping Cost 10.0 for Orders Less Than 50"
+salience 10
+when
+    $order : ShippingOrder(total < 50, shippingCost == -1.0)
+then
+    modify($order) { setShippingCost(10.0) }
+end
+
+This DRL code defines three rules to determine the `shippingCost` based on the `total` of a `ShippingOrder`. The rules are mutually exclusive and use salience to ensure only one rule fires per order, with higher priority given to larger orders. Each rule checks for an initial `shippingCost` value of `-1.0`, indicating that no shipping cost has been set yet.

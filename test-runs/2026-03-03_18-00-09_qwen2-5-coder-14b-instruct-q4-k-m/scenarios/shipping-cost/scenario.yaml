@@ -1,0 +1,28 @@
+name: Shipping Cost
+description: Calculate shipping cost based on order total
+
+requirement: |
+  Create rules for shipping cost:
+  1. If order total is greater than 100, set shippingCost to 0 (free shipping)
+  2. If order total is between 50 and 100 (inclusive), set shippingCost to 5.0
+  3. If order total is less than 50, set shippingCost to 10.0
+
+  Only one rule should fire.
+
+factTypes:
+  - name: ShippingOrder
+    fields:
+      orderId: String
+      total: double
+      shippingCost: double
+
+testCases:
+  - name: Medium Order
+    input:
+      - _type: ShippingOrder
+        orderId: ORD100
+        total: 75.0
+        shippingCost: -1.0
+    expectedRulesFired: 1
+    expectedFields:
+      shippingCost: 5.0

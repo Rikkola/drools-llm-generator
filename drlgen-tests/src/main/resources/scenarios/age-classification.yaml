@@ -1,0 +1,59 @@
+name: Age Classification
+description: Classify persons into age categories
+
+requirement: |
+  Create rules that classify a person by age:
+  1. If age is less than 13, set category to "CHILD"
+  2. If age is 13 to 19 (inclusive), set category to "TEEN"
+  3. If age is 20 to 64 (inclusive), set category to "ADULT"
+  4. If age is 65 or older, set category to "SENIOR"
+
+  Only one rule should fire based on the age.
+
+factTypes:
+  - name: Person
+    fields:
+      name: String
+      age: int
+      category: String
+
+testCases:
+  - name: Child Classification
+    input:
+      - _type: Person
+        name: Tommy
+        age: 8
+        category: NONE
+    expectedRulesFired: 1
+    expectedFields:
+      category: CHILD
+
+  - name: Teen Classification
+    input:
+      - _type: Person
+        name: Alex
+        age: 15
+        category: NONE
+    expectedRulesFired: 1
+    expectedFields:
+      category: TEEN
+
+  - name: Adult Classification
+    input:
+      - _type: Person
+        name: Sarah
+        age: 35
+        category: NONE
+    expectedRulesFired: 1
+    expectedFields:
+      category: ADULT
+
+  - name: Senior Classification
+    input:
+      - _type: Person
+        name: Margaret
+        age: 72
+        category: NONE
+    expectedRulesFired: 1
+    expectedFields:
+      category: SENIOR

@@ -1,0 +1,7 @@
+Scenario: Tax Bracket
+Status: FAIL
+Rules Fired: 0
+Generation Time: 16278ms
+Error: ERROR: [ERR 102] Line 39:216 mismatched input '<eof>' in rule "Set Tax Rate 32%"
+ERROR: Parser returned a null Package
+ERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify.

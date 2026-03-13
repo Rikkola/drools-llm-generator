@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Email Validation",
+  "modelName" : "deepseek-coder-v2:16b",
+  "success" : true,
+  "generationTimeMs" : 5026,
+  "totalTimeMs" : 5026,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Valid Email",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "valid" : true
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "EmailAddress( email=test@example.com, valid=true )" ]
+}

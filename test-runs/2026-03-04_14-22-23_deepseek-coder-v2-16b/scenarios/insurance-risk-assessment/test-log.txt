@@ -1,0 +1,5 @@
+Scenario: Insurance Risk Assessment
+Status: FAIL
+Rules Fired: 0
+Generation Time: 12848ms
+Error: Test case 'Medium Risk - Age Factor' failed: Expected 1 rules to fire, but none fired

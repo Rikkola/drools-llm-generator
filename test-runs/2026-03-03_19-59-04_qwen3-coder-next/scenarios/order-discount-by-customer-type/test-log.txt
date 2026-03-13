@@ -1,0 +1,4 @@
+Scenario: Order Discount by Customer Type
+Status: PASS
+Rules Fired: 4
+Generation Time: 128239ms

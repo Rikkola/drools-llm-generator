@@ -1,0 +1,5 @@
+Scenario: Loan Approval Complex
+Status: FAIL
+Rules Fired: 0
+Generation Time: 5823ms
+Error: Test case 'Medium Credit Score Escalation' failed: Expected field 'decision' to have value 'REVIEW' but no matching fact found

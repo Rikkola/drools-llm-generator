@@ -1,0 +1,60 @@
+package org.drools.generated;
+
+declare ProductOrder
+    orderId : String
+    unitPrice : double
+    quantity : int
+    customerType : String
+    basePrice : double
+    quantityDiscount : double
+    customerDiscount : double
+    finalPrice : double
+end
+
+rule "Calculate Base Price"
+salience 100
+when
+    $order : ProductOrder(basePrice == 0)
+then
+    modify($order) { setBasePrice($order.getUnitPrice() * $order.getQuantity()) }
+end
+
+rule "Apply Quantity Discount - 15%"
+salience 90
+when
+    $order : ProductOrder(quantity >= 100, quantityDiscount == 0)
+then
+    modify($order) { setQuantityDiscount($order.getBasePrice() * 0.15) }
+end
+
+rule "Apply Quantity Discount - 10%"
+salience 90
+when
+    $order : ProductOrder(quantity >= 50 && quantity < 100, quantityDiscount == 0)
+then
+    modify($order) { setQuantityDiscount($order.getBasePrice() * 0.10) }
+end
+
+rule "Apply Quantity Discount - 5%"
+salience 90
+when
+    $order : ProductOrder(quantity >= 10 && quantity < 50, quantityDiscount == 0)
+then
+    modify($order) { setQuantityDiscount($order.getBasePrice() * 0.05) }
+end
+
+rule "Apply Customer Discount - PREMIUM"
+salience 80
+when
+    $order : ProductOrder(customerType == "PREMIUM", customerDiscount == 0)
+then
+    modify($order) { setCustomerDiscount(($order.getBasePrice() - $order.getQuantityDiscount()) * 0.10) }
+end
+
+rule "Calculate Final Price"
+salience 70
+when
+    $order : ProductOrder(finalPrice == 0)
+then
+    modify($order) { setFinalPrice($order.getBasePrice() - $order.getQuantityDiscount() - $order.getCustomerDiscount()) }
+end

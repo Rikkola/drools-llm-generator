@@ -1,0 +1,10 @@
+Scenario: Loan Approval Complex
+Status: FAIL
+Rules Fired: 0
+Generation Time: 98884ms
+Error: Validation exception: DRL validation failed: ERROR: [ERR 107] Line 1:0 mismatched input 'Here' expecting one of the following tokens: '[package, unit, import, global, declare, function, rule, query]'.
+ERROR: [ERR 102] Line 1:56 mismatched input ':' in rule
+ERROR: Unexpected error: Cannot invoke "org.antlr.runtime.BitSet.toArray()" because "set" is null
+ERROR: Unexpected error: Index 270 out of bounds for length 270
+ERROR: Parser returned a null Package
+ERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify.

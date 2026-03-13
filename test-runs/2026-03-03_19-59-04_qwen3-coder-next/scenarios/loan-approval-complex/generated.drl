@@ -1,0 +1,41 @@
+package org.drools.generated;
+
+declare LoanApplication
+    creditScore : int
+    employmentYears : int
+    loanAmount : double
+    annualSalary : double
+    decision : String
+end
+
+rule "Approve Loan - Good Credit"
+when
+    $app : LoanApplication( 
+        creditScore > 700,
+        employmentYears >= 2,
+        loanAmount < (5 * annualSalary),
+        decision == "PENDING"
+    )
+then
+    modify($app) { setDecision("APPROVED") };
+end
+
+rule "Escalate to Manual Review - Fair Credit"
+when
+    $app : LoanApplication( 
+        creditScore >= 650 && creditScore <= 700,
+        decision == "PENDING"
+    )
+then
+    modify($app) { setDecision("MANUAL_REVIEW") };
+end
+
+rule "Deny Loan - Poor Credit"
+when
+    $app : LoanApplication( 
+        creditScore < 650,
+        decision == "PENDING"
+    )
+then
+    modify($app) { setDecision("DENIED") };
+end

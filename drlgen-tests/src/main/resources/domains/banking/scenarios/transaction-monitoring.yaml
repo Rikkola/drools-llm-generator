@@ -1,0 +1,100 @@
+name: Transaction Monitoring
+description: Flag suspicious transactions for AML compliance
+
+requirement: |
+  Create rules to monitor transactions for suspicious activity:
+
+  1. LARGE TRANSACTION: If transaction amount is greater than 10000 AND
+     status is "PENDING", then set status to "FLAGGED" and
+     set flagReason to "LARGE_TRANSACTION"
+
+  2. UNUSUAL ACTIVITY: If transaction amount is greater than twice the
+     account average balance (amount > averageBalance * 2) AND
+     transaction type is "WITHDRAWAL" AND status is "PENDING",
+     then set status to "FLAGGED" and set flagReason to "UNUSUAL_WITHDRAWAL"
+
+  3. INTERNATIONAL: If isInternational is true AND amount is greater than 5000
+     AND status is "PENDING", then set status to "REVIEW_REQUIRED" and
+     set flagReason to "INTERNATIONAL_LARGE"
+
+  4. CLEAR TRANSACTION: If none of the above conditions are met AND
+     status is "PENDING", then set status to "CLEARED"
+
+  Use salience to ensure flagging rules fire before clearing.
+  Only one rule should fire per transaction.
+
+factTypes:
+  - name: Transaction
+    fields:
+      transactionId: String
+      accountNumber: String
+      amount: double
+      transactionType: String
+      averageBalance: double
+      isInternational: boolean
+      status: String
+      flagReason: String
+
+testCases:
+  - name: Large transaction gets flagged
+    input:
+      - _type: Transaction
+        transactionId: "TXN-001"
+        accountNumber: "1234567890"
+        amount: 15000.00
+        transactionType: "TRANSFER"
+        averageBalance: 5000.00
+        isInternational: false
+        status: "PENDING"
+        flagReason: ""
+    expectedRulesFired: 1
+    expectedFields:
+      status: "FLAGGED"
+      flagReason: "LARGE_TRANSACTION"
+
+  - name: Unusual withdrawal gets flagged
+    input:
+      - _type: Transaction
+        transactionId: "TXN-002"
+        accountNumber: "1234567891"
+        amount: 8000.00
+        transactionType: "WITHDRAWAL"
+        averageBalance: 3000.00
+        isInternational: false
+        status: "PENDING"
+        flagReason: ""
+    expectedRulesFired: 1
+    expectedFields:
+      status: "FLAGGED"
+      flagReason: "UNUSUAL_WITHDRAWAL"
+
+  - name: Large international requires review
+    input:
+      - _type: Transaction
+        transactionId: "TXN-003"
+        accountNumber: "1234567892"
+        amount: 7500.00
+        transactionType: "TRANSFER"
+        averageBalance: 20000.00
+        isInternational: true
+        status: "PENDING"
+        flagReason: ""
+    expectedRulesFired: 1
+    expectedFields:
+      status: "REVIEW_REQUIRED"
+      flagReason: "INTERNATIONAL_LARGE"
+
+  - name: Normal transaction gets cleared
+    input:
+      - _type: Transaction
+        transactionId: "TXN-004"
+        accountNumber: "1234567893"
+        amount: 500.00
+        transactionType: "PURCHASE"
+        averageBalance: 5000.00
+        isInternational: false
+        status: "PENDING"
+        flagReason: ""
+    expectedRulesFired: 1
+    expectedFields:
+      status: "CLEARED"

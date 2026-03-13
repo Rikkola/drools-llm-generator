@@ -1,0 +1,4 @@
+Scenario: Email Validation
+Status: PASS
+Rules Fired: 1
+Generation Time: 1053ms

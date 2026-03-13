@@ -1,0 +1,67 @@
+[PYTHON]
+from datetime import datetime
+
+def generate_drl(fact_types, test_cases):
+    drl = ""
+
+    # Add declare blocks for each fact type
+    for fact_type in fact_types:
+        drl += "declare " + fact_type["name"] + "\n"
+        for field in fact_type["fields"]:
+            drl += "    " + field["name"] + ": " + field["type"] + "\n"
+        drl += "end\n\n"
+
+    # Add rules for each test case
+    for test_case in test_cases:
+        input_facts = test_case["input"]
+        expected_output = test_case["expectedOutput"]
+
+        rule_name = "Rule_" + str(test_case["id"])
+        drl += "rule " + rule_name + "\n"
+        drl += "when\n"
+
+        # Add conditions for each input fact
+        for input_fact in input_facts:
+            fact_type = input_fact["type"]
+            field_values = input_fact["fieldValues"]
+
+            drl += "    $" + fact_type + ": " + fact_type + "( \n"
+            for field, value in field_values.items():
+                drl += "        " + field + ": \"" + str(value) + "\",\n"
+            drl += "    )\n"
+
+        drl += "then\n"
+
+        # Add actions to set each expected output field
+        for field, value in expected_output.items():
+            drl += "    modify($" + fact_type + ") { set" + field.title() + "( \"" + str(value) + "\" ) }\n"
+
+        drl += "end\n\n"
+
+    return drl
+[/PYTHON]
+
+[TESTS]
+# Test case 1:
+assert generate_drl(
+    fact_types=[{"name": "Person", "fields": [{"name": "name", "type": "String"}, {"name": "age", "type": "int"}]}],
+    test_cases=[
+        {
+            "id": 1,
+            "input": [{"type": "Person", "fieldValues": {"name": "John", "age": 25}}],
+            "expectedOutput": {"adult": True},
+        }
+    ]
+) == "declare Person\n    name: String\n    age: int\nend\n\nrule Rule_1\nwhen\n    $Person: Person( \n        name: \"John\",\n        age: 25,\n    )\nthen\n    modify($Person) { setAdult( \"True\" ) }\nend\n"
+# Test case 2:
+assert generate_drl(
+    fact_types=[{"name": "Person", "fields": [{"name": "name", "type": "String"}, {"name": "age", "type": "int"}]}],
+    test_cases=[
+        {
+            "id": 2,
+            "input": [{"type": "Person", "fieldValues": {"name": "Jane", "age": 16}}],
+            "expectedOutput": {"adult": False},
+        }
+    ]
+) == "declare Person\n    name: String\n    age: int\nend\n\nrule Rule_2\nwhen\n    $Person: Person( \n        name: \"Jane\",\n        age: 16,\n    )\nthen\n    modify($Person) { setAdult( \"False\" ) }\nend\n"
+[/TESTS]

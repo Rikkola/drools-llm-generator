@@ -1,0 +1,16 @@
+package org.drools.generated;
+
+declare Person
+    name: String
+    age: int
+    adult: boolean
+end
+
+rule "Check if Person is Adult"
+when
+    $p : Person(age >= 18)
+then
+    modify($p) {
+        setAdult(true)
+    }
+end

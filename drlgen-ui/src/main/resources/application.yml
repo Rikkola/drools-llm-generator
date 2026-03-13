@@ -1,0 +1,21 @@
+quarkus:
+  http:
+    port: 8081
+    cors:
+      ~: true
+      origins: "*"
+      methods: GET,POST,PUT,DELETE,OPTIONS
+      headers: "*"
+
+  banner:
+    enabled: false
+
+  log:
+    console:
+      format: "%d{HH:mm:ss} %-5p [%c{2.}] %s%e%n"
+    level: INFO
+    category:
+      "org.drools":
+        level: INFO
+      "dev.langchain4j":
+        level: INFO

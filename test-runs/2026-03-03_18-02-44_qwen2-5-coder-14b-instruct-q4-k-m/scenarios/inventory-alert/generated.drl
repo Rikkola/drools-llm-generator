@@ -1,0 +1,18 @@
+package org.drools.generated;
+
+declare Product
+    productId : String
+    name : String
+    quantity : int
+    threshold : int
+    lowStock : boolean
+end
+
+rule "Check Low Stock"
+when
+    $p : Product(quantity < threshold)
+then
+    modify($p) {
+        setIsLowStock(true)
+    }
+end

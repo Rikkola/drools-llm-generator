@@ -1,0 +1,4 @@
+Scenario: Shipping Cost
+Status: PASS
+Rules Fired: 1
+Generation Time: 65303ms

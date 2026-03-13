@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Insurance Premium Tier",
+  "modelName" : "phi4",
+  "success" : true,
+  "generationTimeMs" : 8816,
+  "totalTimeMs" : 8816,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Smoker High Risk",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "premiumTier" : "HIGH"
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "InsuranceApplicant( applicantId=INS001, age=30, smoker=true, premiumTier=HIGH )" ]
+}

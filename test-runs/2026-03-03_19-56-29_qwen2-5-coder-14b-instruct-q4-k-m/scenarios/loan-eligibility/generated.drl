@@ -1,0 +1,18 @@
+package org.drools.generated;
+
+declare LoanApplication
+    applicantId: String
+    income: double
+    creditScore: int
+    employed: boolean
+    eligible: boolean
+end
+
+rule "Check Eligibility for Loan Application"
+when
+    $app : LoanApplication(income >= 50000, creditScore >= 700, employed == true)
+then
+    modify($app) {
+        setEligible(true)
+    }
+end

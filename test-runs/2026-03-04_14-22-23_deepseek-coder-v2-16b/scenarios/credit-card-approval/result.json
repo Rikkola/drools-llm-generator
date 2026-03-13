@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Credit Card Approval",
+  "modelName" : "deepseek-coder-v2:16b",
+  "success" : false,
+  "generationTimeMs" : 18057,
+  "totalTimeMs" : 18057,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Premium Card Approval' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=12, column=0\n   text=Rule Compilation error The method modify(CreditCardApplication) is undefined for the type Rule_Approve_Premium_Card809750655\nSyntax error, insert \";\" to complete Statement\nThe method setDecision(String) is undefined for the type Rule_Approve_Premium_Card809750655\nThe method setCardType(String) is undefined for the type Rule_Approve_Premium_Card809750655\nSyntax error, insert \";\" to complete Statement], Message [id=2, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=20, column=0\n   text=Rule Compilation error The method modify(CreditCardApplication) is undefined for the type Rule_Approve_Standard_Card492623465\nSyntax error, insert \";\" to complete Statement\nThe method setDecision(String) is undefined for the type Rule_Approve_Standard_Card492623465\nThe method setCardType(String) is undefined for the type Rule_Approve_Standard_Card492623465\nSyntax error, insert \";\" to complete Statement]]",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

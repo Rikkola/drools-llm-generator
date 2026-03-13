@@ -1,0 +1,5 @@
+Scenario: Shipping Cost
+Status: FAIL
+Rules Fired: 0
+Generation Time: 22499ms
+Error: Validation exception: DRL code cannot be null or empty

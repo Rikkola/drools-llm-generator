@@ -1,0 +1,5 @@
+Scenario: Insurance Premium Tier
+Status: FAIL
+Rules Fired: 0
+Generation Time: 59802ms
+Error: Test case 'Smoker High Risk' failed: Expected 1 rules to fire, but none fired

@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Password Strength",
+  "modelName" : "qwen3-coder-next",
+  "success" : true,
+  "generationTimeMs" : 61354,
+  "totalTimeMs" : 61354,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Strong Password",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "strength" : "STRONG"
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Password( value=mypassword123, length=13, strength=STRONG )" ]
+}

@@ -1,0 +1,74 @@
+package org.drools.generated;
+
+declare CreditCardApplication
+    annualIncome : double
+    creditScore : int
+    existingDebt : double
+    debtToIncomeRatio : double
+    decision : String
+    cardType : String
+end
+
+rule "Premium Card Approval"
+salience 100
+when
+    $app : CreditCardApplication(
+        annualIncome > 50000,
+        creditScore > 700,
+        debtToIncomeRatio < 0.4,
+        decision == "PENDING",
+        cardType == "none"
+    )
+then
+    modify($app) {
+        setDecision("APPROVED"),
+        setCardType("PREMIUM")
+    }
+end
+
+rule "Standard Card Approval"
+salience 90
+when
+    $app : CreditCardApplication(
+        annualIncome > 30000,
+        creditScore > 600,
+        decision == "PENDING",
+        cardType == "none"
+    )
+then
+    modify($app) {
+        setDecision("APPROVED"),
+        setCardType("STANDARD")
+    }
+end
+
+rule "Denial - Low Credit Score"
+salience 80
+when
+    $app : CreditCardApplication(
+        creditScore < 500,
+        decision == "PENDING",
+        cardType == "none"
+    )
+then
+    modify($app) {
+        setDecision("DENIED"),
+        setCardType("NONE")
+    }
+end
+
+rule "Manual Review"
+salience 70
+when
+    $app : CreditCardApplication(
+        annualIncome < 50000,
+        creditScore >= 500,
+        decision == "PENDING",
+        cardType == "none"
+    )
+then
+    modify($app) {
+        setDecision("MANUAL_REVIEW"),
+        setCardType("NONE")
+    }
+end

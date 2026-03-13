@@ -1,0 +1,5 @@
+Scenario: Tax Calculation Chain
+Status: FAIL
+Rules Fired: 0
+Generation Time: 29976ms
+Error: ERROR: Missing type definition for fact type: double

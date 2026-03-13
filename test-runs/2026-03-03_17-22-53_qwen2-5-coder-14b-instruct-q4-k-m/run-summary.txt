@@ -1,0 +1,38 @@
+=== DRL Generation Test Run Summary ===
+
+Model: qwen2.5-coder:14b-instruct-q4_K_M
+Scenarios: 29
+Passed: 23
+Failed: 6
+Success Rate: 79.3%
+
+=== Results ===
+Adult Validation                         PASS
+Age Classification                       PASS
+Age Validation Simple                    PASS
+Order Discount - Basic                   PASS
+Bulk Order Discount                      FAIL
+Cart Validation                          PASS
+Credit Card Approval                     FAIL
+Email Validation                         FAIL
+Grade Calculation                        PASS
+Insurance Premium Tier                   PASS
+Insurance Risk Assessment                FAIL
+Inventory Alert                          PASS
+Loan Approval Complex                    PASS
+Loan Eligibility                         PASS
+Loyalty Points                           PASS
+Missing Document Alert                   PASS
+Order Discount by Customer Type          PASS
+Order Fraud Detection                    PASS
+Password Strength                        PASS
+Priority Assignment                      PASS
+Senior Citizen Discount                  PASS
+Shipping Cost                            PASS
+Shipping Method Priority                 PASS
+Simple Calculation                       FAIL
+Status Transition                        PASS
+Subscription Renewal                     PASS
+Tax Bracket                              PASS
+Tax Calculation Chain                    FAIL
+Order Discount - Tiered                  PASS

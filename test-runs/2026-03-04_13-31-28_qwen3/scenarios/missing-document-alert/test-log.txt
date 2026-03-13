@@ -1,0 +1,5 @@
+Scenario: Missing Document Alert
+Status: FAIL
+Rules Fired: 0
+Generation Time: 23937ms
+Error: Validation exception: DRL code cannot be null or empty

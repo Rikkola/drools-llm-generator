@@ -1,0 +1,4 @@
+Scenario: Loyalty Points
+Status: PASS
+Rules Fired: 1
+Generation Time: 3267ms

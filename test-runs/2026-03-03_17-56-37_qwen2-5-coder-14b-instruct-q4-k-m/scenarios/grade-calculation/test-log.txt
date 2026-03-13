@@ -1,0 +1,4 @@
+Scenario: Grade Calculation
+Status: PASS
+Rules Fired: 1
+Generation Time: 3637ms

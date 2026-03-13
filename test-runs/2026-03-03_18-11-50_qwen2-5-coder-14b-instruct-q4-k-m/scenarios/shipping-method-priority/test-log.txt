@@ -1,0 +1,4 @@
+Scenario: Shipping Method Priority
+Status: PASS
+Rules Fired: 5
+Generation Time: 6936ms

@@ -1,0 +1,89 @@
+name: Insurance Premium Discount
+description: Calculate premium discounts based on customer profile
+
+requirement: |
+  Create rules to apply discounts to insurance premiums:
+
+  1. MULTI_POLICY DISCOUNT: If customer has more than 1 active policy,
+     apply 15% discount by setting discountPercent to 15
+
+  2. SAFE_DRIVER DISCOUNT: If customer has 0 claims in last 5 years AND
+     no active policies discount yet (discountPercent is 0),
+     apply 10% discount by setting discountPercent to 10
+
+  3. LOYALTY DISCOUNT: If customer tenure is greater than or equal to 5 years AND
+     no discount applied yet (discountPercent is 0),
+     apply 5% discount by setting discountPercent to 5
+
+  4. NO DISCOUNT: If discountPercent is still 0, set discountType to "NONE"
+
+  Higher priority discounts (multi-policy) should be checked first using salience.
+  Only one discount should be applied per customer.
+
+factTypes:
+  - name: CustomerPolicy
+    fields:
+      customerId: String
+      customerName: String
+      activePolicies: int
+      claimsInLast5Years: int
+      tenureYears: int
+      discountPercent: int
+      discountType: String
+
+testCases:
+  - name: Multi-policy customer gets 15% discount
+    input:
+      - _type: CustomerPolicy
+        customerId: "CUST-001"
+        customerName: "John Multi"
+        activePolicies: 3
+        claimsInLast5Years: 1
+        tenureYears: 2
+        discountPercent: 0
+        discountType: "PENDING"
+    expectedRulesFired: 1
+    expectedFields:
+      discountPercent: 15
+
+  - name: Safe driver gets 10% discount
+    input:
+      - _type: CustomerPolicy
+        customerId: "CUST-002"
+        customerName: "Jane Safe"
+        activePolicies: 1
+        claimsInLast5Years: 0
+        tenureYears: 3
+        discountPercent: 0
+        discountType: "PENDING"
+    expectedRulesFired: 1
+    expectedFields:
+      discountPercent: 10
+
+  - name: Loyal customer gets 5% discount
+    input:
+      - _type: CustomerPolicy
+        customerId: "CUST-003"
+        customerName: "Bob Loyal"
+        activePolicies: 1
+        claimsInLast5Years: 2
+        tenureYears: 8
+        discountPercent: 0
+        discountType: "PENDING"
+    expectedRulesFired: 1
+    expectedFields:
+      discountPercent: 5
+
+  - name: New customer with claims gets no discount
+    input:
+      - _type: CustomerPolicy
+        customerId: "CUST-004"
+        customerName: "New Customer"
+        activePolicies: 1
+        claimsInLast5Years: 1
+        tenureYears: 1
+        discountPercent: 0
+        discountType: "PENDING"
+    expectedRulesFired: 1
+    expectedFields:
+      discountType: "NONE"

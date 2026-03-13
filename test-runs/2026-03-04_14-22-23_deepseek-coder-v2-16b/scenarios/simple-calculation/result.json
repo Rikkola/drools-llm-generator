@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Simple Calculation",
+  "modelName" : "deepseek-coder-v2:16b",
+  "success" : false,
+  "generationTimeMs" : 5206,
+  "totalTimeMs" : 5206,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Calculate Tax' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=10, column=0\n   text=Rule Compilation error subtotal cannot be resolved to a variable\nsubtotal cannot be resolved to a variable\ntaxAmount cannot be resolved to a variable]]",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

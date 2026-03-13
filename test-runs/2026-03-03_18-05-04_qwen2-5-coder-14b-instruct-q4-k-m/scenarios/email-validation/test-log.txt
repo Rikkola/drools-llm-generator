@@ -1,0 +1,6 @@
+Scenario: Email Validation
+Status: FAIL
+Rules Fired: 0
+Generation Time: 1100ms
+Error: Test case 'Valid Email' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=8, column=0
+   text=Rule Compilation error The method setIsValid(boolean) is undefined for the type EmailAddress]]

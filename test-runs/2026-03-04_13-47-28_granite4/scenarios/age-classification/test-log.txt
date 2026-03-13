@@ -1,0 +1,5 @@
+Scenario: Age Classification
+Status: FAIL
+Rules Fired: 0
+Generation Time: 1574ms
+Error: Test case 'Child Classification' failed: Expected 1 rules to fire, but none fired

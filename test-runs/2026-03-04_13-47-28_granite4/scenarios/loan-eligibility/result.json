@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Loan Eligibility",
+  "modelName" : "granite4",
+  "success" : true,
+  "generationTimeMs" : 845,
+  "totalTimeMs" : 845,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Eligible Applicant",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "eligible" : true
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "LoanApplication( applicantId=APP001, income=60000.0, creditScore=750, employed=true, eligible=true )" ]
+}

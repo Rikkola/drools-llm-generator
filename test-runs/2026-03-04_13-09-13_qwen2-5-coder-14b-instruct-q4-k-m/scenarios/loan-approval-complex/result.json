@@ -1,0 +1,38 @@
+{
+  "scenarioName" : "Loan Approval Complex",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : true,
+  "generationTimeMs" : 14409,
+  "totalTimeMs" : 14409,
+  "rulesFired" : 3,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "High Credit Score Approval",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "decision" : "APPROVED"
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Medium Credit Score Escalation",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "decision" : "REVIEW"
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Low Credit Score Denial",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "decision" : "DENIED"
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "LoanApplication( creditScore=750, employmentYears=3, loanAmount=50000.0, annualSalary=60000.0, decision=APPROVED )", "LoanApplication( creditScore=675, employmentYears=5, loanAmount=40000.0, annualSalary=50000.0, decision=REVIEW )", "LoanApplication( creditScore=600, employmentYears=1, loanAmount=100000.0, annualSalary=40000.0, decision=DENIED )" ]
+}

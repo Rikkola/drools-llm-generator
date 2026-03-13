@@ -1,0 +1,21 @@
+{
+  "scenarioName" : "Simple Calculation",
+  "modelName" : "codellama:13b",
+  "success" : true,
+  "generationTimeMs" : 29237,
+  "totalTimeMs" : 29237,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Calculate Tax",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "taxAmount" : 10.0,
+      "total" : 110.0
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Invoice( invoiceId=INV001, subtotal=100.0, taxAmount=10.0, total=110.0 )" ]
+}

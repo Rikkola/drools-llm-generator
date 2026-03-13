@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Credit Card Approval",
+  "modelName" : "codellama:13b",
+  "success" : false,
+  "generationTimeMs" : 106110,
+  "totalTimeMs" : 106110,
+  "rulesFired" : 0,
+  "errorMessage" : "Validation exception: DRL validation failed: ERROR: [ERR 107] Line 1:0 mismatched input 'Here' expecting one of the following tokens: '[package, unit, import, global, declare, function, rule, query]'.\nERROR: Parser returned a null Package\nERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify.",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

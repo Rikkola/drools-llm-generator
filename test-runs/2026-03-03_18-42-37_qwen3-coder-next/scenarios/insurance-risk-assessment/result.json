@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Insurance Risk Assessment",
+  "modelName" : "qwen3-coder-next",
+  "success" : false,
+  "generationTimeMs" : 67992,
+  "totalTimeMs" : 67992,
+  "rulesFired" : 0,
+  "errorMessage" : "ERROR: [ERR 102] Line 12:35 mismatched input 'or' in rule \"High Risk\"\nERROR: [ERR 102] Line 19:35 mismatched input 'and' in pattern in rule \"Medium Risk\"\nERROR: Parser returned a null Package\nERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify.",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

@@ -1,0 +1,42 @@
+package org.drools.generated;
+
+declare Order
+    orderId: String
+    orderTotal: double
+    accountAgeDays: int
+    shippingAddress: String
+    billingAddress: String
+    failedPaymentAttempts: int
+    suspicious: boolean
+    suspiciousReason: String
+end
+
+rule "Flag Suspicious Order - New Account and High Total"
+when
+    $order : Order(accountAgeDays < 7, orderTotal > 500)
+then
+    modify($order) {
+        setSuspicious(true),
+        setSuspiciousReason("New account with high total")
+    }
+end
+
+rule "Flag Suspicious Order - Different Shipping and Billing Address"
+when
+    $order : Order(shippingAddress != billingAddress, orderTotal > 1000)
+then
+    modify($order) {
+        setSuspicious(true),
+        setSuspiciousReason("Different shipping && billing address")
+    }
+end
+
+rule "Flag Suspicious Order - Multiple Failed Payment Attempts"
+when
+    $order : Order(failedPaymentAttempts > 3)
+then
+    modify($order) {
+        setSuspicious(true),
+        setSuspiciousReason("Multiple failed payment attempts")
+    }
+end

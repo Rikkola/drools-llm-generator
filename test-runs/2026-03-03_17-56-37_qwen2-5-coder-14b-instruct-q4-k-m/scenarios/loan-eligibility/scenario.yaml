@@ -1,0 +1,29 @@
+name: Loan Eligibility
+description: Determine loan eligibility based on multiple criteria
+
+requirement: |
+  Create a rule that:
+  1. Checks if income is >= 50000 AND creditScore >= 700 AND employed is true
+  2. If ALL conditions are met, sets 'eligible' to true
+
+factTypes:
+  - name: LoanApplication
+    fields:
+      applicantId: String
+      income: double
+      creditScore: int
+      employed: boolean
+      eligible: boolean
+
+testCases:
+  - name: Eligible Applicant
+    input:
+      - _type: LoanApplication
+        applicantId: APP001
+        income: 60000.0
+        creditScore: 750
+        employed: true
+        eligible: false
+    expectedRulesFired: 1
+    expectedFields:
+      eligible: true

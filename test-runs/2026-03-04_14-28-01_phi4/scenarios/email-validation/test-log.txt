@@ -1,0 +1,7 @@
+Scenario: Email Validation
+Status: FAIL
+Rules Fired: 0
+Generation Time: 5495ms
+Error: ERROR: [ERR 102] Line 15:317 mismatched input '<eof>' in rule "Validate Email Address"
+ERROR: Parser returned a null Package
+ERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify.

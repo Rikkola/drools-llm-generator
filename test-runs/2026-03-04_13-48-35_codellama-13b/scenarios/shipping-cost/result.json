@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Shipping Cost",
+  "modelName" : "codellama:13b",
+  "success" : true,
+  "generationTimeMs" : 52512,
+  "totalTimeMs" : 52512,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Medium Order",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "shippingCost" : 5.0
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "ShippingOrder( orderId=ORD100, total=75.0, shippingCost=5.0 )" ]
+}

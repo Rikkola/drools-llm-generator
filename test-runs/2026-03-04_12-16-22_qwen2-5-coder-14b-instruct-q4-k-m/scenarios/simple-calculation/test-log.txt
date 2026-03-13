@@ -1,0 +1,4 @@
+Scenario: Simple Calculation
+Status: PASS
+Rules Fired: 1
+Generation Time: 2364ms

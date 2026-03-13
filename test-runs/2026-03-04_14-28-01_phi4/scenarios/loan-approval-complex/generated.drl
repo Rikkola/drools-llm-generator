@@ -1,0 +1,42 @@
+package org.drools.generated;
+
+declare LoanApplication
+    creditScore : int
+    employmentYears : int
+    loanAmount : double
+    annualSalary : double
+    decision : String
+end
+
+rule "Approve Loan"
+salience 100
+when
+    $app : LoanApplication(
+        creditScore > 700,
+        employmentYears >= 2,
+        loanAmount < 5 * annualSalary,
+        decision == "PENDING"
+    )
+then
+    modify($app) { setDecision("APPROVED") }
+end
+
+rule "Escalate to Review"
+salience 90
+when
+    $app : LoanApplication(
+        creditScore >= 650,
+        creditScore <= 700,
+        decision == "PENDING"
+    )
+then
+    modify($app) { setDecision("REVIEW") }
+end
+
+rule "Deny Loan"
+salience 10
+when
+    $app : LoanApplication(decision == "PENDING")
+then
+    modify($app) { setDecision("DENIED") }
+end

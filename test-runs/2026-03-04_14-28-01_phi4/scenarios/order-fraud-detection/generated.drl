@@ -1,0 +1,50 @@
+package org.drools.generated;
+
+declare Order
+    orderId : String
+    orderTotal : double
+    accountAgeDays : int
+    shippingAddress : String
+    billingAddress : String
+    failedPaymentAttempts : int
+    suspicious : boolean
+    suspiciousReason : String
+end
+
+rule "Flag Suspicious - New Account High Value"
+when
+    $o : Order(accountAgeDays < 7, orderTotal > 500, suspicious == false)
+then
+    modify($o) {
+        setSuspicious(true),
+        setSuspiciousReason("New account with high value")
+    }
+end
+
+rule "Flag Suspicious - Address Mismatch High Value"
+when
+    $o : Order(shippingAddress != billingAddress, orderTotal > 1000, suspicious == false)
+then
+    modify($o) {
+        setSuspicious(true),
+        setSuspiciousReason("Shipping address mismatch with high value")
+    }
+end
+
+rule "Flag Suspicious - Multiple Failed Payments"
+when
+    $o : Order(failedPaymentAttempts > 3, suspicious == false)
+then
+    modify($o) {
+        setSuspicious(true),
+        setSuspiciousReason("Multiple failed payment attempts")
+    }
+end
+
+rule "Mark Non-Suspicious Orders"
+salience 10
+when
+    $o : Order(suspicious == false)
+then
+    // No action needed, just ensures non-suspicious orders remain unchanged
+end

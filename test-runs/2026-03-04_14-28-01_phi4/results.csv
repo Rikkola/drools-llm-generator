@@ -1,0 +1,243 @@
+Model,Scenario,Format,Success,RulesFired,GenerationTimeMs,ErrorMessage
+granite4,Adult Validation,DRL,true,1,7311,
+granite4,Age Classification,DRL,false,0,1574,"Test case 'Child Classification' failed: Expected 1 rules to fire, but none fired"
+granite4,Age Validation Simple,DRL,false,0,951,"Test case 'Adult Person' failed: Expected 1 rules to fire, but none fired"
+granite4,Order Discount - Basic,DRL,true,1,905,
+granite4,Bulk Order Discount,DRL,false,0,1588,"Test case 'Qualifies for VIP' failed: Expected 1 rules to fire, but 2 fired"
+granite4,Cart Validation,DRL,false,0,4517,"Test case 'Normal Cart' failed: Expected no rules to fire, but 1 fired"
+granite4,Credit Card Approval,DRL,true,4,2925,
+granite4,Email Validation,DRL,false,0,647,"Test case 'Valid Email' failed: Expected 1 rules to fire, but none fired"
+granite4,Grade Calculation,DRL,false,0,2090,"Test case 'B Grade' failed: Expected 1 rules to fire, but none fired"
+granite4,Insurance Premium Tier,DRL,true,1,1490,
+granite4,Insurance Risk Assessment,DRL,false,0,2107,"Test case 'High Risk - Age Over 60' failed: Expected 1 rules to fire, but none fired"
+granite4,Inventory Alert,DRL,true,1,731,
+granite4,Loan Approval Complex,DRL,true,3,1798,
+granite4,Loan Eligibility,DRL,true,1,845,
+granite4,Loyalty Points,DRL,false,0,720,"Test case 'Points Calculation' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=9, column=0
+   text=Rule Compilation error The method setPoints(int) in the type Purchase is not applicable for the arguments (long)]]"
+granite4,Missing Document Alert,DRL,true,2,2052,
+granite4,Order Discount by Customer Type,DRL,true,103,2376,
+granite4,Order Fraud Detection,DRL,false,0,2745,"Test case 'Normal Order' failed: Expected no rules to fire, but 100 fired"
+granite4,Password Strength,DRL,false,0,1280,"Test case 'Strong Password' failed: Expected 1 rules to fire, but none fired"
+granite4,Priority Assignment,DRL,true,1,1594,
+granite4,Senior Citizen Discount,DRL,true,2,1013,
+granite4,Shipping Cost,DRL,true,1,2618,
+granite4,Shipping Method Priority,DRL,true,5,2273,
+granite4,Simple Calculation,DRL,true,1,966,
+granite4,Status Transition,DRL,true,1,801,
+granite4,Subscription Renewal,DRL,false,0,2336,"Test case 'Long Tenure With Auto Renew' failed: Expected 2 rules to fire, but 100 fired"
+granite4,Tax Bracket,DRL,true,1,1470,
+granite4,Tax Calculation Chain,DRL,false,0,4040,"Test case 'Low Tax Bracket' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=60, column=0
+   text=Rule Compilation error The method getNetIncome() is undefined for the type Rule_Determine_Low_Tax_Bracket406000754], Message [id=2, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=74, column=0
+   text=Rule Compilation error The method getNetIncome() is undefined for the type Rule_Determine_Medium_Tax_Bracket1358008462], Message [id=3, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=89, column=0
+   text=Rule Compilation error The method getNetIncome() is undefined for the type Rule_Determine_High_Tax_Bracket1537660418]]"
+granite4,Order Discount - Tiered,DRL,true,1,1734,
+codellama:13b,Adult Validation,DRL,false,0,229568,"Validation exception: DRL validation failed: ERROR: [ERR 107] Line 1:0 mismatched input '[' expecting one of the following tokens: '[package, unit, import, global, declare, function, rule, query]'.
+ERROR: [ERR 107] Line 4:0 mismatched input 'def' expecting one of the following tokens: '[package, unit, import, global, declare, function, rule, query]'.
+ERROR: [ERR 102] Line 7:29 mismatched input 'each'
+ERROR: [ERR 102] Line 7:39 mismatched input 'type'
+ERROR: [ERR 102] Line 8:8 mismatched input 'fact_type'
+ERROR: [ERR 102] Line 8:21 mismatched input 'fact_types'
+ERROR: [ERR 102] Line 9:12 mismatched input '+='
+ERROR: Parser returned a null Package
+ERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify."
+codellama:13b,Age Classification,DRL,false,0,102857,"Validation exception: DRL validation failed: ERROR: [ERR 107] Line 1:0 mismatched input '[' expecting one of the following tokens: '[package, unit, import, global, declare, function, rule, query]'.
+ERROR: [ERR 107] Line 4:0 mismatched input 'from' expecting one of the following tokens: '[package, unit, import, global, declare, function, rule, query]'.
+ERROR: [ERR 107] Line 6:0 mismatched input 'class' expecting one of the following tokens: '[package, unit, import, global, declare, function, rule, query]'.
+ERROR: [ERR 102] Line 48:0 mismatched input 'client' in rule ""unit""
+ERROR: Parser returned a null Package
+ERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify."
+codellama:13b,Age Validation Simple,DRL,false,0,32244,"Test case 'Adult Person' failed: Expected 1 rules to fire, but none fired"
+codellama:13b,Order Discount - Basic,DRL,true,1,28166,
+codellama:13b,Bulk Order Discount,DRL,false,0,60536,"Validation exception: DRL validation failed: ERROR: [ERR 107] Line 1:0 mismatched input '[' expecting one of the following tokens: '[package, unit, import, global, declare, function, rule, query]'.
+ERROR: [ERR 107] Line 3:24 mismatched input ',' expecting one of the following tokens: '[package, unit, import, global, declare, function, rule, query]'.
+ERROR: [ERR 102] Line 13:25 mismatched input 'and' in rule ""engine""
+ERROR: Parser returned a null Package
+ERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify."
+codellama:13b,Cart Validation,DRL,false,0,108893,"Validation exception: DRL validation failed: ERROR: [ERR 107] Line 1:0 mismatched input 'Here' expecting one of the following tokens: '[package, unit, import, global, declare, function, rule, query]'.
+ERROR: Unexpected error: Cannot invoke ""org.antlr.runtime.BitSet.toArray()"" because ""set"" is null
+ERROR: Unexpected error: Index 274 out of bounds for length 274
+ERROR: Parser returned a null Package
+ERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify."
+codellama:13b,Credit Card Approval,DRL,false,0,106110,"Validation exception: DRL validation failed: ERROR: [ERR 107] Line 1:0 mismatched input 'Here' expecting one of the following tokens: '[package, unit, import, global, declare, function, rule, query]'.
+ERROR: Parser returned a null Package
+ERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify."
+codellama:13b,Email Validation,DRL,true,1,16804,
+codellama:13b,Grade Calculation,DRL,false,0,64484,"Test case 'B Grade' failed: Expected 1 rules to fire, but none fired"
+codellama:13b,Insurance Premium Tier,DRL,false,0,59802,"Test case 'Smoker High Risk' failed: Expected 1 rules to fire, but none fired"
+codellama:13b,Insurance Risk Assessment,DRL,false,0,121182,"Validation exception: DRL validation failed: ERROR: [ERR 107] Line 1:0 mismatched input '[' expecting one of the following tokens: '[package, unit, import, global, declare, function, rule, query]'.
+ERROR: [ERR 102] Line 3:22 mismatched input '*' in import
+ERROR: [ERR 102] Line 12:5 mismatched input '=' in rule
+ERROR: [ERR 102] Line 15:65 mismatched input ')' in rule
+ERROR: [ERR 102] Line 19:24 mismatched input 'and' in rule ""name""
+ERROR: [ERR 102] Line 23:26 mismatched input 'and' in rule ""name""
+ERROR: [ERR 102] Line 29:24 mismatched input 'and' in rule ""name""
+ERROR: [ERR 102] Line 33:26 mismatched input 'and' in rule ""name""
+ERROR: Parser returned a null Package
+ERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify."
+codellama:13b,Inventory Alert,DRL,true,1,24109,
+codellama:13b,Loan Approval Complex,DRL,false,0,98884,"Validation exception: DRL validation failed: ERROR: [ERR 107] Line 1:0 mismatched input 'Here' expecting one of the following tokens: '[package, unit, import, global, declare, function, rule, query]'.
+ERROR: [ERR 102] Line 1:56 mismatched input ':' in rule
+ERROR: Unexpected error: Cannot invoke ""org.antlr.runtime.BitSet.toArray()"" because ""set"" is null
+ERROR: Unexpected error: Index 270 out of bounds for length 270
+ERROR: Parser returned a null Package
+ERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify."
+codellama:13b,Loan Eligibility,DRL,true,1,29389,
+codellama:13b,Loyalty Points,DRL,false,0,21944,"Test case 'Points Calculation' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=9, column=0
+   text=Rule Compilation error The method setPoints(int) in the type Purchase is not applicable for the arguments (double)]]"
+codellama:13b,Missing Document Alert,DRL,false,0,69734,"Validation exception: DRL validation failed: ERROR: [ERR 107] Line 1:0 mismatched input '[' expecting one of the following tokens: '[package, unit, import, global, declare, function, rule, query]'.
+ERROR: [ERR 102] Line 2:67 mismatched input ':' in rule ""requirement""
+ERROR: [ERR 102] Line 35:9 mismatched input '<eof>' in rule ""Complete Application""
+ERROR: Parser returned a null Package
+ERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify."
+codellama:13b,Order Discount by Customer Type,DRL,true,3,78091,
+codellama:13b,Order Fraud Detection,DRL,false,0,90929,"Validation exception: DRL validation failed: ERROR: [ERR 107] Line 1:0 mismatched input '[' expecting one of the following tokens: '[package, unit, import, global, declare, function, rule, query]'.
+ERROR: [ERR 102] Line 49:9 mismatched input '<eof>' in rule ""Normal Order""
+ERROR: Parser returned a null Package
+ERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify."
+codellama:13b,Password Strength,DRL,false,0,42826,"Test case 'Strong Password' failed: Expected 1 rules to fire, but none fired"
+codellama:13b,Priority Assignment,DRL,true,1,46881,
+codellama:13b,Senior Citizen Discount,DRL,true,2,31581,
+codellama:13b,Shipping Cost,DRL,true,1,52512,
+codellama:13b,Shipping Method Priority,DRL,true,5,78900,
+codellama:13b,Simple Calculation,DRL,true,1,29237,
+codellama:13b,Status Transition,DRL,true,1,23599,
+codellama:13b,Subscription Renewal,DRL,false,0,98812,"Validation exception: DRL validation failed: ERROR: [ERR 107] Line 1:0 mismatched input 'Here' expecting one of the following tokens: '[package, unit, import, global, declare, function, rule, query]'.
+ERROR: [ERR 102] Line 1:60 mismatched input ':' in rule ""requirement""
+ERROR: Unexpected error: Cannot invoke ""org.antlr.runtime.BitSet.toArray()"" because ""set"" is null
+ERROR: Unexpected error: Index 297 out of bounds for length 297
+ERROR: Parser returned a null Package
+ERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify."
+codellama:13b,Tax Bracket,DRL,true,1,60575,
+codellama:13b,Tax Calculation Chain,DRL,false,0,148107,"Test case 'Low Tax Bracket' failed: Expected 5 rules to fire, but 4 fired"
+codellama:13b,Order Discount - Tiered,DRL,true,1,65813,
+deepseek-coder-v2:16b,Adult Validation,DRL,true,1,30560,
+deepseek-coder-v2:16b,Age Classification,DRL,true,4,13204,
+deepseek-coder-v2:16b,Age Validation Simple,DRL,true,3,5881,
+deepseek-coder-v2:16b,Order Discount - Basic,DRL,false,0,4958,"Test case 'Qualifying Order' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=10, column=0
+   text=Rule Compilation error The method modify(Order) is undefined for the type Rule_Apply_Discount1084488542
+Syntax error, insert "";"" to complete Statement
+The method setDiscountPercent(int) is undefined for the type Rule_Apply_Discount1084488542
+The method setDiscountApplied(boolean) is undefined for the type Rule_Apply_Discount1084488542
+Syntax error, insert "";"" to complete Statement]]"
+deepseek-coder-v2:16b,Bulk Order Discount,DRL,false,0,9195,"Test case 'Qualifies for VIP' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=11, column=0
+   text=Rule Compilation error The method modify(Customer) is undefined for the type Rule_Upgrade_to_VIP435768475
+Syntax error, insert "";"" to complete Statement
+The method setIsVip(boolean) is undefined for the type Rule_Upgrade_to_VIP435768475
+The method setDiscountPercent(int) is undefined for the type Rule_Upgrade_to_VIP435768475
+Syntax error, insert "";"" to complete Statement], Message [id=2, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=18, column=0
+   text=Rule Compilation error The method modify(Customer) is undefined for the type Rule_Do_Not_Upgrade1976362631
+Syntax error, insert "";"" to complete Statement
+The method setIsVip(boolean) is undefined for the type Rule_Do_Not_Upgrade1976362631
+The method setDiscountPercent(int) is undefined for the type Rule_Do_Not_Upgrade1976362631
+Syntax error, insert "";"" to complete Statement]]"
+deepseek-coder-v2:16b,Cart Validation,DRL,false,0,14037,"Test case 'Out of Stock Rejection' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=14, column=0
+   text=Rule Compilation error The method modify(ShoppingCart) is undefined for the type Rule_Reject_Out_of_Stock_Items1861085948
+Syntax error, insert "";"" to complete Statement
+The method setRejected(boolean) is undefined for the type Rule_Reject_Out_of_Stock_Items1861085948
+The method setRejectionReason(String) is undefined for the type Rule_Reject_Out_of_Stock_Items1861085948
+Syntax error, insert "";"" to complete Statement]]"
+deepseek-coder-v2:16b,Credit Card Approval,DRL,false,0,18057,"Test case 'Premium Card Approval' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=12, column=0
+   text=Rule Compilation error The method modify(CreditCardApplication) is undefined for the type Rule_Approve_Premium_Card809750655
+Syntax error, insert "";"" to complete Statement
+The method setDecision(String) is undefined for the type Rule_Approve_Premium_Card809750655
+The method setCardType(String) is undefined for the type Rule_Approve_Premium_Card809750655
+Syntax error, insert "";"" to complete Statement], Message [id=2, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=20, column=0
+   text=Rule Compilation error The method modify(CreditCardApplication) is undefined for the type Rule_Approve_Standard_Card492623465
+Syntax error, insert "";"" to complete Statement
+The method setDecision(String) is undefined for the type Rule_Approve_Standard_Card492623465
+The method setCardType(String) is undefined for the type Rule_Approve_Standard_Card492623465
+Syntax error, insert "";"" to complete Statement]]"
+deepseek-coder-v2:16b,Email Validation,DRL,true,1,5026,
+deepseek-coder-v2:16b,Grade Calculation,DRL,true,1,13401,
+deepseek-coder-v2:16b,Insurance Premium Tier,DRL,true,1,10923,
+deepseek-coder-v2:16b,Insurance Risk Assessment,DRL,false,0,12848,"Test case 'Medium Risk - Age Factor' failed: Expected 1 rules to fire, but none fired"
+deepseek-coder-v2:16b,Inventory Alert,DRL,true,1,4153,
+deepseek-coder-v2:16b,Loan Approval Complex,DRL,false,0,10599,"ERROR: [ERR 102] Line 21:38 mismatched input 'between' in rule ""Escalate Medium Credit Score""
+ERROR: Parser returned a null Package
+ERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify."
+deepseek-coder-v2:16b,Loan Eligibility,DRL,true,1,5101,
+deepseek-coder-v2:16b,Loyalty Points,DRL,false,0,4188,"Test case 'Points Calculation' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=9, column=0
+   text=Rule Compilation error amount cannot be resolved to a variable]]"
+deepseek-coder-v2:16b,Missing Document Alert,DRL,true,2,11244,
+deepseek-coder-v2:16b,Order Discount by Customer Type,DRL,true,3,17132,
+deepseek-coder-v2:16b,Order Fraud Detection,DRL,false,0,15318,"Test case 'New Account High Value' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=14, column=0
+   text=Rule Compilation error The method modify(Order) is undefined for the type Rule_Flag_Suspicious_New_Account_High_Value854505032
+Syntax error, insert "";"" to complete Statement
+The method setSuspicious(boolean) is undefined for the type Rule_Flag_Suspicious_New_Account_High_Value854505032
+The method setSuspiciousReason(String) is undefined for the type Rule_Flag_Suspicious_New_Account_High_Value854505032], Message [id=2, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=22, column=0
+   text=Rule Compilation error The method modify(Order) is undefined for the type Rule_Flag_Suspicious_Address_Mismatch_High_Value577578014
+Syntax error, insert "";"" to complete Statement
+The method setSuspicious(boolean) is undefined for the type Rule_Flag_Suspicious_Address_Mismatch_High_Value577578014
+The method setSuspiciousReason(String) is undefined for the type Rule_Flag_Suspicious_Address_Mismatch_High_Value577578014], Message [id=3, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=30, column=0
+   text=Rule Compilation error The method modify(Order) is undefined for the type Rule_Flag_Suspicious_Multiple_Failed_Payments803814969
+Syntax error, insert "";"" to complete Statement
+The method setSuspicious(boolean) is undefined for the type Rule_Flag_Suspicious_Multiple_Failed_Payments803814969
+The method setSuspiciousReason(String) is undefined for the type Rule_Flag_Suspicious_Multiple_Failed_Payments803814969]]"
+deepseek-coder-v2:16b,Password Strength,DRL,true,1,9582,
+deepseek-coder-v2:16b,Priority Assignment,DRL,true,1,10981,
+deepseek-coder-v2:16b,Senior Citizen Discount,DRL,true,2,7059,
+deepseek-coder-v2:16b,Shipping Cost,DRL,true,1,8952,
+deepseek-coder-v2:16b,Shipping Method Priority,DRL,true,5,15327,
+deepseek-coder-v2:16b,Simple Calculation,DRL,false,0,5206,"Test case 'Calculate Tax' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=10, column=0
+   text=Rule Compilation error subtotal cannot be resolved to a variable
+subtotal cannot be resolved to a variable
+taxAmount cannot be resolved to a variable]]"
+deepseek-coder-v2:16b,Status Transition,DRL,true,1,4576,
+deepseek-coder-v2:16b,Subscription Renewal,DRL,false,0,11463,"Test case 'Auto Renewal Triggered' failed: Expected 1 rules to fire, but 100 fired"
+deepseek-coder-v2:16b,Tax Bracket,DRL,true,1,9859,
+deepseek-coder-v2:16b,Tax Calculation Chain,DRL,false,0,29976,ERROR: Missing type definition for fact type: double
+deepseek-coder-v2:16b,Order Discount - Tiered,DRL,false,0,13216,"Test case 'Premium Tier' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=10, column=0
+   text=Rule Compilation error The method modify(Order) is undefined for the type Rule_Apply_Premium_Tier_Discount1957289013
+Syntax error, insert "";"" to complete Statement
+The method setDiscountPercent(int) is undefined for the type Rule_Apply_Premium_Tier_Discount1957289013
+The method setDiscountTier(String) is undefined for the type Rule_Apply_Premium_Tier_Discount1957289013
+Syntax error, insert "";"" to complete Statement], Message [id=2, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=26, column=0
+   text=Rule Compilation error The method modify(Order) is undefined for the type Rule_Apply_Silver_Tier_Discount1504539612
+Syntax error, insert "";"" to complete Statement
+The method setDiscountPercent(int) is undefined for the type Rule_Apply_Silver_Tier_Discount1504539612
+The method setDiscountTier(String) is undefined for the type Rule_Apply_Silver_Tier_Discount1504539612
+Syntax error, insert "";"" to complete Statement], Message [id=3, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=18, column=0
+   text=Rule Compilation error The method modify(Order) is undefined for the type Rule_Apply_Gold_Tier_Discount1994122619
+Syntax error, insert "";"" to complete Statement
+The method setDiscountPercent(int) is undefined for the type Rule_Apply_Gold_Tier_Discount1994122619
+The method setDiscountTier(String) is undefined for the type Rule_Apply_Gold_Tier_Discount1994122619
+Syntax error, insert "";"" to complete Statement]]"
+phi4,Adult Validation,DRL,true,1,31555,
+phi4,Age Classification,DRL,false,0,11594,"ERROR: [ERR 102] Line 41:337 mismatched input '<eof>' in rule ""Set Category Senior""
+ERROR: Parser returned a null Package
+ERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify."
+phi4,Age Validation Simple,DRL,true,3,4317,
+phi4,Order Discount - Basic,DRL,true,1,4078,
+phi4,Bulk Order Discount,DRL,false,0,6446,"Test case 'Not Enough Orders' failed: Expected no rules to fire, but 1 fired"
+phi4,Cart Validation,DRL,true,5,10969,
+phi4,Credit Card Approval,DRL,true,4,14362,
+phi4,Email Validation,DRL,false,0,5495,"ERROR: [ERR 102] Line 15:317 mismatched input '<eof>' in rule ""Validate Email Address""
+ERROR: Parser returned a null Package
+ERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify."
+phi4,Grade Calculation,DRL,false,0,12217,"Test case 'B Grade' failed: Expected 1 rules to fire, but none fired"
+phi4,Insurance Premium Tier,DRL,true,1,8816,
+phi4,Insurance Risk Assessment,DRL,true,4,14219,
+phi4,Inventory Alert,DRL,true,1,3573,
+phi4,Loan Approval Complex,DRL,true,3,10804,
+phi4,Loan Eligibility,DRL,true,1,3955,
+phi4,Loyalty Points,DRL,true,1,3267,
+phi4,Missing Document Alert,DRL,false,0,9365,"Test case 'Adult Missing ID' failed: Expected 1 rules to fire, but 2 fired"
+phi4,Order Discount by Customer Type,DRL,true,4,16042,
+phi4,Order Fraud Detection,DRL,false,0,12046,"Test case 'New Account High Value' failed: Expected 1 rules to fire, but 2 fired"
+phi4,Password Strength,DRL,false,0,6778,"Test case 'Strong Password' failed: Expected 1 rules to fire, but none fired"
+phi4,Priority Assignment,DRL,true,1,10156,
+phi4,Senior Citizen Discount,DRL,true,2,4771,
+phi4,Shipping Cost,DRL,false,0,11458,"ERROR: Unexpected error: Cannot invoke ""org.antlr.runtime.BitSet.toArray()"" because ""set"" is null
+ERROR: Unexpected error: Index 288 out of bounds for length 288
+ERROR: Parser returned a null Package
+ERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify."
+phi4,Shipping Method Priority,DRL,true,5,12877,
+phi4,Simple Calculation,DRL,true,1,4874,
+phi4,Status Transition,DRL,true,1,3775,
+phi4,Subscription Renewal,DRL,false,0,8439,"Test case 'Auto Renewal Triggered' failed: Expected 1 rules to fire, but 100 fired"
+phi4,Tax Bracket,DRL,false,0,16278,"ERROR: [ERR 102] Line 39:216 mismatched input '<eof>' in rule ""Set Tax Rate 32%""
+ERROR: Parser returned a null Package
+ERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify."
+phi4,Tax Calculation Chain,DRL,false,0,24805,Test case 'Low Tax Bracket' failed: class org.drools.generated.Rule_Calculate_Gross_Income785055598 tried to access protected field org.drools.generated.TaxReturn.salary (org.drools.generated.Rule_Calculate_Gross_Income785055598 is in unnamed module of loader org.drools.wiring.dynamic.PackageClassLoader @329013b3; org.drools.generated.TaxReturn is in unnamed module of loader org.drools.wiring.dynamic.DynamicProjectClassLoader$DefaultInternalTypesClassLoader @23ec2ea0)
+phi4,Order Discount - Tiered,DRL,true,1,10716,

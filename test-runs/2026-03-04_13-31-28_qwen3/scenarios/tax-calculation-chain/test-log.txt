@@ -1,0 +1,4 @@
+Scenario: Tax Calculation Chain
+Status: PASS
+Rules Fired: 10
+Generation Time: 14837ms

@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Age Classification",
+  "modelName" : "granite4",
+  "success" : false,
+  "generationTimeMs" : 1574,
+  "totalTimeMs" : 1574,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Child Classification' failed: Expected 1 rules to fire, but none fired",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

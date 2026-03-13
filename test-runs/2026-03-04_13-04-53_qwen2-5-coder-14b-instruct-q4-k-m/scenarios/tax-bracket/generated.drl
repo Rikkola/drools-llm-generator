@@ -1,0 +1,31 @@
+package org.drools.generated;
+
+declare TaxPayer
+    taxpayerId : String
+    income : double
+    taxRate : int
+end
+
+rule "Tax Rate - Low Income"
+salience 100
+when
+    $t : TaxPayer(income < 30000, taxRate == 0)
+then
+    modify($t) { setTaxRate(10) }
+end
+
+rule "Tax Rate - Middle Income"
+salience 90
+when
+    $t : TaxPayer(income >= 30000 && income < 80000, taxRate == 0)
+then
+    modify($t) { setTaxRate(22) }
+end
+
+rule "Tax Rate - High Income"
+salience 80
+when
+    $t : TaxPayer(income >= 80000, taxRate == 0)
+then
+    modify($t) { setTaxRate(32) }
+end

@@ -1,0 +1,35 @@
+[PYTHON]
+# DRL (Drools Rule Language) code for the business rule requirement:
+# Flag an application as incomplete if:
+# - The applicant is over 18 AND hasIdentityDocument is false
+# - OR the loan amount exceeds 100000 AND hasIncomeVerification is false
+
+package org.drools.generated;
+
+import java.util.*;
+
+global List results;
+
+dialect "mvel";
+
+rule "Applicant Over 18 and Missing ID"
+when
+    $app : Application(applicantAge >= 18, hasIdentityDocument == false)
+then
+    modify($app) { setIncomplete(true), setMissingDocumentType("ID") }
+end
+
+rule "Loan Amount Exceeds 100K and Missing Income Verification"
+when
+    $app : Application(loanAmount > 100000, hasIncomeVerification == false)
+then
+    modify($app) { setIncomplete(true), setMissingDocumentType("INCOME_VERIFICATION") }
+end
+
+rule "Complete Application"
+when
+    $app : Application(incomplete == false)
+then
+    results.add($app);
+end
+[/PYTHON]

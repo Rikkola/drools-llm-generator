@@ -1,0 +1,131 @@
+# Model configurations for DRL generation
+#
+# Each model entry has:
+#   - id: Unique identifier for this configuration (used for selection)
+#   - name: The actual Ollama model name (can be duplicated for different configs)
+#   - If 'id' is omitted, it defaults to 'name' for backward compatibility
+#
+# Select model at runtime via:
+#   - System property: -Dtest.ollama.model=<model-id>
+#   - Environment variable: TEST_OLLAMA_MODEL=<model-id>
+#
+# Example: Same model with different temperatures:
+#   - id: qwen3-temp01
+#     name: qwen3
+#     temperature: 0.1
+#   - id: qwen3-temp05
+#     name: qwen3
+#     temperature: 0.5
+
+defaultModel: qwen3-coder-next
+
+ollama:
+  baseUrl: http://localhost:11434
+  timeoutMinutes: 5
+
+models:
+  # Latest models (Feb 2026)
+  - name: qwen3-coder-next
+    temperature: 0.1
+    topP: 0.9
+    numPredict: 2048
+    numCtx: 16384
+    repeatPenalty: 1.1
+
+  - name: granite4:small-h
+    temperature: 0.1
+    topP: 0.9
+    numPredict: 2048
+    numCtx: 16384
+    repeatPenalty: 1.1
+
+  # granite4:small-h variants for parameter tuning
+  - id: granite4:small-h-temp0
+    name: granite4:small-h
+    temperature: 0.0
+    topP: 0.9
+    numPredict: 2048
+    numCtx: 16384
+    repeatPenalty: 1.1
+
+  - id: granite4:small-h-temp02
+    name: granite4:small-h
+    temperature: 0.2
+    topP: 0.95
+    numPredict: 4096
+    numCtx: 32768
+    repeatPenalty: 1.0
+
+  - name: qwen2.5-coder:14b-instruct-q4_K_M
+    temperature: 0.1
+    topP: 0.9
+    numPredict: 2048
+    numCtx: 16384
+    repeatPenalty: 1.1
+
+  # qwen2.5-coder variants for parameter tuning
+  - id: qwen2.5-coder-temp0
+    name: qwen2.5-coder:14b-instruct-q4_K_M
+    temperature: 0.0
+    topP: 0.9
+    numPredict: 2048
+    numCtx: 16384
+    repeatPenalty: 1.1
+
+  - id: qwen2.5-coder-temp02
+    name: qwen2.5-coder:14b-instruct-q4_K_M
+    temperature: 0.2
+    topP: 0.95
+    numPredict: 4096
+    numCtx: 32768
+    repeatPenalty: 1.0
+
+  - name: qwen3
+    temperature: 0.0
+    topP: 0.9
+    numPredict: 2048
+    numCtx: 16384
+    repeatPenalty: 1.1
+
+  - name: granite4
+    temperature: 0.1
+    topP: 0.9
+    numPredict: 2048
+    numCtx: 16384
+    repeatPenalty: 1.1
+
+  # New models (Feb 2026 comparison)
+  - name: deepseek-coder-v2:16b
+    temperature: 0.1
+    topP: 0.9
+    numPredict: 2048
+    numCtx: 16384
+    repeatPenalty: 1.1
+
+  - name: phi4
+    temperature: 0.1
+    topP: 0.9
+    numPredict: 2048
+    numCtx: 16384
+    repeatPenalty: 1.1
+
+  - name: codellama:13b
+    temperature: 0.1
+    topP: 0.9
+    numPredict: 2048
+    numCtx: 16384
+    repeatPenalty: 1.1
+
+  # - name: llama4
+  #   temperature: 0.1
+  #   topP: 0.9
+  #   numPredict: 2048
+  #   numCtx: 16384
+  #   repeatPenalty: 1.1
+
+  # - name: granite4
+  #   temperature: 0.1
+  #   topP: 0.9
+  #   numPredict: 2048
+  #   numCtx: 16384
+  #   repeatPenalty: 1.1

@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Email Validation",
+  "modelName" : "granite4",
+  "success" : false,
+  "generationTimeMs" : 647,
+  "totalTimeMs" : 647,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Valid Email' failed: Expected 1 rules to fire, but none fired",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

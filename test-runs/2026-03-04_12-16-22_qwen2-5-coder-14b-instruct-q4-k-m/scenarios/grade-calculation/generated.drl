@@ -1,0 +1,48 @@
+package org.drools.generated;
+
+declare Student
+    studentId : String
+    name : String
+    score : int
+    grade : String
+end
+
+rule "Grade A"
+salience 100
+when
+    $s : Student(score >= 90, grade == "NONE")
+then
+    modify($s) { setGrade("A") }
+end
+
+rule "Grade B"
+salience 90
+when
+    $s : Student(score >= 80, score < 90, grade == "NONE")
+then
+    modify($s) { setGrade("B") }
+end
+
+rule "Grade C"
+salience 80
+when
+    $s : Student(score >= 70, score < 80, grade == "NONE")
+then
+    modify($s) { setGrade("C") }
+end
+
+rule "Grade D"
+salience 70
+when
+    $s : Student(score >= 60, score < 70, grade == "NONE")
+then
+    modify($s) { setGrade("D") }
+end
+
+rule "Grade F"
+salience 60
+when
+    $s : Student(score < 60, grade == "NONE")
+then
+    modify($s) { setGrade("F") }
+end

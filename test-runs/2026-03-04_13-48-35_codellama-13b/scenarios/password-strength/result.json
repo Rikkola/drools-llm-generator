@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Password Strength",
+  "modelName" : "codellama:13b",
+  "success" : false,
+  "generationTimeMs" : 42826,
+  "totalTimeMs" : 42826,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Strong Password' failed: Expected 1 rules to fire, but none fired",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

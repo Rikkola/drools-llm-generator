@@ -1,0 +1,4 @@
+Scenario: Senior Citizen Discount
+Status: PASS
+Rules Fired: 2
+Generation Time: 43210ms

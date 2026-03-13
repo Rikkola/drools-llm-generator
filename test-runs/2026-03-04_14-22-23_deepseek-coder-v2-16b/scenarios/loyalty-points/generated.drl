@@ -1,0 +1,14 @@
+package org.drools.generated;
+
+declare Purchase
+    purchaseId : String
+    amount : double
+    points : int
+end
+
+rule "Calculate Points"
+when
+    $p : Purchase(amount > 0)
+then
+    modify($p) { setPoints((int)(amount / 10)) }
+end

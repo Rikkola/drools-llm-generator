@@ -1,0 +1,4 @@
+Scenario: Loan Eligibility
+Status: PASS
+Rules Fired: 1
+Generation Time: 1629ms

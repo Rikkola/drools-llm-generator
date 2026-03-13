@@ -1,0 +1,5 @@
+Scenario: Order Fraud Detection
+Status: FAIL
+Rules Fired: 0
+Generation Time: 2745ms
+Error: Test case 'Normal Order' failed: Expected no rules to fire, but 100 fired

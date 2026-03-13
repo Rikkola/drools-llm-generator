@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Password Strength",
+  "modelName" : "phi4",
+  "success" : false,
+  "generationTimeMs" : 6778,
+  "totalTimeMs" : 6778,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Strong Password' failed: Expected 1 rules to fire, but none fired",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

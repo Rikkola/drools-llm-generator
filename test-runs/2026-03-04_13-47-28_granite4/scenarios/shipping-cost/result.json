@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Shipping Cost",
+  "modelName" : "granite4",
+  "success" : true,
+  "generationTimeMs" : 2618,
+  "totalTimeMs" : 2618,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Medium Order",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "shippingCost" : 5.0
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "ShippingOrder( orderId=ORD100, total=75.0, shippingCost=5.0 )" ]
+}

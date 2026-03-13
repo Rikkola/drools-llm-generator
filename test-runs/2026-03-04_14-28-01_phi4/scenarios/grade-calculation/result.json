@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Grade Calculation",
+  "modelName" : "phi4",
+  "success" : false,
+  "generationTimeMs" : 12217,
+  "totalTimeMs" : 12217,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'B Grade' failed: Expected 1 rules to fire, but none fired",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

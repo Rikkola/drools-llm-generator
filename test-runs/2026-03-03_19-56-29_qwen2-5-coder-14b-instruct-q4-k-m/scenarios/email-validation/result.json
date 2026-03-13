@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Email Validation",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : true,
+  "generationTimeMs" : 1083,
+  "totalTimeMs" : 1083,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Valid Email",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "valid" : true
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "EmailAddress( email=test@example.com, valid=true )" ]
+}

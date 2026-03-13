@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Tax Calculation Chain",
+  "modelName" : "granite4",
+  "success" : false,
+  "generationTimeMs" : 4040,
+  "totalTimeMs" : 4040,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Low Tax Bracket' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=60, column=0\n   text=Rule Compilation error The method getNetIncome() is undefined for the type Rule_Determine_Low_Tax_Bracket406000754], Message [id=2, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=74, column=0\n   text=Rule Compilation error The method getNetIncome() is undefined for the type Rule_Determine_Medium_Tax_Bracket1358008462], Message [id=3, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=89, column=0\n   text=Rule Compilation error The method getNetIncome() is undefined for the type Rule_Determine_High_Tax_Bracket1537660418]]",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

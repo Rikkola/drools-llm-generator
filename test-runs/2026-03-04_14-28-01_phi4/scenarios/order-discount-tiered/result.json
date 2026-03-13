@@ -1,0 +1,21 @@
+{
+  "scenarioName" : "Order Discount - Tiered",
+  "modelName" : "phi4",
+  "success" : true,
+  "generationTimeMs" : 10716,
+  "totalTimeMs" : 10716,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Premium Tier",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "discountPercent" : 15,
+      "discountTier" : "PREMIUM"
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Order( orderId=ORD002, total=250.0, discountPercent=15, discountTier=PREMIUM )" ]
+}

@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Inventory Alert",
+  "modelName" : "qwen3",
+  "success" : true,
+  "generationTimeMs" : 13637,
+  "totalTimeMs" : 13637,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Low Stock Product",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "lowStock" : true
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Product( productId=PROD001, name=Widget, quantity=5, threshold=10, lowStock=true )" ]
+}

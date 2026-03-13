@@ -1,0 +1,38 @@
+{
+  "scenarioName" : "Age Validation Simple",
+  "modelName" : "deepseek-coder-v2:16b",
+  "success" : true,
+  "generationTimeMs" : 5881,
+  "totalTimeMs" : 5881,
+  "rulesFired" : 3,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Adult Person",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "result" : "adult"
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Minor Person",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "result" : "minor"
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Exactly 18",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "result" : "adult"
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Person( name=John, age=25, result=adult )", "Person( name=Jane, age=15, result=minor )", "Person( name=Alex, age=18, result=adult )" ]
+}

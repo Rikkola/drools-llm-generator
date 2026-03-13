@@ -1,0 +1,47 @@
+{
+  "scenarioName" : "Age Classification",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : true,
+  "generationTimeMs" : 5597,
+  "totalTimeMs" : 5597,
+  "rulesFired" : 4,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Child Classification",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "category" : "CHILD"
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Teen Classification",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "category" : "TEEN"
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Adult Classification",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "category" : "ADULT"
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Senior Classification",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "category" : "SENIOR"
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Person( name=Tommy, age=8, category=CHILD )", "Person( name=Alex, age=15, category=TEEN )", "Person( name=Sarah, age=35, category=ADULT )", "Person( name=Margaret, age=72, category=SENIOR )" ]
+}

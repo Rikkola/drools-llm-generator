@@ -1,0 +1,22 @@
+[PYTHON]
+# Import the necessary packages
+from drools import Facts, RuleEngine
+
+# Define the facts and their values
+facts = Facts()
+facts.add_fact("Customer", "customerId", "CUST001")
+facts.add_fact("Customer", "ordersThisMonth", 8)
+facts.add_fact("Customer", "totalSpentThisMonth", 7500.0)
+facts.add_fact("Customer", "isVip", False)
+facts.add_fact("Customer", "discountPercent", 0)
+
+# Define the rule engine and add the rules
+rule_engine = RuleEngine()
+rule_engine.add_rules([
+    "when Customer(ordersThisMonth > 5, totalSpentThisMonth >= 5000)",
+    "then Customer.setIsVip(true), Customer.setDiscountPercent(25)"])
+
+# Fire the rules and print the results
+results = rule_engine.fire_all_rules(facts)
+print(results[0].get("Customer"))
+[/PYTHON]

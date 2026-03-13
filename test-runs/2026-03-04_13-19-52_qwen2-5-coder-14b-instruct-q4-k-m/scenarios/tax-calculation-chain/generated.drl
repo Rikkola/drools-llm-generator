@@ -1,0 +1,99 @@
+package org.drools.generated;
+
+declare TaxReturn
+    taxpayerId : String
+    salary : double
+    bonuses : double
+    investments : double
+    dependents : int
+    expenses : double
+    grossIncome : double
+    deductions : double
+    netIncome : double
+    taxBracket : String
+    taxOwed : double
+end
+
+rule "Calculate Gross Income"
+salience 100
+when
+    $taxReturn : TaxReturn(grossIncome == 0.0)
+then
+    modify($taxReturn) {
+        setGrossIncome($taxReturn.getSalary() + $taxReturn.getBonuses() + $taxReturn.getInvestments())
+    }
+end
+
+rule "Calculate Deductions"
+salience 90
+when
+    $taxReturn : TaxReturn(grossIncome > 0.0, deductions == 0.0)
+then
+    modify($taxReturn) {
+        setDeductions(($taxReturn.getDependents() * 2000) + $taxReturn.getExpenses())
+    }
+end
+
+rule "Calculate Net Income"
+salience 80
+when
+    $taxReturn : TaxReturn(grossIncome > 0.0, deductions > 0.0, netIncome == 0.0)
+then
+    modify($taxReturn) {
+        setNetIncome($taxReturn.getGrossIncome() - $taxReturn.getDeductions())
+    }
+end
+
+rule "Determine Tax Bracket Low"
+salience 70
+when
+    $taxReturn : TaxReturn(netIncome > 0.0, netIncome < 40000.0, taxBracket == "NONE")
+then
+    modify($taxReturn) { setTaxBracket("LOW") }
+end
+
+rule "Determine Tax Bracket Medium"
+salience 60
+when
+    $taxReturn : TaxReturn(netIncome >= 40000.0, netIncome <= 100000.0, taxBracket == "NONE")
+then
+    modify($taxReturn) { setTaxBracket("MEDIUM") }
+end
+
+rule "Determine Tax Bracket High"
+salience 50
+when
+    $taxReturn : TaxReturn(netIncome > 100000.0, taxBracket == "NONE")
+then
+    modify($taxReturn) { setTaxBracket("HIGH") }
+end
+
+rule "Calculate Tax Owed Low"
+salience 40
+when
+    $taxReturn : TaxReturn(taxBracket == "LOW", taxOwed == 0.0)
+then
+    modify($taxReturn) {
+        setTaxOwed($taxReturn.getNetIncome() * 0.10)
+    }
+end
+
+rule "Calculate Tax Owed Medium"
+salience 30
+when
+    $taxReturn : TaxReturn(taxBracket == "MEDIUM", taxOwed == 0.0)
+then
+    modify($taxReturn) {
+        setTaxOwed($taxReturn.getNetIncome() * 0.22)
+    }
+end
+
+rule "Calculate Tax Owed High"
+salience 20
+when
+    $taxReturn : TaxReturn(taxBracket == "HIGH", taxOwed == 0.0)
+then
+    modify($taxReturn) {
+        setTaxOwed($taxReturn.getNetIncome() * 0.32)
+    }
+end

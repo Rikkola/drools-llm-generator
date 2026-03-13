@@ -1,0 +1,29 @@
+{
+  "scenarioName" : "Adult Validation",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : true,
+  "generationTimeMs" : 22869,
+  "totalTimeMs" : 22869,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Adult Person",
+    "passed" : true,
+    "rulesFired" : 0,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "adult" : true
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Minor Person",
+    "passed" : true,
+    "rulesFired" : 0,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "adult" : false
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Person( name=John, age=25, adult=true )", "Person( name=Jane, age=16, adult=false )" ]
+}

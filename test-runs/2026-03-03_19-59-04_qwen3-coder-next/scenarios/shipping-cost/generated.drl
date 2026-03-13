@@ -1,0 +1,28 @@
+package org.drools.generated;
+
+declare ShippingOrder
+    orderId : String
+    total : double
+    shippingCost : double
+end
+
+rule "Free shipping for orders over 100"
+when
+    $order : ShippingOrder( total > 100 )
+then
+    modify( $order ) { setShippingCost(0.0) }
+end
+
+rule "Standard shipping for orders between 50 and 100"
+when
+    $order : ShippingOrder( total >= 50 && total <= 100 )
+then
+    modify( $order ) { setShippingCost(5.0) }
+end
+
+rule "Standard shipping for orders under 50"
+when
+    $order : ShippingOrder( total < 50 )
+then
+    modify( $order ) { setShippingCost(10.0) }
+end

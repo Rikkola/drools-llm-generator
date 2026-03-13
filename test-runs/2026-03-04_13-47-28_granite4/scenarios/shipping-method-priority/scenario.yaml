@@ -1,0 +1,85 @@
+name: Shipping Method Priority
+description: Select shipping method based on priority rules
+
+requirement: |
+  Select shipping method based on priority. Each rule must check that shippingMethod is still "PENDING"
+  before modifying it (to ensure only the highest priority rule takes effect):
+
+  1. If shippingMethod == "PENDING" AND isHazardous is true, set shippingMethod to "SPECIALIZED"
+  2. If shippingMethod == "PENDING" AND isPrimeCustomer is true AND orderTotal > 25, set shippingMethod to "EXPRESS_FREE"
+  3. If shippingMethod == "PENDING" AND weightLbs > 50, set shippingMethod to "FREIGHT"
+  4. If shippingMethod == "PENDING", set shippingMethod to "STANDARD" (default fallback)
+
+  Use salience to control priority order (highest salience = highest priority).
+
+factTypes:
+  - name: Shipment
+    fields:
+      shipmentId: String
+      isHazardous: boolean
+      isPrimeCustomer: boolean
+      orderTotal: double
+      weightLbs: double
+      shippingMethod: String
+
+testCases:
+  - name: Hazardous Overrides All
+    input:
+      - _type: Shipment
+        shipmentId: SHIP001
+        isHazardous: true
+        isPrimeCustomer: true
+        orderTotal: 500.0
+        weightLbs: 100.0
+        shippingMethod: PENDING
+    # No expectedRulesFired - just verify field value
+    expectedFields:
+      shippingMethod: SPECIALIZED
+
+  - name: Prime Customer Free Express
+    input:
+      - _type: Shipment
+        shipmentId: SHIP002
+        isHazardous: false
+        isPrimeCustomer: true
+        orderTotal: 50.0
+        weightLbs: 10.0
+        shippingMethod: PENDING
+    expectedFields:
+      shippingMethod: EXPRESS_FREE
+
+  - name: Heavy Item Freight
+    input:
+      - _type: Shipment
+        shipmentId: SHIP003
+        isHazardous: false
+        isPrimeCustomer: false
+        orderTotal: 200.0
+        weightLbs: 75.0
+        shippingMethod: PENDING
+    expectedFields:
+      shippingMethod: FREIGHT
+
+  - name: Default Standard Shipping
+    input:
+      - _type: Shipment
+        shipmentId: SHIP004
+        isHazardous: false
+        isPrimeCustomer: false
+        orderTotal: 30.0
+        weightLbs: 5.0
+        shippingMethod: PENDING
+    expectedFields:
+      shippingMethod: STANDARD
+
+  - name: Prime But Low Order
+    input:
+      - _type: Shipment
+        shipmentId: SHIP005
+        isHazardous: false
+        isPrimeCustomer: true
+        orderTotal: 20.0
+        weightLbs: 2.0
+        shippingMethod: PENDING
+    expectedFields:
+      shippingMethod: STANDARD

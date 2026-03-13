@@ -1,0 +1,41 @@
+{
+  "scenarioName" : "Bulk Order Discount",
+  "modelName" : "qwen2.5-coder:14b-instruct-q4_K_M",
+  "success" : true,
+  "generationTimeMs" : 1830,
+  "totalTimeMs" : 1830,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "Qualifies for VIP",
+    "passed" : true,
+    "rulesFired" : 0,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "isVip" : true,
+      "discountPercent" : 25
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Not Enough Orders",
+    "passed" : true,
+    "rulesFired" : 0,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "isVip" : false,
+      "discountPercent" : 0
+    },
+    "actualValues" : { }
+  }, {
+    "name" : "Not Enough Spent",
+    "passed" : true,
+    "rulesFired" : 0,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "isVip" : false,
+      "discountPercent" : 0
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Customer( customerId=CUST001, ordersThisMonth=8, totalSpentThisMonth=7500.0, isVip=true, discountPercent=25 )", "Customer( customerId=CUST002, ordersThisMonth=3, totalSpentThisMonth=8000.0, isVip=false, discountPercent=0 )", "Customer( customerId=CUST003, ordersThisMonth=10, totalSpentThisMonth=3000.0, isVip=false, discountPercent=0 )" ]
+}

@@ -1,0 +1,44 @@
+name: Age Validation Simple
+description: Determine if a person is an adult or minor based on age
+
+requirement: |
+  If a person's age is 18 or older, they are an adult.
+  If a person's age is less than 18, they are a minor.
+
+factTypes:
+  - name: Person
+    fields:
+      name: String
+      age: int
+      result: String
+
+testCases:
+  - name: Adult Person
+    input:
+      - _type: Person
+        name: John
+        age: 25
+        result: unknown
+    expectedRulesFired: 1
+    expectedFields:
+      result: adult
+
+  - name: Minor Person
+    input:
+      - _type: Person
+        name: Jane
+        age: 15
+        result: unknown
+    expectedRulesFired: 1
+    expectedFields:
+      result: minor
+
+  - name: Exactly 18
+    input:
+      - _type: Person
+        name: Alex
+        age: 18
+        result: unknown
+    expectedRulesFired: 1
+    expectedFields:
+      result: adult

@@ -1,0 +1,31 @@
+package org.drools.generated;
+
+declare ShippingOrder
+    orderId : String
+    total : double
+    shippingCost : double
+end
+
+rule "Free Shipping"
+salience 100
+when
+    $order : ShippingOrder(total > 100, shippingCost == -1.0)
+then
+    modify($order) { setShippingCost(0.0) }
+end
+
+rule "Medium Shipping Cost"
+salience 90
+when
+    $order : ShippingOrder(total >= 50 && total <= 100, shippingCost == -1.0)
+then
+    modify($order) { setShippingCost(5.0) }
+end
+
+rule "Low Shipping Cost"
+salience 80
+when
+    $order : ShippingOrder(total < 50, shippingCost == -1.0)
+then
+    modify($order) { setShippingCost(10.0) }
+end

@@ -1,0 +1,35 @@
+package org.drools.generated;
+
+declare InsuranceApplicant
+    applicantId : String
+    age : int
+    smoker : boolean
+    premiumTier : String
+end
+
+rule "Assign Premium Tier for Smoker"
+when
+    $applicant : InsuranceApplicant(smoker == true)
+then
+    modify($applicant) {
+        setPremiumTier("HIGH")
+    }
+end
+
+rule "Assign Premium Tier for Non-Smoker Over 50"
+when
+    $applicant : InsuranceApplicant(smoker == false, age > 50)
+then
+    modify($applicant) {
+        setPremiumTier("MEDIUM")
+    }
+end
+
+rule "Assign Premium Tier for Non-Smoker 50 or Under"
+when
+    $applicant : InsuranceApplicant(smoker == false, age <= 50)
+then
+    modify($applicant) {
+        setPremiumTier("LOW")
+    }
+end

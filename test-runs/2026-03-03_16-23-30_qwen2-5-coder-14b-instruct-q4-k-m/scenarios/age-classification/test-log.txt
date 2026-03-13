@@ -1,0 +1,4 @@
+Scenario: Age Classification
+Status: PASS
+Rules Fired: 4
+Generation Time: 2877ms

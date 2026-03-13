@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Cart Validation",
+  "modelName" : "deepseek-coder-v2:16b",
+  "success" : false,
+  "generationTimeMs" : 14037,
+  "totalTimeMs" : 14037,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Out of Stock Rejection' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=14, column=0\n   text=Rule Compilation error The method modify(ShoppingCart) is undefined for the type Rule_Reject_Out_of_Stock_Items1861085948\nSyntax error, insert \";\" to complete Statement\nThe method setRejected(boolean) is undefined for the type Rule_Reject_Out_of_Stock_Items1861085948\nThe method setRejectionReason(String) is undefined for the type Rule_Reject_Out_of_Stock_Items1861085948\nSyntax error, insert \";\" to complete Statement]]",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

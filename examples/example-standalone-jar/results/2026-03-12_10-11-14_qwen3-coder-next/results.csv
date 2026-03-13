@@ -1,0 +1,3 @@
+Model,Scenario,Format,Success,RulesFired,GenerationTimeMs,ErrorMessage
+qwen3-coder-next,Product Pricing Rules,DRL,true,7,243728,
+qwen3-coder-next,Temperature Alert,DRL,false,0,81679,"Test case 'Critical temperature' failed: Expected 1 rules to fire, but none fired"

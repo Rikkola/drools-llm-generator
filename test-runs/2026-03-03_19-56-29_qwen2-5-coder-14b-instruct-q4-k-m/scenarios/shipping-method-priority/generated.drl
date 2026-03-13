@@ -1,0 +1,42 @@
+package org.drools.generated;
+
+declare Shipment
+    shipmentId: String
+    isHazardous: boolean
+    isPrimeCustomer: boolean
+    orderTotal: double
+    weightLbs: double
+    shippingMethod: String
+end
+
+rule "Set Specialized Shipping for Hazardous Items"
+salience 40
+when
+    $shipment : Shipment(shippingMethod == "PENDING", isHazardous == true)
+then
+    modify($shipment) { setShippingMethod("SPECIALIZED") }
+end
+
+rule "Set Express Free Shipping for Prime Customers with High Order Total"
+salience 30
+when
+    $shipment : Shipment(shippingMethod == "PENDING", isPrimeCustomer == true, orderTotal > 25)
+then
+    modify($shipment) { setShippingMethod("EXPRESS_FREE") }
+end
+
+rule "Set Freight Shipping for Heavy Items"
+salience 20
+when
+    $shipment : Shipment(shippingMethod == "PENDING", weightLbs > 50)
+then
+    modify($shipment) { setShippingMethod("FREIGHT") }
+end
+
+rule "Set Standard Shipping as Default"
+salience 10
+when
+    $shipment : Shipment(shippingMethod == "PENDING")
+then
+    modify($shipment) { setShippingMethod("STANDARD") }
+end

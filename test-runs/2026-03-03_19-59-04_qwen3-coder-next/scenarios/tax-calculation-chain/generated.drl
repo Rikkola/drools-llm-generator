@@ -1,0 +1,84 @@
+package org.drools.generated;
+
+declare TaxReturn
+    taxpayerId : String
+    salary : double
+    bonuses : double
+    investments : double
+    dependents : int
+    expenses : double
+    grossIncome : double
+    deductions : double
+    netIncome : double
+    taxBracket : String
+    taxOwed : double
+end
+
+rule "Calculate gross income"
+    when
+        $tr : TaxReturn()
+    then
+        double grossIncome = $tr.getSalary() + $tr.getBonuses() + $tr.getInvestments();
+        modify($tr) { setGrossIncome(grossIncome) };
+end
+
+rule "Calculate deductions"
+    when
+        $tr : TaxReturn()
+    then
+        double deductions = ($tr.getDependents() * 2000) + $tr.getExpenses();
+        modify($tr) { setDeductions(deductions) };
+end
+
+rule "Calculate net income"
+    when
+        $tr : TaxReturn()
+    then
+        double netIncome = $tr.getGrossIncome() - $tr.getDeductions();
+        modify($tr) { setNetIncome(netIncome) };
+end
+
+rule "Determine tax bracket"
+    when
+        $tr : TaxReturn(netIncome < 40000)
+    then
+        modify($tr) { setTaxBracket("LOW") };
+end
+
+rule "Determine tax bracket medium"
+    when
+        $tr : TaxReturn(netIncome >= 40000 && netIncome <= 100000)
+    then
+        modify($tr) { setTaxBracket("MEDIUM") };
+end
+
+rule "Determine tax bracket high"
+    when
+        $tr : TaxReturn(netIncome > 100000)
+    then
+        modify($tr) { setTaxBracket("HIGH") };
+end
+
+rule "Calculate tax owed for LOW bracket"
+    when
+        $tr : TaxReturn(taxBracket == "LOW")
+    then
+        double taxOwed = $tr.getNetIncome() * 0.10;
+        modify($tr) { setTaxOwed(taxOwed) };
+end
+
+rule "Calculate tax owed for MEDIUM bracket"
+    when
+        $tr : TaxReturn(taxBracket == "MEDIUM")
+    then
+        double taxOwed = $tr.getNetIncome() * 0.22;
+        modify($tr) { setTaxOwed(taxOwed) };
+end
+
+rule "Calculate tax owed for HIGH bracket"
+    when
+        $tr : TaxReturn(taxBracket == "HIGH")
+    then
+        double taxOwed = $tr.getNetIncome() * 0.32;
+        modify($tr) { setTaxOwed(taxOwed) };
+end

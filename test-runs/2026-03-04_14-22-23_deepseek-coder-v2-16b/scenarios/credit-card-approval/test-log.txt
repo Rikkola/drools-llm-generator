@@ -1,0 +1,15 @@
+Scenario: Credit Card Approval
+Status: FAIL
+Rules Fired: 0
+Generation Time: 18057ms
+Error: Test case 'Premium Card Approval' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=12, column=0
+   text=Rule Compilation error The method modify(CreditCardApplication) is undefined for the type Rule_Approve_Premium_Card809750655
+Syntax error, insert ";" to complete Statement
+The method setDecision(String) is undefined for the type Rule_Approve_Premium_Card809750655
+The method setCardType(String) is undefined for the type Rule_Approve_Premium_Card809750655
+Syntax error, insert ";" to complete Statement], Message [id=2, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=20, column=0
+   text=Rule Compilation error The method modify(CreditCardApplication) is undefined for the type Rule_Approve_Standard_Card492623465
+Syntax error, insert ";" to complete Statement
+The method setDecision(String) is undefined for the type Rule_Approve_Standard_Card492623465
+The method setCardType(String) is undefined for the type Rule_Approve_Standard_Card492623465
+Syntax error, insert ";" to complete Statement]]

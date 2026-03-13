@@ -1,0 +1,41 @@
+package org.drools.generated;
+
+declare Order
+    orderId : String
+    total : double
+    discountPercent : int
+    discountTier : String
+end
+
+rule "Apply Premium Discount"
+salience 100
+when
+    $order : Order(total >= 200, discountTier == "NONE")
+then
+    modify($order) {
+        setDiscountPercent(15),
+        setDiscountTier("PREMIUM")
+    }
+end
+
+rule "Apply Gold Discount"
+salience 90
+when
+    $order : Order(total >= 100 && total < 200, discountTier == "NONE")
+then
+    modify($order) {
+        setDiscountPercent(10),
+        setDiscountTier("GOLD")
+    }
+end
+
+rule "Apply Silver Discount"
+salience 80
+when
+    $order : Order(total >= 50 && total < 100, discountTier == "NONE")
+then
+    modify($order) {
+        setDiscountPercent(5),
+        setDiscountTier("SILVER")
+    }
+end

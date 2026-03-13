@@ -1,0 +1,20 @@
+Scenario: Order Discount - Tiered
+Status: FAIL
+Rules Fired: 0
+Generation Time: 13216ms
+Error: Test case 'Premium Tier' failed: Failed to execute DRL with JSON facts: DRL compilation errors: [Message [id=1, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=10, column=0
+   text=Rule Compilation error The method modify(Order) is undefined for the type Rule_Apply_Premium_Tier_Discount1957289013
+Syntax error, insert ";" to complete Statement
+The method setDiscountPercent(int) is undefined for the type Rule_Apply_Premium_Tier_Discount1957289013
+The method setDiscountTier(String) is undefined for the type Rule_Apply_Premium_Tier_Discount1957289013
+Syntax error, insert ";" to complete Statement], Message [id=2, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=26, column=0
+   text=Rule Compilation error The method modify(Order) is undefined for the type Rule_Apply_Silver_Tier_Discount1504539612
+Syntax error, insert ";" to complete Statement
+The method setDiscountPercent(int) is undefined for the type Rule_Apply_Silver_Tier_Discount1504539612
+The method setDiscountTier(String) is undefined for the type Rule_Apply_Silver_Tier_Discount1504539612
+Syntax error, insert ";" to complete Statement], Message [id=3, kieBase=defaultKieBase, level=ERROR, path=file0.drl, line=18, column=0
+   text=Rule Compilation error The method modify(Order) is undefined for the type Rule_Apply_Gold_Tier_Discount1994122619
+Syntax error, insert ";" to complete Statement
+The method setDiscountPercent(int) is undefined for the type Rule_Apply_Gold_Tier_Discount1994122619
+The method setDiscountTier(String) is undefined for the type Rule_Apply_Gold_Tier_Discount1994122619
+Syntax error, insert ";" to complete Statement]]

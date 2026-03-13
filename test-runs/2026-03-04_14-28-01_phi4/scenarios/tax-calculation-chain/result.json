@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Tax Calculation Chain",
+  "modelName" : "phi4",
+  "success" : false,
+  "generationTimeMs" : 24805,
+  "totalTimeMs" : 24805,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'Low Tax Bracket' failed: class org.drools.generated.Rule_Calculate_Gross_Income785055598 tried to access protected field org.drools.generated.TaxReturn.salary (org.drools.generated.Rule_Calculate_Gross_Income785055598 is in unnamed module of loader org.drools.wiring.dynamic.PackageClassLoader @329013b3; org.drools.generated.TaxReturn is in unnamed module of loader org.drools.wiring.dynamic.DynamicProjectClassLoader$DefaultInternalTypesClassLoader @23ec2ea0)",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

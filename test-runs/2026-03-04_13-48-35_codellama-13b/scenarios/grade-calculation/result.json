@@ -1,0 +1,11 @@
+{
+  "scenarioName" : "Grade Calculation",
+  "modelName" : "codellama:13b",
+  "success" : false,
+  "generationTimeMs" : 64484,
+  "totalTimeMs" : 64484,
+  "rulesFired" : 0,
+  "errorMessage" : "Test case 'B Grade' failed: Expected 1 rules to fire, but none fired",
+  "testCases" : [ ],
+  "factsInMemory" : [ ]
+}

@@ -1,0 +1,41 @@
+package org.drools.generated;
+
+declare TemperatureReading
+    sensorId : String
+    temperature : double
+    alertLevel : String
+    alertMessage : String
+end
+
+rule "Critical Temperature Alert"
+salience 100
+when
+    $t : TemperatureReading(temperature > 100, alertLevel == null)
+then
+    modify($t) {
+        setAlertLevel("CRITICAL"),
+        setAlertMessage("Temperature critically high")
+    }
+end
+
+rule "Warning Temperature Alert"
+salience 90
+when
+    $t : TemperatureReading(temperature >= 80 && temperature <= 100, alertLevel == null)
+then
+    modify($t) {
+        setAlertLevel("WARNING"),
+        setAlertMessage("Temperature elevated")
+    }
+end
+
+rule "Normal Temperature Alert"
+salience 80
+when
+    $t : TemperatureReading(temperature < 80, alertLevel == null)
+then
+    modify($t) {
+        setAlertLevel("NORMAL"),
+        setAlertMessage("Temperature normal")
+    }
+end

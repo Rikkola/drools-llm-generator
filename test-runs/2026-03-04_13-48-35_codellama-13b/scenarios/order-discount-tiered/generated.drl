@@ -1,0 +1,32 @@
+package org.drools.generated;
+
+declare Order
+    orderId : String
+    total : double
+    discountPercent : int
+    discountTier : String
+end
+
+rule "Premium Tier"
+salience 100
+when
+    $o : Order(total >= 200, discountPercent == 0, discountTier == "NONE")
+then
+    modify($o) { setDiscountPercent(15), setDiscountTier("PREMIUM") }
+end
+
+rule "Gold Tier"
+salience 90
+when
+    $o : Order(total >= 100, total < 200, discountPercent == 0, discountTier == "NONE")
+then
+    modify($o) { setDiscountPercent(10), setDiscountTier("GOLD") }
+end
+
+rule "Silver Tier"
+salience 80
+when
+    $o : Order(total >= 50, total < 100, discountPercent == 0, discountTier == "NONE")
+then
+    modify($o) { setDiscountPercent(5), setDiscountTier("SILVER") }
+end

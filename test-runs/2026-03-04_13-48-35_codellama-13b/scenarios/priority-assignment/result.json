@@ -1,0 +1,20 @@
+{
+  "scenarioName" : "Priority Assignment",
+  "modelName" : "codellama:13b",
+  "success" : true,
+  "generationTimeMs" : 46881,
+  "totalTimeMs" : 46881,
+  "rulesFired" : 1,
+  "errorMessage" : null,
+  "testCases" : [ {
+    "name" : "High Severity",
+    "passed" : true,
+    "rulesFired" : 1,
+    "errorMessage" : null,
+    "expectedValues" : {
+      "priority" : 2
+    },
+    "actualValues" : { }
+  } ],
+  "factsInMemory" : [ "Ticket( ticketId=TKT001, severity=HIGH, priority=2 )" ]
+}

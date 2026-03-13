@@ -1,0 +1,11 @@
+=== DRL Generation Test Run Summary ===
+
+Model: qwen3-coder-next
+Scenarios: 2
+Passed: 1
+Failed: 1
+Success Rate: 50.0%
+
+=== Results ===
+Product Pricing Rules                    PASS
+Temperature Alert                        FAIL

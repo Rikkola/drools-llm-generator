@@ -1,0 +1,10 @@
+Scenario: Age Classification
+Status: FAIL
+Rules Fired: 0
+Generation Time: 102857ms
+Error: Validation exception: DRL validation failed: ERROR: [ERR 107] Line 1:0 mismatched input '[' expecting one of the following tokens: '[package, unit, import, global, declare, function, rule, query]'.
+ERROR: [ERR 107] Line 4:0 mismatched input 'from' expecting one of the following tokens: '[package, unit, import, global, declare, function, rule, query]'.
+ERROR: [ERR 107] Line 6:0 mismatched input 'class' expecting one of the following tokens: '[package, unit, import, global, declare, function, rule, query]'.
+ERROR: [ERR 102] Line 48:0 mismatched input 'client' in rule "unit"
+ERROR: Parser returned a null Package
+ERROR: Verifier could not form a PackageDescr from the resources that it was trying to verify.
