@@ -2,10 +2,12 @@ name: Loan Approval Complex
 description: Loan approval decision based on credit score, employment, and loan amount
 
 requirement: |
-  Approve a loan if credit score is above 700 and employment duration is at least 2 years
-  and loan amount is less than 5x annual salary.
-  If credit score is between 650 and 700, escalate to human review.
-  Otherwise deny.
+  Applications start with decision set to PENDING.
+  Evaluate the application and update the decision:
+  - Approve if credit score is above 700 and employment duration is at least 2 years
+    and loan amount is less than 5x annual salary.
+  - If credit score is between 650 and 700, escalate to human review.
+  - Otherwise deny.
 
 factTypes:
   - name: LoanApplication
@@ -14,7 +16,9 @@ factTypes:
       employmentYears: int
       loanAmount: double
       annualSalary: double
-      decision: String
+      decision:
+        type: enum
+        values: [PENDING, APPROVED, DENIED, REVIEW]
 
 testCases:
   - name: High Credit Score Approval

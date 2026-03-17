@@ -48,6 +48,161 @@ class StringCleanupUtilsTest {
 
             assertThat(StringCleanupUtils.cleanupDrl(input)).isEqualTo(expected);
         }
+
+        @Test
+        @DisplayName("should extract DRL from markdown with leading text")
+        void extractsFromMarkdownWithLeadingText() {
+            String input = """
+                    Here's the DRL code for the given business rule requirement:
+
+                    ```drl
+                    package org.drools.generated;
+
+                    rule "Test"
+                    when
+                    then
+                    end
+                    ```
+                    """;
+
+            String result = StringCleanupUtils.cleanupDrl(input);
+
+            assertThat(result).startsWith("package org.drools.generated;");
+            assertThat(result).doesNotContain("Here's");
+            assertThat(result).contains("rule \"Test\"");
+        }
+
+        @Test
+        @DisplayName("should extract DRL from markdown with leading and trailing text")
+        void extractsFromMarkdownWithLeadingAndTrailingText() {
+            String input = """
+                    Here's the generated DRL code based on the provided business rule requirement:
+
+                    ```drl
+                    package org.drools.generated;
+
+                    declare Person
+                        name : String
+                        age : int
+                    end
+
+                    rule "Check Adult"
+                    when
+                        $p : Person(age >= 18)
+                    then
+                        modify($p) { setAdult(true) }
+                    end
+                    ```
+
+                    Explanation:
+                    1. The `package` declaration specifies the package name.
+                    2. The `declare` block defines the Person fact type.
+                    3. The rule checks if age >= 18.
+
+                    This DRL code satisfies the given requirements.
+                    """;
+
+            String result = StringCleanupUtils.cleanupDrl(input);
+
+            assertThat(result).startsWith("package org.drools.generated;");
+            assertThat(result).endsWith("end");
+            assertThat(result).doesNotContain("Here's");
+            assertThat(result).doesNotContain("Explanation:");
+            assertThat(result).doesNotContain("This DRL code satisfies");
+            assertThat(result).contains("declare Person");
+            assertThat(result).contains("rule \"Check Adult\"");
+        }
+
+        @Test
+        @DisplayName("should extract DRL from markdown with drools language tag")
+        void extractsFromMarkdownWithDroolsTag() {
+            String input = """
+                    Here is the code:
+
+                    ```drools
+                    package test;
+                    rule "R1" end
+                    ```
+
+                    Hope this helps!
+                    """;
+
+            String result = StringCleanupUtils.cleanupDrl(input);
+
+            assertThat(result).startsWith("package test;");
+            assertThat(result).doesNotContain("Here is the code");
+            assertThat(result).doesNotContain("Hope this helps");
+        }
+
+        @Test
+        @DisplayName("should handle multiple code blocks by taking the first DRL block")
+        void handlesMultipleCodeBlocks() {
+            String input = """
+                    Here's an example:
+
+                    ```java
+                    // This is Java, not DRL
+                    public class Test {}
+                    ```
+
+                    And here's the DRL:
+
+                    ```drl
+                    package org.drools.generated;
+                    rule "Test" end
+                    ```
+
+                    Done!
+                    """;
+
+            String result = StringCleanupUtils.cleanupDrl(input);
+
+            // Should extract the DRL block, not the Java block
+            assertThat(result).contains("package org.drools.generated;");
+            assertThat(result).contains("rule \"Test\"");
+            // Should not contain explanatory text
+            assertThat(result).doesNotContain("Here's an example");
+            assertThat(result).doesNotContain("Done!");
+        }
+
+        @Test
+        @DisplayName("should handle plain code block without language specifier containing DRL")
+        void handlesPlainCodeBlockWithDrl() {
+            String input = """
+                    The code:
+
+                    ```
+                    package org.drools.generated;
+                    rule "Test" end
+                    ```
+
+                    That's it.
+                    """;
+
+            String result = StringCleanupUtils.cleanupDrl(input);
+
+            assertThat(result).startsWith("package org.drools.generated;");
+            assertThat(result).doesNotContain("The code:");
+            assertThat(result).doesNotContain("That's it");
+        }
+
+        @Test
+        @DisplayName("should return clean DRL when no markdown present")
+        void handlesCleanDrlWithoutMarkdown() {
+            String input = """
+                    package org.drools.generated;
+
+                    rule "Test"
+                    when
+                    then
+                    end
+                    """;
+
+            String result = StringCleanupUtils.cleanupDrl(input);
+
+            assertThat(result).startsWith("package org.drools.generated;");
+            assertThat(result).contains("rule \"Test\"");
+        }
     }
 
     @Nested

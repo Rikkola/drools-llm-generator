@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.rikkola.drlgen.generation.model.TestScenario;
 import com.github.rikkola.drlgen.generation.model.TestScenario.ExpectedFact;
 import com.github.rikkola.drlgen.generation.model.TestScenario.FactTypeDefinition;
+import com.github.rikkola.drlgen.generation.model.TestScenario.FieldDefinition;
 import com.github.rikkola.drlgen.generation.model.TestScenario.TestCase;
 import org.yaml.snakeyaml.Yaml;
 
@@ -295,14 +296,49 @@ public class YAMLScenarioLoader {
         List<FactTypeDefinition> result = new ArrayList<>();
         for (Map<String, Object> ft : factTypesData) {
             String typeName = (String) ft.get("name");
-            Map<String, String> fields = new LinkedHashMap<>();
+            Map<String, FieldDefinition> fields = new LinkedHashMap<>();
             Map<String, Object> fieldsData = (Map<String, Object>) ft.get("fields");
             if (fieldsData != null) {
-                fieldsData.forEach((k, v) -> fields.put(k, String.valueOf(v)));
+                fieldsData.forEach((fieldName, fieldValue) -> {
+                    FieldDefinition fd = parseFieldDefinition(fieldValue);
+                    fields.put(fieldName, fd);
+                });
             }
             result.add(new FactTypeDefinition(typeName, fields));
         }
         return result;
+    }
+
+    /**
+     * Parses a field definition from YAML.
+     * Supports both simple syntax (e.g., "String") and extended syntax
+     * (e.g., {type: enum, values: [A, B, C]}).
+     */
+    @SuppressWarnings("unchecked")
+    private FieldDefinition parseFieldDefinition(Object fieldValue) {
+        if (fieldValue instanceof String) {
+            // Simple syntax: "decision: String"
+            return FieldDefinition.simple((String) fieldValue);
+        } else if (fieldValue instanceof Map) {
+            // Extended syntax: "decision: {type: enum, values: [...]}"
+            Map<String, Object> fieldDef = (Map<String, Object>) fieldValue;
+            String type = (String) fieldDef.get("type");
+
+            if ("enum".equalsIgnoreCase(type)) {
+                List<String> values = (List<String>) fieldDef.get("values");
+                if (values != null) {
+                    // Normalize enum values to uppercase
+                    List<String> normalizedValues = values.stream()
+                            .map(String::toUpperCase)
+                            .toList();
+                    return FieldDefinition.enumType(normalizedValues);
+                }
+            }
+            // Non-enum extended syntax (future expansion)
+            return FieldDefinition.simple(type != null ? type : "String");
+        }
+        // Fallback for other types
+        return FieldDefinition.simple(String.valueOf(fieldValue));
     }
 
     @SuppressWarnings("unchecked")

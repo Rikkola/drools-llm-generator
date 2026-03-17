@@ -2,7 +2,8 @@ name: Credit Card Approval
 description: Credit card approval based on income, credit score, and existing debt
 
 requirement: |
-  Approve credit card application:
+  Applications start with decision set to PENDING and cardType set to NONE.
+  Evaluate the application and update the decision and cardType:
   - If annual income is above 50000 and credit score is above 700 and debt-to-income ratio is below 0.4, approve with premium card
   - If annual income is above 30000 and credit score is above 600, approve with standard card
   - If credit score is below 500, deny the application
@@ -15,8 +16,12 @@ factTypes:
       creditScore: int
       existingDebt: double
       debtToIncomeRatio: double
-      decision: String
-      cardType: String
+      decision:
+        type: enum
+        values: [PENDING, APPROVED, DENIED, MANUAL_REVIEW]
+      cardType:
+        type: enum
+        values: [NONE, STANDARD, PREMIUM]
 
 testCases:
   - name: Premium Card Approval

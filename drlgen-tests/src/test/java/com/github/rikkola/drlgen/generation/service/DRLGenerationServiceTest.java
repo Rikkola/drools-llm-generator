@@ -8,6 +8,7 @@ import com.github.rikkola.drlgen.validation.DRLValidator;
 import com.github.rikkola.drlgen.generation.model.TestScenario;
 import com.github.rikkola.drlgen.generation.model.TestScenario.ExpectedFact;
 import com.github.rikkola.drlgen.generation.model.TestScenario.FactTypeDefinition;
+import com.github.rikkola.drlgen.generation.model.TestScenario.FieldDefinition;
 import com.github.rikkola.drlgen.generation.model.TestScenario.TestCase;
 import dev.langchain4j.model.chat.ChatModel;
 import org.junit.jupiter.api.BeforeEach;
@@ -109,9 +110,9 @@ class DRLGenerationServiceTest {
                 "Validates if a person is an adult based on age",
                 "If a person's age is 18 or older, mark them as adult",
                 List.of(new FactTypeDefinition("Person", Map.of(
-                        "name", "String",
-                        "age", "int",
-                        "adult", "boolean"
+                        "name", FieldDefinition.simple("String"),
+                        "age", FieldDefinition.simple("int"),
+                        "adult", FieldDefinition.simple("boolean")
                 ))),
                 List.of(new TestCase(
                         "Adult person",
@@ -212,9 +213,9 @@ class DRLGenerationServiceTest {
                     "Validates if a person is an adult based on age",
                     "If a person's age is 18 or older, mark them as adult",
                     List.of(new FactTypeDefinition("Person", Map.of(
-                            "name", "String",
-                            "age", "int",
-                            "adult", "boolean"
+                            "name", FieldDefinition.simple("String"),
+                            "age", FieldDefinition.simple("int"),
+                            "adult", FieldDefinition.simple("boolean")
                     ))),
                     List.of(new TestCase(
                             "Adult person",
@@ -272,9 +273,9 @@ class DRLGenerationServiceTest {
                     "Test with multiple cases",
                     "If a person's age is 18 or older, mark them as adult",
                     List.of(new FactTypeDefinition("Person", Map.of(
-                            "name", "String",
-                            "age", "int",
-                            "adult", "boolean"
+                            "name", FieldDefinition.simple("String"),
+                            "age", FieldDefinition.simple("int"),
+                            "adult", FieldDefinition.simple("boolean")
                     ))),
                     List.of(
                             new TestCase("Adult 1",

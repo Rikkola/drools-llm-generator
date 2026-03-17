@@ -29,17 +29,75 @@ public final class StringCleanupUtils {
     private static final Pattern FACT_PATTERN_LINE =
             Pattern.compile("^\\s*(?:not\\s+)?(?:\\$\\w+\\s*:\\s*)?\\w+\\s*\\(");
 
+    // Pattern to extract content from markdown code blocks
+    // Matches ```drl or ```drools blocks specifically
+    private static final Pattern MARKDOWN_DRL_BLOCK_PATTERN =
+            Pattern.compile("```(?:drl|drools)\\s*\\n(.*?)\\n?```", Pattern.DOTALL);
+    // Matches plain ``` blocks (without language specifier)
+    private static final Pattern MARKDOWN_PLAIN_BLOCK_PATTERN =
+            Pattern.compile("```\\s*\\n(.*?)\\n?```", Pattern.DOTALL);
+
     /**
-     * Cleans up generated DRL by removing markdown code blocks.
+     * Cleans up generated DRL by extracting content from markdown code blocks
+     * and applying various fixes.
+     *
+     * <p>If the input contains markdown code blocks (```drl, ```drools, or ```),
+     * this method extracts only the content within the first suitable block,
+     * removing any surrounding explanatory text.</p>
      */
     public static String cleanupDrl(String drl) {
         if (drl == null) return null;
-        String cleaned = drl.replaceAll("```(?:drl|drools)?\\n?", "")
-                  .replaceAll("```\\n?", "")
-                  .trim();
+
+        String cleaned = extractFromMarkdown(drl);
         cleaned = fixBooleanSetters(cleaned);
         cleaned = fixPatternConstraintOperators(cleaned);
         return cleaned;
+    }
+
+    /**
+     * Extracts DRL content from markdown code blocks.
+     *
+     * <p>Priority order:
+     * <ol>
+     *   <li>```drl or ```drools blocks (preferred)</li>
+     *   <li>Plain ``` blocks that contain DRL-like content</li>
+     *   <li>Original content with markdown markers removed (fallback)</li>
+     * </ol>
+     */
+    private static String extractFromMarkdown(String input) {
+        // First, try to extract from ```drl or ```drools blocks
+        Matcher drlMatcher = MARKDOWN_DRL_BLOCK_PATTERN.matcher(input);
+        if (drlMatcher.find()) {
+            return drlMatcher.group(1).trim();
+        }
+
+        // Next, try plain ``` blocks that look like they contain DRL
+        Matcher genericMatcher = MARKDOWN_PLAIN_BLOCK_PATTERN.matcher(input);
+        while (genericMatcher.find()) {
+            String content = genericMatcher.group(1).trim();
+            // Check if it looks like DRL (starts with package, declare, or rule)
+            if (looksLikeDrl(content)) {
+                return content;
+            }
+        }
+
+        // Fallback: remove markdown markers but keep content
+        // This handles cases where DRL isn't wrapped in code blocks
+        return input.replaceAll("```(?:drl|drools)?\\n?", "")
+                    .replaceAll("```\\n?", "")
+                    .trim();
+    }
+
+    /**
+     * Checks if content looks like DRL code.
+     */
+    private static boolean looksLikeDrl(String content) {
+        String trimmed = content.trim();
+        return trimmed.startsWith("package ") ||
+               trimmed.startsWith("declare ") ||
+               trimmed.startsWith("rule ") ||
+               trimmed.startsWith("import ") ||
+               trimmed.startsWith("global ");
     }
 
     /**

@@ -24,17 +24,79 @@ public record TestScenario(
     }
 
     /**
+     * Definition of a field within a fact type.
+     * Supports both simple types (String, int, etc.) and enums with allowed values.
+     */
+    public record FieldDefinition(
+            String type,           // "String", "int", "double", "boolean", "enum"
+            List<String> values    // null for non-enum, list of allowed values for enum
+    ) {
+        /**
+         * Creates a simple field definition (non-enum).
+         */
+        public static FieldDefinition simple(String type) {
+            return new FieldDefinition(type, null);
+        }
+
+        /**
+         * Creates an enum field definition with allowed values.
+         */
+        public static FieldDefinition enumType(List<String> values) {
+            return new FieldDefinition("enum", values);
+        }
+
+        /**
+         * Returns true if this field is an enum type.
+         */
+        public boolean isEnum() {
+            return "enum".equalsIgnoreCase(type) && values != null && !values.isEmpty();
+        }
+
+        /**
+         * Returns the type name for DRL generation.
+         * For enums, returns "String" since DRL doesn't have native enums.
+         */
+        public String getDrlType() {
+            return isEnum() ? "String" : type;
+        }
+
+        @Override
+        public String toString() {
+            if (isEnum()) {
+                return "enum[" + String.join(", ", values) + "]";
+            }
+            return type;
+        }
+    }
+
+    /**
      * Definition of an expected fact type in the generated DRL.
      */
     public record FactTypeDefinition(
             String typeName,
-            Map<String, String> fields  // fieldName -> fieldType
+            Map<String, FieldDefinition> fields  // fieldName -> field definition
     ) {
+        /**
+         * Gets the enum values for a field, or null if not an enum.
+         */
+        public List<String> getEnumValues(String fieldName) {
+            FieldDefinition fd = fields.get(fieldName);
+            return fd != null && fd.isEnum() ? fd.values() : null;
+        }
+
+        /**
+         * Returns true if the field is an enum type.
+         */
+        public boolean isEnumField(String fieldName) {
+            FieldDefinition fd = fields.get(fieldName);
+            return fd != null && fd.isEnum();
+        }
+
         @Override
         public String toString() {
             StringBuilder sb = new StringBuilder(typeName).append(" {\n");
-            fields.forEach((field, type) ->
-                    sb.append("    ").append(field).append(": ").append(type).append("\n"));
+            fields.forEach((field, fd) ->
+                    sb.append("    ").append(field).append(": ").append(fd).append("\n"));
             sb.append("}");
             return sb.toString();
         }
@@ -98,13 +160,24 @@ public record TestScenario(
 
     /**
      * Generates a human-readable fact types description for the agent.
+     * For enum fields, includes the allowed values to guide the LLM.
      */
     public String getFactTypesDescription() {
         StringBuilder sb = new StringBuilder();
         for (FactTypeDefinition ft : expectedFactTypes) {
             sb.append("- ").append(ft.typeName()).append(":\n");
-            ft.fields().forEach((field, type) ->
-                    sb.append("    ").append(field).append(": ").append(type).append("\n"));
+            ft.fields().forEach((field, fd) -> {
+                sb.append("    ").append(field).append(": ");
+                if (fd.isEnum()) {
+                    // Show enum values to guide LLM to use correct values
+                    sb.append("String (allowed values: ")
+                      .append(String.join(", ", fd.values()))
+                      .append(")");
+                } else {
+                    sb.append(fd.type());
+                }
+                sb.append("\n");
+            });
         }
         return sb.toString();
     }

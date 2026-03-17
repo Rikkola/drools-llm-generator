@@ -142,16 +142,30 @@ public final class FactVerificationUtils {
     }
 
     /**
+     * Normalizes a string value to uppercase for enum comparison.
+     * Handles null values safely.
+     *
+     * @param value the string value to normalize
+     * @return normalized uppercase string, or null if input was null
+     */
+    public static String normalizeEnumValue(String value) {
+        return value == null ? null : value.toUpperCase().trim();
+    }
+
+    /**
      * Compares expected and actual values, handling type conversions.
-     * Uses case-insensitive string comparison to handle AI output variations.
+     * String values are normalized to UPPERCASE before comparison to handle
+     * AI output variations (e.g., "approved" vs "APPROVED" vs "Approved").
      */
     public static boolean valuesMatch(Object expected, Object actual) {
         if (expected == null && actual == null) return true;
         if (expected == null || actual == null) return false;
 
-        // String comparison (case-insensitive to handle AI output variations)
+        // String comparison - normalize to uppercase for consistent enum handling
         if (expected instanceof String && actual instanceof String) {
-            return ((String) expected).equalsIgnoreCase((String) actual);
+            String normalizedExpected = normalizeEnumValue((String) expected);
+            String normalizedActual = normalizeEnumValue((String) actual);
+            return normalizedExpected.equals(normalizedActual);
         }
 
         // Number comparison (handle int/Integer/double etc.)
@@ -164,7 +178,24 @@ public final class FactVerificationUtils {
             return expected.equals(actual);
         }
 
-        // Try string comparison as fallback
-        return String.valueOf(expected).equals(String.valueOf(actual));
+        // Try string comparison as fallback (also normalized)
+        String expectedStr = normalizeEnumValue(String.valueOf(expected));
+        String actualStr = normalizeEnumValue(String.valueOf(actual));
+        return expectedStr.equals(actualStr);
+    }
+
+    /**
+     * Validates that a value is within the allowed enum values.
+     *
+     * @param value the value to check
+     * @param allowedValues list of allowed enum values (already uppercase)
+     * @return true if value is valid (or allowedValues is null), false otherwise
+     */
+    public static boolean isValidEnumValue(String value, List<String> allowedValues) {
+        if (allowedValues == null || allowedValues.isEmpty()) {
+            return true; // Non-enum field, any value allowed
+        }
+        String normalized = normalizeEnumValue(value);
+        return allowedValues.contains(normalized);
     }
 }
