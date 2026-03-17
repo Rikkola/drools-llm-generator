@@ -18,5 +18,12 @@ public enum AgentType {
      * Achieved 86.2% success rate in tests.
      * This is the default agent type.
      */
-    GUIDED
+    GUIDED,
+
+    /**
+     * Conversational agent with ChatMemory support.
+     * Enables multi-turn generation with error feedback and self-correction.
+     * Can retry generation based on validation/execution errors.
+     */
+    CONVERSATIONAL
 }

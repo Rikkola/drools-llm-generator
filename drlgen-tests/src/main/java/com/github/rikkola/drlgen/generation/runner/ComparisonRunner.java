@@ -29,6 +29,7 @@ import java.util.*;
  *   --scenarios <name1,name2,...>  Filter scenarios by name substring
  *   --scenarios-dir <path>         Load scenarios from file system directory
  *   --instructions <path>          Domain instructions file to augment DRL guide
+ *   --max-turns <n>                Max conversation turns for self-correction (default: 1, max: 5)
  *   --output <filename.csv>        CSV output file (default: comparison-results.csv)
  *   --output-dir <directory>       Output directory for test artifacts (default: test-runs)
  */
@@ -69,10 +70,14 @@ public class ComparisonRunner {
         List<TestScenario> scenarios = parseScenarios(args, scenariosDir);
         String outputFile = parseOutput(args);
         Path outputDir = parseOutputDir(args);
+        int maxTurns = parseMaxTurns(args);
 
         System.out.println("Starting Drools Rule Generation Comparison");
         System.out.println("Models: " + models.size());
         System.out.println("Scenarios: " + scenarios.size());
+        if (maxTurns > 1) {
+            System.out.println("Max turns: " + maxTurns + " (conversational mode)");
+        }
         if (scenariosDir != null) {
             System.out.println("Scenarios directory: " + scenariosDir.toAbsolutePath());
         }
@@ -128,7 +133,7 @@ public class ComparisonRunner {
                 System.out.printf("[%d/%d] %s - %s... ",
                         currentTest, totalTests, modelName, scenario.name());
 
-                ComparisonResult result = testDRL(drlService, chatModel, modelName, scenario, instructionsPath);
+                ComparisonResult result = testDRL(drlService, chatModel, modelName, scenario, instructionsPath, maxTurns);
                 report.addResult(result);
                 System.out.println(result.getStatusString() +
                         (result.success() ? " (" + result.rulesFired() + " rules)" : ""));
@@ -153,12 +158,20 @@ public class ComparisonRunner {
         report.writeCsvReport(outputFile);
     }
 
-    private ComparisonResult testDRL(DRLGenerationService drlService, ChatModel model, String modelName, TestScenario scenario, Path instructionsPath) {
+    private ComparisonResult testDRL(DRLGenerationService drlService, ChatModel model, String modelName,
+                                       TestScenario scenario, Path instructionsPath, int maxTurns) {
         List<ScenarioResult.TestCaseResult> testCaseResults = new ArrayList<>();
         List<String> factsInMemory = new ArrayList<>();
 
         try {
-            GenerationResult result = drlService.generateAndTest(model, scenario, instructionsPath);
+            GenerationResult result;
+            if (maxTurns > 1) {
+                // Use conversational generation with retries
+                result = drlService.generateAndTestWithRetry(model, scenario, maxTurns, instructionsPath);
+            } else {
+                // Use single-turn generation
+                result = drlService.generateAndTest(model, scenario, instructionsPath);
+            }
 
             // Capture facts as strings
             if (result.resultingFacts() != null) {
@@ -419,6 +432,28 @@ public class ComparisonRunner {
         return Paths.get(outputDir != null ? outputDir : "test-runs");
     }
 
+    private int parseMaxTurns(String[] args) {
+        String maxTurnsArg = getArgValue(args, "--max-turns");
+        if (maxTurnsArg == null) {
+            return 1; // Default: single turn (no retries)
+        }
+        try {
+            int maxTurns = Integer.parseInt(maxTurnsArg);
+            if (maxTurns < 1) {
+                System.err.println("Warning: --max-turns must be at least 1, using 1");
+                return 1;
+            }
+            if (maxTurns > 5) {
+                System.err.println("Warning: --max-turns capped at 5, using 5");
+                return 5;
+            }
+            return maxTurns;
+        } catch (NumberFormatException e) {
+            System.err.println("Warning: Invalid --max-turns value '" + maxTurnsArg + "', using 1");
+            return 1;
+        }
+    }
+
     private String getArgValue(String[] args, String argName) {
         for (int i = 0; i < args.length - 1; i++) {
             if (args[i].equals(argName)) {
@@ -449,6 +484,8 @@ public class ComparisonRunner {
         System.out.println("  --scenarios <list>     Filter scenarios by name substring (default: all)");
         System.out.println("  --scenarios-dir <path> Load scenarios from filesystem directory");
         System.out.println("  --instructions <path>  Domain instructions file to augment DRL guide");
+        System.out.println("  --max-turns <n>        Max conversation turns for self-correction (default: 1, max: 5)");
+        System.out.println("                         Use 3 for initial generation + 2 retries");
         System.out.println("  --output <file>        CSV output filename (default: comparison-results.csv)");
         System.out.println("  --output-dir <dir>     Output directory for artifacts (default: test-runs)");
         System.out.println("  -h, --help             Show this help message");
@@ -458,6 +495,7 @@ public class ComparisonRunner {
         System.out.println("  java -jar drlgen-tests.jar --models qwen3-coder-next,granite4:small-h");
         System.out.println("  java -jar drlgen-tests.jar --scenarios adult,discount");
         System.out.println("  java -jar drlgen-tests.jar --scenarios-dir ./my-scenarios --output results.csv");
+        System.out.println("  java -jar drlgen-tests.jar --models qwen2.5-coder --max-turns 3  # With retries");
         System.out.println();
         System.out.println("Prerequisites:");
         System.out.println("  - Java 17+");

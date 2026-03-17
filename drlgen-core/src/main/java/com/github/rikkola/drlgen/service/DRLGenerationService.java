@@ -1,9 +1,12 @@
 package com.github.rikkola.drlgen.service;
 
 import dev.langchain4j.model.chat.ChatModel;
+import com.github.rikkola.drlgen.agent.ConversationalDRLAgent;
 import com.github.rikkola.drlgen.agent.DRLGenerationAgent;
 import com.github.rikkola.drlgen.cleanup.DRLCleanupStrategy;
 import com.github.rikkola.drlgen.config.ModelConfiguration;
+import com.github.rikkola.drlgen.conversation.ErrorFeedbackFormatter;
+import com.github.rikkola.drlgen.conversation.GuideSectionFinder;
 import com.github.rikkola.drlgen.execution.DRLPopulatorRunner;
 import com.github.rikkola.drlgen.execution.DRLRunnerResult;
 import com.github.rikkola.drlgen.guide.GuideProvider;
@@ -211,6 +214,112 @@ public class DRLGenerationService {
         // Return validation-only success
         return GenerationResult.validated(modelName, generatedDrl, validationResult.getSummary(),
                 genTime, Duration.between(start, Instant.now()));
+    }
+
+    // ========== Conversational Generation with Retry ==========
+
+    /**
+     * Generates DRL using a conversational agent with retry capability.
+     *
+     * <p>This method uses ChatMemory to maintain conversation history, allowing the model
+     * to learn from validation errors and fix its DRL across multiple turns.</p>
+     *
+     * @param model       The AI model to use for generation
+     * @param definition  The rule definition containing requirement and fact types
+     * @param exampleInput An example input/output scenario to guide the AI
+     * @param maxTurns    Maximum turns (1 = single generation, 2+ includes retries)
+     * @return GenerationResult with the generated DRL and validation status
+     */
+    public GenerationResult generateWithRetry(ChatModel model, RuleDefinition definition,
+                                               String exampleInput, int maxTurns) {
+        return generateWithRetry(model, definition, exampleInput, maxTurns, null);
+    }
+
+    /**
+     * Generates DRL using a conversational agent with retry capability and domain instructions.
+     *
+     * <p>This method uses ChatMemory to maintain conversation history, allowing the model
+     * to learn from validation errors and fix its DRL across multiple turns.</p>
+     *
+     * @param model                   The AI model to use for generation
+     * @param definition              The rule definition containing requirement and fact types
+     * @param exampleInput            An example input/output scenario to guide the AI
+     * @param maxTurns                Maximum turns (1 = single generation, 2+ includes retries)
+     * @param domainInstructionsPath  Path to domain-specific instructions file (may be null)
+     * @return GenerationResult with the generated DRL and validation status
+     */
+    public GenerationResult generateWithRetry(ChatModel model, RuleDefinition definition,
+                                               String exampleInput, int maxTurns,
+                                               Path domainInstructionsPath) {
+        String modelName = ModelConfiguration.extractModelName(model);
+        Instant start = Instant.now();
+
+        logger.info("Starting conversational DRL generation using model '{}' with max {} turns",
+                modelName, maxTurns);
+
+        // Create conversational agent with ChatMemory
+        ConversationalDRLAgent agent = ConversationalDRLAgent.create(model);
+        String guide = getGuideWithDomainInstructions(domainInstructionsPath);
+
+        // Turn 1: Initial generation
+        String drl;
+        try {
+            drl = agent.generateDRL(guide, definition.requirement(),
+                    definition.getFactTypesDescription(), exampleInput);
+            drl = cleanupStrategy.cleanup(drl);
+            logger.debug("Turn 1 - Generated DRL:\n{}", drl);
+        } catch (Exception e) {
+            logger.error("Initial DRL generation failed: {}", e.getMessage());
+            return GenerationResult.failed(modelName, "Generation failed: " + e.getMessage(),
+                    Duration.between(start, Instant.now()));
+        }
+
+        // Validate and retry loop
+        for (int turn = 1; turn <= maxTurns; turn++) {
+            ValidationResult validationResult = validator.validate(drl);
+            Duration currentTime = Duration.between(start, Instant.now());
+
+            if (validationResult.isValid()) {
+                String message = String.format("Valid after %d turn(s): %s",
+                        turn, validationResult.getSummary());
+                logger.info("DRL valid after {} turn(s)", turn);
+                return GenerationResult.validated(modelName, drl, message, currentTime, currentTime);
+            }
+
+            // If we've reached max turns, return partial result
+            if (turn == maxTurns) {
+                String message = String.format("Failed after %d turn(s): %s",
+                        turn, validationResult.getSummary());
+                logger.warn("DRL validation failed after {} turn(s): {}",
+                        turn, validationResult.getSummary());
+                return GenerationResult.partial(modelName, drl, false, message, currentTime, currentTime);
+            }
+
+            // Prepare error feedback for next turn
+            String errors = ErrorFeedbackFormatter.formatValidationErrors(validationResult);
+            String guideSections = GuideSectionFinder.findRelevantSections(validationResult);
+
+            logger.info("Turn {} - Validation failed, requesting fix. Errors: {}",
+                    turn, validationResult.getSummary());
+            logger.debug("Error feedback:\n{}", errors);
+            logger.debug("Relevant guide sections:\n{}", guideSections);
+
+            // Turn N+1: Fix based on errors
+            try {
+                drl = agent.fixDRL(errors, guideSections, drl);
+                drl = cleanupStrategy.cleanup(drl);
+                logger.debug("Turn {} - Fixed DRL:\n{}", turn + 1, drl);
+            } catch (Exception e) {
+                logger.error("DRL fix attempt failed: {}", e.getMessage());
+                return GenerationResult.failed(modelName,
+                        String.format("Fix attempt failed at turn %d: %s", turn + 1, e.getMessage()),
+                        Duration.between(start, Instant.now()));
+            }
+        }
+
+        // Should not reach here, but return failure if somehow we do
+        return GenerationResult.failed(modelName, "Unexpected end of retry loop",
+                Duration.between(start, Instant.now()));
     }
 
     // ========== Execution Methods ==========

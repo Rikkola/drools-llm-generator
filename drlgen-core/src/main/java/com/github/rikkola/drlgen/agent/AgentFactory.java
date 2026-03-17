@@ -16,15 +16,35 @@ public final class AgentFactory {
     /**
      * Creates a DRLGenerationAgent of the specified type.
      *
+     * <p>Note: For CONVERSATIONAL type, use {@link #createConversational(ChatModel)} instead,
+     * as it has additional methods for multi-turn generation.</p>
+     *
      * @param type the agent type to create
      * @param chatModel the chat model to use
      * @return a DRLGenerationAgent instance
+     * @throws IllegalArgumentException if type is CONVERSATIONAL (use createConversational instead)
      */
     public static DRLGenerationAgent create(AgentType type, ChatModel chatModel) {
         return switch (type) {
             case SIMPLE -> createSimpleAdapter(chatModel);
             case GUIDED -> createGuidedAdapter(chatModel);
+            case CONVERSATIONAL -> throw new IllegalArgumentException(
+                    "Use createConversational() for CONVERSATIONAL type");
         };
+    }
+
+    /**
+     * Creates a ConversationalDRLAgent with ChatMemory support.
+     *
+     * <p>This agent supports multi-turn generation with error feedback and self-correction.
+     * Use {@link ConversationalDRLAgent#generateDRL} for initial generation and
+     * {@link ConversationalDRLAgent#fixDRL} for subsequent corrections.</p>
+     *
+     * @param chatModel the chat model to use
+     * @return a ConversationalDRLAgent instance
+     */
+    public static ConversationalDRLAgent createConversational(ChatModel chatModel) {
+        return ConversationalDRLAgent.create(chatModel);
     }
 
     /**

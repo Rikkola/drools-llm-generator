@@ -1,9 +1,12 @@
 package com.github.rikkola.drlgen.generation.service;
 
 import dev.langchain4j.model.chat.ChatModel;
+import com.github.rikkola.drlgen.agent.ConversationalDRLAgent;
 import com.github.rikkola.drlgen.agent.DRLGenerationAgent;
 import com.github.rikkola.drlgen.cleanup.DRLCleanupStrategy;
 import com.github.rikkola.drlgen.config.ModelConfiguration;
+import com.github.rikkola.drlgen.conversation.ErrorFeedbackFormatter;
+import com.github.rikkola.drlgen.conversation.GuideSectionFinder;
 import com.github.rikkola.drlgen.execution.DRLPopulatorRunner;
 import com.github.rikkola.drlgen.execution.DRLRunnerResult;
 import com.github.rikkola.drlgen.guide.GuideProvider;
@@ -275,6 +278,219 @@ public class DRLGenerationService {
                 genTime,
                 Duration.between(start, Instant.now())
         );
+    }
+
+    // ========== Conversational Generation with Retry ==========
+
+    /**
+     * Generates DRL using a conversational agent with retry capability.
+     *
+     * <p>This method uses ChatMemory to maintain conversation history, allowing the model
+     * to learn from validation and test execution errors and fix its DRL across multiple turns.</p>
+     *
+     * @param model       The AI model to use for generation
+     * @param scenario    The test scenario
+     * @param maxTurns    Maximum turns (1 = single generation, 2+ includes retries)
+     * @return GenerationResult with the generated DRL and test execution status
+     */
+    public GenerationResult generateAndTestWithRetry(ChatModel model, TestScenario scenario, int maxTurns) {
+        return generateAndTestWithRetry(model, scenario, maxTurns, null);
+    }
+
+    /**
+     * Generates DRL using a conversational agent with retry capability and domain instructions.
+     *
+     * <p>This method uses ChatMemory to maintain conversation history, allowing the model
+     * to learn from validation and test execution errors and fix its DRL across multiple turns.</p>
+     *
+     * @param model            The AI model to use for generation
+     * @param scenario         The test scenario
+     * @param maxTurns         Maximum turns (1 = single generation, 2+ includes retries)
+     * @param instructionsPath Optional path to domain-specific instructions file
+     * @return GenerationResult with the generated DRL and test execution status
+     */
+    public GenerationResult generateAndTestWithRetry(ChatModel model, TestScenario scenario,
+                                                      int maxTurns, Path instructionsPath) {
+        String modelName = ModelConfiguration.extractModelName(model);
+        Instant start = Instant.now();
+
+        logger.info("Starting conversational DRL generation for scenario '{}' using model '{}' with max {} turns",
+                scenario.name(), modelName, maxTurns);
+
+        // Create conversational agent with ChatMemory
+        ConversationalDRLAgent agent = ConversationalDRLAgent.create(model);
+        String guide = getGuideWithDomainInstructions(instructionsPath);
+
+        // Turn 1: Initial generation
+        String drl;
+        try {
+            drl = agent.generateDRL(guide, scenario.requirement(),
+                    scenario.getFactTypesDescription(), scenario.getTestScenarioDescription());
+            drl = cleanupStrategy.cleanup(drl);
+            logger.debug("Turn 1 - Generated DRL:\n{}", drl);
+        } catch (Exception e) {
+            logger.error("Initial DRL generation failed: {}", e.getMessage());
+            return GenerationResult.failed(modelName, "Generation failed: " + e.getMessage(),
+                    Duration.between(start, Instant.now()));
+        }
+
+        // Validate and retry loop
+        for (int turn = 1; turn <= maxTurns; turn++) {
+            Duration currentTime = Duration.between(start, Instant.now());
+
+            // Step 1: Validate syntax
+            ValidationResult validationResult = validator.validate(drl);
+            if (!validationResult.isValid()) {
+                if (turn == maxTurns) {
+                    String message = String.format("Validation failed after %d turn(s): %s",
+                            turn, validationResult.getSummary());
+                    logger.warn(message);
+                    return GenerationResult.partial(modelName, drl, false, message, currentTime, currentTime);
+                }
+
+                // Request fix for validation errors
+                String errors = ErrorFeedbackFormatter.formatValidationErrors(validationResult);
+                String guideSections = GuideSectionFinder.findRelevantSections(validationResult);
+                logger.info("Turn {} - Validation failed, requesting fix: {}", turn, validationResult.getSummary());
+
+                try {
+                    drl = agent.fixDRL(errors, guideSections, drl);
+                    drl = cleanupStrategy.cleanup(drl);
+                    logger.debug("Turn {} - Fixed DRL:\n{}", turn + 1, drl);
+                } catch (Exception e) {
+                    return GenerationResult.failed(modelName,
+                            String.format("Fix attempt failed at turn %d: %s", turn + 1, e.getMessage()),
+                            Duration.between(start, Instant.now()));
+                }
+                continue;
+            }
+
+            // Step 2: Execute test cases
+            TestExecutionResult execResult = executeTestCases(drl, scenario);
+            if (execResult.success) {
+                String message = String.format("Passed after %d turn(s). All %d test cases passed.",
+                        turn, scenario.testCases().size());
+                logger.info("DRL passed all tests after {} turn(s)", turn);
+                return new GenerationResult(
+                        modelName,
+                        drl,
+                        true,
+                        validationResult.getSummary() + " [Turn " + turn + "]",
+                        true,
+                        message,
+                        execResult.totalRulesFired,
+                        execResult.resultingFacts,
+                        currentTime,
+                        Duration.between(start, Instant.now())
+                );
+            }
+
+            // Test execution failed
+            if (turn == maxTurns) {
+                String message = String.format("Test failed after %d turn(s): %s", turn, execResult.errorMessage);
+                logger.warn(message);
+                return GenerationResult.partial(modelName, drl, true, message, currentTime, currentTime);
+            }
+
+            // Request fix for test execution errors
+            String errors = execResult.errorMessage;
+            String guideSections = GuideSectionFinder.findRelevantSections(
+                    execResult.expectedRules, execResult.actualRules);
+            logger.info("Turn {} - Test failed, requesting fix: {}", turn, execResult.errorMessage);
+
+            try {
+                drl = agent.fixDRL(errors, guideSections, drl);
+                drl = cleanupStrategy.cleanup(drl);
+                logger.debug("Turn {} - Fixed DRL:\n{}", turn + 1, drl);
+            } catch (Exception e) {
+                return GenerationResult.failed(modelName,
+                        String.format("Fix attempt failed at turn %d: %s", turn + 1, e.getMessage()),
+                        Duration.between(start, Instant.now()));
+            }
+        }
+
+        return GenerationResult.failed(modelName, "Unexpected end of retry loop",
+                Duration.between(start, Instant.now()));
+    }
+
+    /**
+     * Internal result holder for test execution.
+     */
+    private static class TestExecutionResult {
+        final boolean success;
+        final String errorMessage;
+        final int totalRulesFired;
+        final int expectedRules;
+        final int actualRules;
+        final List<Object> resultingFacts;
+
+        TestExecutionResult(boolean success, String errorMessage, int totalRulesFired,
+                            int expectedRules, int actualRules, List<Object> resultingFacts) {
+            this.success = success;
+            this.errorMessage = errorMessage;
+            this.totalRulesFired = totalRulesFired;
+            this.expectedRules = expectedRules;
+            this.actualRules = actualRules;
+            this.resultingFacts = resultingFacts;
+        }
+
+        static TestExecutionResult success(int totalRulesFired, List<Object> resultingFacts) {
+            return new TestExecutionResult(true, null, totalRulesFired, 0, 0, resultingFacts);
+        }
+
+        static TestExecutionResult failure(String errorMessage, int expected, int actual) {
+            return new TestExecutionResult(false, errorMessage, 0, expected, actual, List.of());
+        }
+    }
+
+    /**
+     * Executes all test cases for a scenario and returns a summary result.
+     */
+    private TestExecutionResult executeTestCases(String drl, TestScenario scenario) {
+        int totalRulesFired = 0;
+        List<Object> allResultingFacts = new ArrayList<>();
+
+        for (TestScenario.TestCase testCase : scenario.testCases()) {
+            try {
+                DRLRunnerResult result = DRLPopulatorRunner.runDRLWithJsonFacts(
+                        drl, testCase.inputJson(), 100);
+
+                // Verify rules fired count if specified
+                String rulesFiredError = testCase.validateRulesFired(result.firedRules());
+                if (rulesFiredError != null) {
+                    return TestExecutionResult.failure(
+                            ErrorFeedbackFormatter.formatTestFailure(
+                                    testCase.name(), testCase.expectedRulesFired(), result.firedRules()),
+                            testCase.expectedRulesFired(),
+                            result.firedRules());
+                }
+
+                // Verify expected values
+                if (testCase.hasTypedExpectations()) {
+                    String factError = FactVerificationUtils.verifyExpectedFacts(
+                            result.objects(), testCase.expectedFacts());
+                    if (factError != null) {
+                        return TestExecutionResult.failure(
+                                "Test case '" + testCase.name() + "' failed: " + factError, 0, 0);
+                    }
+                } else if (testCase.expectedFieldValues() != null && !testCase.expectedFieldValues().isEmpty()) {
+                    String fieldError = FactVerificationUtils.verifyExpectedFields(
+                            result.objects(), testCase.expectedFieldValues());
+                    if (fieldError != null) {
+                        return TestExecutionResult.failure(
+                                "Test case '" + testCase.name() + "' failed: " + fieldError, 0, 0);
+                    }
+                }
+
+                totalRulesFired += result.firedRules();
+                allResultingFacts.addAll(result.objects());
+            } catch (Throwable e) {
+                return TestExecutionResult.failure(
+                        ErrorFeedbackFormatter.formatCompilationError(e.getMessage()), 0, 0);
+            }
+        }
+
+        return TestExecutionResult.success(totalRulesFired, allResultingFacts);
     }
 
     private String getGuideWithDomainInstructions(Path domainInstructionsPath) {
