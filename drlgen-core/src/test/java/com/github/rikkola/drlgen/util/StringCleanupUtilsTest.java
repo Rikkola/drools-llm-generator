@@ -206,6 +206,167 @@ class StringCleanupUtilsTest {
     }
 
     @Nested
+    @DisplayName("stripUnnecessaryImports")
+    class StripUnnecessaryImportsTests {
+
+        @Test
+        @DisplayName("should return null for null input")
+        void nullInput() {
+            assertThat(StringCleanupUtils.stripUnnecessaryImports(null)).isNull();
+        }
+
+        @Test
+        @DisplayName("should strip import java.util.List")
+        void stripsUtilListImport() {
+            String input = """
+                    package org.drools.generated;
+
+                    import java.util.List;
+
+                    declare Person
+                        name : String
+                    end
+                    """;
+
+            String result = StringCleanupUtils.stripUnnecessaryImports(input);
+
+            assertThat(result).doesNotContain("import java.util.List");
+            assertThat(result).contains("package org.drools.generated;");
+            assertThat(result).contains("declare Person");
+        }
+
+        @Test
+        @DisplayName("should strip import java.util.* wildcard")
+        void stripsWildcardImport() {
+            String input = """
+                    package org.drools.generated;
+
+                    import java.util.*;
+
+                    declare Order
+                        total : double
+                    end
+                    """;
+
+            String result = StringCleanupUtils.stripUnnecessaryImports(input);
+
+            assertThat(result).doesNotContain("import java.util.*");
+            assertThat(result).contains("declare Order");
+        }
+
+        @Test
+        @DisplayName("should strip multiple imports")
+        void stripsMultipleImports() {
+            String input = """
+                    package org.drools.generated;
+
+                    import java.util.List;
+                    import java.util.ArrayList;
+                    import java.math.BigDecimal;
+                    import java.lang.String;
+
+                    declare Invoice
+                        total : double
+                    end
+                    """;
+
+            String result = StringCleanupUtils.stripUnnecessaryImports(input);
+
+            assertThat(result).doesNotContain("import java.util.List");
+            assertThat(result).doesNotContain("import java.util.ArrayList");
+            assertThat(result).doesNotContain("import java.math.BigDecimal");
+            assertThat(result).doesNotContain("import java.lang.String");
+            assertThat(result).contains("declare Invoice");
+        }
+
+        @Test
+        @DisplayName("should strip import java.util.Date")
+        void stripsDateImport() {
+            String input = """
+                    package org.drools.generated;
+
+                    import java.util.Date;
+
+                    declare Event
+                        name : String
+                    end
+                    """;
+
+            String result = StringCleanupUtils.stripUnnecessaryImports(input);
+
+            assertThat(result).doesNotContain("import java.util.Date");
+            assertThat(result).contains("declare Event");
+        }
+
+        @Test
+        @DisplayName("should strip import java.util.regex.Pattern")
+        void stripsPatternImport() {
+            String input = """
+                    package org.drools.generated;
+
+                    import java.util.regex.Pattern;
+
+                    declare Email
+                        address : String
+                    end
+                    """;
+
+            String result = StringCleanupUtils.stripUnnecessaryImports(input);
+
+            assertThat(result).doesNotContain("import java.util.regex.Pattern");
+            assertThat(result).contains("declare Email");
+        }
+
+        @Test
+        @DisplayName("should preserve DRL content when stripping imports")
+        void preservesDrlContent() {
+            String input = """
+                    package org.drools.generated;
+
+                    import java.util.List;
+
+                    declare Person
+                        name : String
+                        age : int
+                    end
+
+                    rule "Check Age"
+                    when
+                        $p : Person(age >= 18)
+                    then
+                        modify($p) { setAdult(true) }
+                    end
+                    """;
+
+            String result = StringCleanupUtils.stripUnnecessaryImports(input);
+
+            assertThat(result).contains("package org.drools.generated;");
+            assertThat(result).contains("declare Person");
+            assertThat(result).contains("name : String");
+            assertThat(result).contains("age : int");
+            assertThat(result).contains("rule \"Check Age\"");
+            assertThat(result).contains("$p : Person(age >= 18)");
+            assertThat(result).contains("modify($p) { setAdult(true) }");
+        }
+
+        @Test
+        @DisplayName("should handle DRL without imports")
+        void handlesDrlWithoutImports() {
+            String input = """
+                    package org.drools.generated;
+
+                    declare Person
+                        name : String
+                    end
+                    """;
+
+            String result = StringCleanupUtils.stripUnnecessaryImports(input);
+
+            assertThat(result).isEqualTo(input);
+        }
+    }
+
+    @Nested
     @DisplayName("fixBooleanSetters")
     class FixBooleanSettersTests {
 

@@ -49,9 +49,26 @@ public final class StringCleanupUtils {
         if (drl == null) return null;
 
         String cleaned = extractFromMarkdown(drl);
+        cleaned = stripUnnecessaryImports(cleaned);
         cleaned = fixBooleanSetters(cleaned);
         cleaned = fixPatternConstraintOperators(cleaned);
         return cleaned;
+    }
+
+    /**
+     * Removes unnecessary Java import statements from DRL.
+     *
+     * <p>DRL declare blocks don't need Java imports for basic types like
+     * String, int, double, boolean. AI models often add unnecessary imports
+     * like {@code import java.util.List;} which cause validation errors.</p>
+     *
+     * @param drl the DRL code
+     * @return DRL with java.* imports removed
+     */
+    public static String stripUnnecessaryImports(String drl) {
+        if (drl == null) return null;
+        // Remove import statements for java.* packages (util, lang, math, etc.)
+        return drl.replaceAll("import\\s+java\\..*?;\\s*\\n?", "");
     }
 
     /**
