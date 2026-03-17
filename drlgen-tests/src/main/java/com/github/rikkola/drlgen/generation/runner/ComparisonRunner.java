@@ -1,7 +1,10 @@
 package com.github.rikkola.drlgen.generation.runner;
 
 import dev.langchain4j.model.chat.ChatModel;
+import com.github.rikkola.drlgen.agent.AgentFactory;
+import com.github.rikkola.drlgen.agent.AgentType;
 import com.github.rikkola.drlgen.config.ModelConfiguration;
+import com.github.rikkola.drlgen.config.ModelDefinition;
 import com.github.rikkola.drlgen.model.GenerationResult;
 import com.github.rikkola.drlgen.generation.loader.YAMLScenarioLoader;
 import com.github.rikkola.drlgen.generation.model.TestScenario;
@@ -31,10 +34,20 @@ import java.util.*;
  */
 public class ComparisonRunner {
 
-    private final DRLGenerationService drlService;
-
     public ComparisonRunner() {
-        this.drlService = new DRLGenerationService();
+    }
+
+    /**
+     * Creates a DRLGenerationService configured for the specified model's agent type.
+     */
+    private DRLGenerationService createServiceForModel(String modelName) {
+        AgentType agentType = ModelConfiguration.getModelDefinition(modelName)
+                .map(ModelDefinition::getAgentType)
+                .orElse(AgentType.GUIDED);
+
+        return DRLGenerationService.builder()
+                .agentFactory(AgentFactory.forType(agentType))
+                .build();
     }
 
     public static void main(String[] args) {
@@ -77,6 +90,12 @@ public class ComparisonRunner {
         for (String modelName : models) {
             System.out.println("\n=== Testing model: " + modelName + " ===");
 
+            // Get agent type for this model
+            AgentType agentType = ModelConfiguration.getModelDefinition(modelName)
+                    .map(ModelDefinition::getAgentType)
+                    .orElse(AgentType.GUIDED);
+            System.out.println("Agent type: " + agentType);
+
             // Create run directory for this model
             TestRunDirectory runDir = null;
             try {
@@ -87,8 +106,10 @@ public class ComparisonRunner {
             }
 
             ChatModel chatModel;
+            DRLGenerationService drlService;
             try {
                 chatModel = ModelConfiguration.createModel(modelName);
+                drlService = createServiceForModel(modelName);
             } catch (Exception e) {
                 System.err.println("Failed to load model " + modelName + ": " + e.getMessage());
                 // Add failure results for all scenarios
@@ -107,7 +128,7 @@ public class ComparisonRunner {
                 System.out.printf("[%d/%d] %s - %s... ",
                         currentTest, totalTests, modelName, scenario.name());
 
-                ComparisonResult result = testDRL(chatModel, modelName, scenario, instructionsPath);
+                ComparisonResult result = testDRL(drlService, chatModel, modelName, scenario, instructionsPath);
                 report.addResult(result);
                 System.out.println(result.getStatusString() +
                         (result.success() ? " (" + result.rulesFired() + " rules)" : ""));
@@ -132,7 +153,7 @@ public class ComparisonRunner {
         report.writeCsvReport(outputFile);
     }
 
-    private ComparisonResult testDRL(ChatModel model, String modelName, TestScenario scenario, Path instructionsPath) {
+    private ComparisonResult testDRL(DRLGenerationService drlService, ChatModel model, String modelName, TestScenario scenario, Path instructionsPath) {
         List<ScenarioResult.TestCaseResult> testCaseResults = new ArrayList<>();
         List<String> factsInMemory = new ArrayList<>();
 

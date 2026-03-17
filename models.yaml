@@ -3,6 +3,9 @@
 # Each model entry has:
 #   - id: Unique identifier for this configuration (used for selection)
 #   - name: The actual Ollama model name (can be duplicated for different configs)
+#   - agentType: SIMPLE or GUIDED (default: GUIDED)
+#       SIMPLE: Self-contained prompt, 3 params (requirement, factTypes, testScenario)
+#       GUIDED: Concise prompt with guide, 4 params (achieved 86.2% success rate)
 #   - If 'id' is omitted, it defaults to 'name' for backward compatibility
 #
 # Select model at runtime via:
@@ -110,6 +113,43 @@ models:
     repeatPenalty: 1.1
 
   - name: codellama:13b
+    temperature: 0.1
+    topP: 0.9
+    numPredict: 2048
+    numCtx: 16384
+    repeatPenalty: 1.1
+
+  # Agent type variants for comparison
+  - id: qwen3-coder-next-simple
+    name: qwen3-coder-next
+    agentType: SIMPLE
+    temperature: 0.1
+    topP: 0.9
+    numPredict: 2048
+    numCtx: 16384
+    repeatPenalty: 1.1
+
+  - id: granite4:small-h-simple
+    name: granite4:small-h
+    agentType: SIMPLE
+    temperature: 0.1
+    topP: 0.9
+    numPredict: 2048
+    numCtx: 16384
+    repeatPenalty: 1.1
+
+  - id: qwen2.5-coder-simple
+    name: qwen2.5-coder:14b-instruct-q4_K_M
+    agentType: SIMPLE
+    temperature: 0.1
+    topP: 0.9
+    numPredict: 2048
+    numCtx: 16384
+    repeatPenalty: 1.1
+
+  - id: codellama-simple
+    name: codellama:13b
+    agentType: SIMPLE
     temperature: 0.1
     topP: 0.9
     numPredict: 2048
