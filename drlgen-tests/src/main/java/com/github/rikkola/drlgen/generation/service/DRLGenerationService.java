@@ -280,6 +280,113 @@ public class DRLGenerationService {
         );
     }
 
+    // ========== Simple Agent Retry ==========
+
+    private static final String GUARD_INSTRUCTION = """
+
+        IMPORTANT: Your previous attempt had rules firing multiple times or in a loop.
+        Add a guard condition checking the output field's initial state.
+        Example: $order : Order(amount > 100, status == "NEW")
+        When the rule fires and changes 'status', it won't match again.
+        Only add guards when numeric ranges OVERLAP, not for mutually exclusive conditions.
+        """;
+
+    /**
+     * Generates DRL using the configured agent with simple retry on loop/multiple-fire failures.
+     *
+     * <p>Unlike {@link #generateAndTestWithRetry}, this method keeps using the same agent type
+     * (SIMPLE or GUIDED) for retries, appending guard instructions to the requirement when
+     * the failure is due to rules firing multiple times or in a loop.</p>
+     *
+     * @param model            The AI model to use for generation
+     * @param scenario         The test scenario
+     * @param maxTurns         Maximum turns (1 = single generation, 2+ includes retries)
+     * @param instructionsPath Optional path to domain-specific instructions file
+     * @return GenerationResult with test execution results
+     */
+    public GenerationResult generateAndTestWithSimpleRetry(ChatModel model, TestScenario scenario,
+                                                            int maxTurns, Path instructionsPath) {
+        String modelName = ModelConfiguration.extractModelName(model);
+        Instant start = Instant.now();
+
+        logger.info("Starting DRL generation for scenario '{}' using model '{}' with max {} turns (simple retry)",
+                scenario.name(), modelName, maxTurns);
+
+        String guide = getGuideWithDomainInstructions(instructionsPath);
+        String requirement = scenario.requirement();
+        String drl = null;
+        Duration genTime = Duration.ZERO;
+
+        for (int turn = 1; turn <= maxTurns; turn++) {
+            // Generate DRL
+            DRLGenerationAgent agent = agentFactory.apply(model);
+            Instant genStart = Instant.now();
+
+            try {
+                drl = agent.generateDRL(
+                        guide,
+                        requirement,
+                        scenario.getFactTypesDescription(),
+                        scenario.getTestScenarioDescription()
+                );
+                drl = cleanupStrategy.cleanup(drl);
+                logger.debug("Turn {} - Generated DRL:\n{}", turn, drl);
+            } catch (Exception e) {
+                logger.error("DRL generation failed at turn {}: {}", turn, e.getMessage());
+                return GenerationResult.failed(modelName, "Generation failed: " + e.getMessage(),
+                        Duration.between(start, Instant.now()));
+            }
+            genTime = Duration.between(genStart, Instant.now());
+
+            // Validate DRL
+            ValidationResult validationResult = validator.validate(drl);
+            if (!validationResult.isValid()) {
+                if (turn == maxTurns) {
+                    logger.warn("DRL validation failed after {} turn(s): {}", turn, validationResult.getSummary());
+                    return GenerationResult.partial(modelName, drl, false,
+                            validationResult.getSummary(), genTime, Duration.between(start, Instant.now()));
+                }
+                logger.info("Turn {} - Validation failed: {}, retrying...", turn, validationResult.getSummary());
+                continue;
+            }
+
+            // Execute test cases
+            TestExecutionResult execResult = executeTestCases(drl, scenario);
+            if (execResult.success) {
+                String message = String.format("Passed after %d turn(s). All %d test cases passed.",
+                        turn, scenario.testCases().size());
+                logger.info("DRL passed all tests after {} turn(s)", turn);
+                return new GenerationResult(
+                        modelName,
+                        drl,
+                        true,
+                        validationResult.getSummary() + " [Turn " + turn + "]",
+                        true,
+                        message,
+                        execResult.totalRulesFired,
+                        execResult.resultingFacts,
+                        genTime,
+                        Duration.between(start, Instant.now())
+                );
+            }
+
+            // Test failed - check if it's a loop/multiple-fire issue
+            if (turn < maxTurns && execResult.actualRules > execResult.expectedRules) {
+                logger.info("Turn {} - Test failed with {} rules (expected {}), adding guard instruction",
+                        turn, execResult.actualRules, execResult.expectedRules);
+                requirement = scenario.requirement() + GUARD_INSTRUCTION;
+            } else if (turn == maxTurns) {
+                String message = String.format("Test failed after %d turn(s): %s", turn, execResult.errorMessage);
+                logger.warn(message);
+                return GenerationResult.partial(modelName, drl, true, message, genTime,
+                        Duration.between(start, Instant.now()));
+            }
+        }
+
+        return GenerationResult.failed(modelName, "Unexpected end of retry loop",
+                Duration.between(start, Instant.now()));
+    }
+
     // ========== Conversational Generation with Retry ==========
 
     /**

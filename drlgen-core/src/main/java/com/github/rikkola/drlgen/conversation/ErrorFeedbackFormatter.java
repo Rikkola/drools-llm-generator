@@ -70,13 +70,14 @@ public final class ErrorFeedbackFormatter {
         } else if (actualRules > expectedRules) {
             if (actualRules >= 100) {
                 sb.append("DIAGNOSIS: Infinite loop detected! Your rules are firing repeatedly.\n");
-                sb.append("FIX: Add a state guard to prevent re-firing. For example:\n");
-                sb.append("  Instead of: $obj : Fact(field > 10)\n");
-                sb.append("  Use: $obj : Fact(field > 10, status == \"PENDING\")\n");
-                sb.append("Then in 'then': modify($obj) { setStatus(\"DONE\") }\n");
+                sb.append("FIX: Add a guard condition checking the output field's initial state.\n");
+                sb.append("Example: $order : Order(amount > 100, status == \"NEW\")\n");
+                sb.append("When the rule fires and changes 'status', it won't match again.\n");
             } else {
                 sb.append("DIAGNOSIS: Multiple rules are matching when only one should.\n");
-                sb.append("FIX: Make rule conditions mutually exclusive or add state guards.\n");
+                sb.append("FIX: Your rules have OVERLAPPING conditions. Add a guard.\n");
+                sb.append("Example: $order : Order(amount > 100, status == \"NEW\")\n");
+                sb.append("When one rule fires and changes 'status', others won't match.\n");
             }
         } else {
             sb.append("DIAGNOSIS: Not enough rules fired. Some conditions may not be met.\n");

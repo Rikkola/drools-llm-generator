@@ -166,8 +166,8 @@ public class ComparisonRunner {
         try {
             GenerationResult result;
             if (maxTurns > 1) {
-                // Use conversational generation with retries
-                result = drlService.generateAndTestWithRetry(model, scenario, maxTurns, instructionsPath);
+                // Use simple retry (keeps same agent type, adds guard instruction on loop/multiple-fire)
+                result = drlService.generateAndTestWithSimpleRetry(model, scenario, maxTurns, instructionsPath);
             } else {
                 // Use single-turn generation
                 result = drlService.generateAndTest(model, scenario, instructionsPath);

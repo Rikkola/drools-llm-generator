@@ -32,7 +32,7 @@ testCases:
         existingDebt: 15000.0
         debtToIncomeRatio: 0.2
         decision: PENDING
-        cardType: none
+        cardType: NONE
     expectedRulesFired: 1
     expectedFields:
       decision: APPROVED
@@ -46,7 +46,7 @@ testCases:
         existingDebt: 10000.0
         debtToIncomeRatio: 0.25
         decision: PENDING
-        cardType: none
+        cardType: NONE
     expectedRulesFired: 1
     expectedFields:
       decision: APPROVED
@@ -60,7 +60,7 @@ testCases:
         existingDebt: 20000.0
         debtToIncomeRatio: 0.4
         decision: PENDING
-        cardType: none
+        cardType: NONE
     expectedRulesFired: 1
     expectedFields:
       decision: DENIED
@@ -73,7 +73,7 @@ testCases:
         existingDebt: 5000.0
         debtToIncomeRatio: 0.2
         decision: PENDING
-        cardType: none
+        cardType: NONE
     expectedRulesFired: 1
     expectedFields:
       decision: MANUAL_REVIEW
