@@ -92,6 +92,36 @@ models:
   - id: granite4-temp0
     name: granite4:small-h
     temperature: 0.0
+
+  # Specify agent type per model
+  - id: qwen2.5-coder-simple
+    name: qwen2.5-coder:14b-instruct-q4_K_M
+    agentType: SIMPLE
+```
+
+### Agent Types
+
+Models can use different agent types, configured via `agentType` in models.yaml:
+
+| Agent Type | Description | Parameters | Best For |
+|------------|-------------|------------|----------|
+| `GUIDED` (default) | Concise system prompt with external DRL reference guide | drlGuide, requirement, factTypes, exampleInput | Most models |
+| `SIMPLE` | Self-contained detailed system prompt, no external guide | requirement, factTypes, testScenario | Models that perform better with all instructions inline |
+
+**When to use SIMPLE:**
+- Model struggles with long context (guide + requirement)
+- Model performs better with self-contained prompts
+- Testing showed qwen2.5-coder achieves 93%+ with SIMPLE vs 69% with GUIDED
+
+**Example configuration:**
+```yaml
+models:
+  - id: qwen2.5-coder-simple
+    name: qwen2.5-coder:14b-instruct-q4_K_M
+    agentType: SIMPLE    # Use self-contained prompt
+
+  - name: qwen3-coder-next
+    # agentType defaults to GUIDED
 ```
 
 ### Environment Variables
