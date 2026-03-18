@@ -362,6 +362,7 @@ mvn -pl drlgen-tests exec:java \
 | `--scenarios <list>` | Filter scenarios by name substring | All scenarios |
 | `--output <file>` | CSV output filename | `comparison-results.csv` |
 | `--formats <list>` | Formats to test: DRL, YAML, ENGLISH | DRL, YAML |
+| `--max-turns <n>` | Retry count (2+ enables retry with guard instruction on loop/multi-fire failures) | 1 |
 | `--drl-only` | Only test DRL generation | - |
 | `--yaml-only` | Only test YAML generation | - |
 | `--english-only` | Only test Plain English pipeline | - |
