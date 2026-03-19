@@ -322,19 +322,19 @@ Build and run as a self-contained executable JAR with all dependencies included:
 mvn package -pl drlgen-tests -DskipTests
 
 # Show help
-java -jar drlgen-tests/target/drlgen-tests-1.0.0-SNAPSHOT.jar --help
+java -jar drlgen-tests/target/drlgen-tests-0.1.0.jar --help
 
 # Run all scenarios with all models
-java -jar drlgen-tests/target/drlgen-tests-1.0.0-SNAPSHOT.jar
+java -jar drlgen-tests/target/drlgen-tests-0.1.0.jar
 
 # Run specific models
-java -jar drlgen-tests/target/drlgen-tests-1.0.0-SNAPSHOT.jar --models qwen3-coder-next,granite4:small-h
+java -jar drlgen-tests/target/drlgen-tests-0.1.0.jar --models qwen3-coder-next,granite4:small-h
 
 # Filter scenarios and output to custom file
-java -jar drlgen-tests/target/drlgen-tests-1.0.0-SNAPSHOT.jar --scenarios discount --output discount-results.csv
+java -jar drlgen-tests/target/drlgen-tests-0.1.0.jar --scenarios discount --output discount-results.csv
 
 # Use custom scenarios directory with domain instructions
-java -jar drlgen-tests/target/drlgen-tests-1.0.0-SNAPSHOT.jar \
+java -jar drlgen-tests/target/drlgen-tests-0.1.0.jar \
     --scenarios-dir ./my-scenarios \
     --instructions ./domain-guide.md \
     --output-dir ./my-results
